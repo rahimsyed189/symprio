@@ -149,7 +149,7 @@ const AdminDashboard = () => {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #00d4ff 0%, #00bfff 100%)',
+      background: 'linear-gradient(135deg, #00d4ff 0%, #3b82f6 100%)',
       padding: '30px 20px'
     }}>
       <div style={{
@@ -581,5 +581,7 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
+
+
 
 

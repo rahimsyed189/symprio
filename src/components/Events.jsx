@@ -76,321 +76,139 @@ export default function Events() {
   };
 
   return (
-    <div style={{
-      position: 'relative',
-      zIndex: 1,
-      maxWidth: '1200px',
-      margin: '60px auto 0',
-      padding: '60px 20px',
-      background: 'linear-gradient(135deg, #38bdf8, #22c55e)',
-      borderRadius: '20px',
-      border: '1.5px solid rgba(0, 212, 255, 0.3)',
-      boxShadow: '0 20px 60px rgba(0, 212, 255, 0.15)'
+    <section style={{
+      padding: '80px 20px',
+      background: '#f9fafb'
     }}>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '80px',
-        alignItems: 'start'
-      }}>
-        {/* Left Side - Events */}
-        <div>
-        <div style={{ marginBottom: '40px' }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            marginBottom: '8px'
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+          <h6 style={{
+            fontSize: '12px',
+            fontWeight: '700',
+            color: '#3b82f6',
+            letterSpacing: '1.5px',
+            textTransform: 'uppercase',
+            margin: '0 0 10px 0'
           }}>
-            <div style={{
-              width: '6px',
-              height: '6px',
-              borderRadius: '50%',
-              background: '#10b981'
-            }}></div>
-            <span style={{
-              fontSize: '12px',
-              fontWeight: '600',
-              color: '#059669',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px'
-            }}>Upcoming Events</span>
-          </div>
+            UPCOMING EVENTS
+          </h6>
           <h2 style={{
-            fontSize: '44px',
-            fontWeight: '800',
-            color: '#ffffff',
-            margin: '0 0 8px 0'
+            fontSize: '42px',
+            fontWeight: '700',
+            color: '#1f2937',
+            margin: '0'
           }}>
-            Events & Webinars
+            Events & Webinars.
           </h2>
-          <p style={{
-            fontSize: '15px',
-            color: '#e5e7eb',
-            margin: '0',
-            maxWidth: '500px',
-            lineHeight: '1.6'
-          }}>
-            Join our upcoming events and network with industry leaders in automation and digital transformation.
-          </p>
         </div>
 
-        {loading ? (
-          <div style={{ textAlign: 'center', padding: '40px 20px' }}>
-            <p style={{ color: '#6b7280', fontSize: '14px' }}>Loading events...</p>
-          </div>
-        ) : (
-          <>
-            {/* Events Grid - 2 per row */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: '20px',
-              marginBottom: '30px',
-              minHeight: '380px'
-            }}>
-              {currentEvents.map((event) => (
-                <div key={event.id} style={{
-                  background: 'rgba(255, 255, 255, 0.95)',
-                  border: '1.5px solid rgba(0, 212, 255, 0.15)',
-                  borderRadius: '12px',
-                  padding: '24px',
-                  cursor: 'pointer',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 12px 24px rgba(0, 212, 255, 0.1)';
-                  e.currentTarget.style.borderColor = 'rgba(0, 212, 255, 0.3)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
-                  e.currentTarget.style.borderColor = 'rgba(0, 212, 255, 0.15)';
-                }}>
-                  <div style={{
-                    display: 'inline-block',
-                    padding: '6px 12px',
-                    borderRadius: '6px',
-                    fontSize: '11px',
-                    fontWeight: '700',
-                    marginBottom: '12px',
-                    background: event.type === 'Featured' 
-                      ? 'rgba(251, 191, 36, 0.15)'
-                      : event.type === 'Live'
-                      ? 'rgba(239, 68, 68, 0.15)'
-                      : 'rgba(0, 212, 255, 0.15)',
-                    color: event.type === 'Featured' 
-                      ? '#b45309'
-                      : event.type === 'Live'
-                      ? '#dc2626'
-                      : '#0891b2',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px'
-                  }}>
-                    {event.type}
-                  </div>
 
-                  <h3 style={{
-                    fontSize: '18px',
-                    fontWeight: '800',
-                    color: '#0f172a',
-                    margin: '0 0 10px 0',
-                    lineHeight: '1.3'
-                  }}>
-                    {event.title}
-                  </h3>
-
-                  {event.description && (
-                    <p style={{
-                      fontSize: '13px',
-                      color: '#6b7280',
-                      margin: '0 0 14px 0',
-                      lineHeight: '1.5'
-                    }}>
-                      {event.description}
-                    </p>
-                  )}
-
-                  <div style={{
-                    fontSize: '13px',
-                    color: '#6b7280',
-                    marginBottom: '16px'
-                  }}>
-                    <div style={{ marginBottom: '6px' }}>📅 {event.date}</div>
-                    <div>📍 {event.location}</div>
-                  </div>
-
-                  <button style={{
-                    width: '100%',
-                    padding: '10px 16px',
-                    background: 'linear-gradient(135deg, #00d4ff, #0891b2)',
-                    color: '#ffffff',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '13px',
-                    fontWeight: '600',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '0 8px 16px rgba(0, 212, 255, 0.25)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}>
-                    Register →
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            {/* Navigation Arrows */}
-            {totalPages > 1 && (
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: '30px'
+        }}>
+          {displayEvents.map((event) => (
+            <div key={event.id} style={{
+              background: '#fff',
+              border: '1px solid #e5e7eb',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.borderColor = '#3b82f6';
+              e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 191, 255, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderColor = '#e5e7eb';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+            >
               <div style={{
-                display: 'flex',
-                gap: '12px',
-                alignItems: 'center'
+                padding: '25px'
               }}>
-                <button 
-                  onClick={handlePrev}
-                  style={{
-                    width: '44px',
-                    height: '44px',
-                    borderRadius: '8px',
-                    border: '1.5px solid rgba(0, 212, 255, 0.3)',
-                    background: 'rgba(0, 212, 255, 0.08)',
-                    color: '#0891b2',
-                    fontSize: '20px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    transition: 'all 0.3s ease',
-                    fontWeight: '600'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'linear-gradient(135deg, #00d4ff, #0891b2)';
-                    e.currentTarget.style.color = '#ffffff';
-                    e.currentTarget.style.boxShadow = '0 8px 16px rgba(0, 212, 255, 0.25)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(0, 212, 255, 0.08)';
-                    e.currentTarget.style.color = '#0891b2';
-                    e.currentTarget.style.boxShadow = 'none';
+                <div style={{
+                  display: 'inline-block',
+                  padding: '6px 12px',
+                  borderRadius: '6px',
+                  fontSize: '11px',
+                  fontWeight: '700',
+                  marginBottom: '12px',
+                  background: event.type === 'Featured' 
+                    ? '#fef08a'
+                    : event.type === 'Live'
+                    ? '#fecaca'
+                    : '#e0f2fe',
+                  color: event.type === 'Featured' 
+                    ? '#b45309'
+                    : event.type === 'Live'
+                    ? '#dc2626'
+                    : '#0891b2',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px'
+                }}>
+                  {event.type}
+                </div>
+
+                <h3 style={{
+                  fontSize: '18px',
+                  fontWeight: '700',
+                  color: '#1f2937',
+                  margin: '0 0 10px 0'
+                }}>
+                  {event.title}
+                </h3>
+
+                {event.description && (
+                  <p style={{
+                    fontSize: '14px',
+                    color: '#6b7280',
+                    margin: '0 0 14px 0',
+                    lineHeight: '1.5'
                   }}>
-                  ←
-                </button>
-                
-                <span style={{
+                    {event.description}
+                  </p>
+                )}
+
+                <div style={{
+                  fontSize: '13px',
+                  color: '#6b7280',
+                  marginBottom: '16px'
+                }}>
+                  <div style={{ marginBottom: '6px' }}>📅 {event.date}</div>
+                  <div>📍 {event.location}</div>
+                </div>
+
+                <button style={{
+                  width: '100%',
+                  padding: '10px 16px',
+                  background: '#3b82f6',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '4px',
                   fontSize: '13px',
                   fontWeight: '600',
-                  color: '#6b7280',
-                  minWidth: '80px',
-                  textAlign: 'center'
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#2563eb';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = '#3b82f6';
                 }}>
-                  {currentPage + 1} of {totalPages}
-                </span>
-                
-                <button 
-                  onClick={handleNext}
-                  style={{
-                    width: '44px',
-                    height: '44px',
-                    borderRadius: '8px',
-                    border: '1.5px solid rgba(0, 212, 255, 0.3)',
-                    background: 'rgba(0, 212, 255, 0.08)',
-                    color: '#0891b2',
-                    fontSize: '20px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    transition: 'all 0.3s ease',
-                    fontWeight: '600'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'linear-gradient(135deg, #00d4ff, #0891b2)';
-                    e.currentTarget.style.color = '#ffffff';
-                    e.currentTarget.style.boxShadow = '0 8px 16px rgba(0, 212, 255, 0.25)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(0, 212, 255, 0.08)';
-                    e.currentTarget.style.color = '#0891b2';
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}>
-                  →
+                  Register →
                 </button>
               </div>
-            )}
-          </>
-        )}
-      </div>
-
-      {/* Right Side - Logo */}
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '600px',
-        position: 'relative'
-      }}>
-        <div style={{
-          position: 'absolute',
-          width: '280px',
-          height: '280px',
-          background: 'radial-gradient(circle, rgba(0, 212, 255, 0.15), transparent)',
-          borderRadius: '50%',
-          filter: 'blur(40px)',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          zIndex: 1
-        }}></div>
-        
-        <div style={{
-          position: 'relative',
-          zIndex: 2,
-          textAlign: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-          <img 
-            src="https://www.symprio.com/wp-content/uploads/2024/06/AIAD.png" 
-            alt="Events Logo"
-            style={{
-              width: '220px',
-              height: '220px',
-              objectFit: 'contain',
-              marginBottom: '32px',
-              filter: 'drop-shadow(0 8px 16px rgba(0, 212, 255, 0.3))',
-              display: 'block'
-            }}
-          />
-          <h3 style={{
-            fontSize: '24px',
-            fontWeight: '800',
-            color: '#ffffff',
-            margin: '0 0 12px 0'
-          }}>
-            Join Our Community
-          </h3>
-          <p style={{
-            fontSize: '14px',
-            color: '#e5e7eb',
-            margin: '0',
-            maxWidth: '280px',
-            lineHeight: '1.6'
-          }}>
-            Connect with automation experts, learn best practices, and grow your RPA knowledge.
-          </p>
+            </div>
+          ))}
         </div>
       </div>
-    </div>
-    </div>
+    </section>
   );
 }
+

@@ -40,7 +40,7 @@ const AdminAuth = () => {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #00d4ff 0%, #00bfff 100%)',
+      background: 'linear-gradient(135deg, #00d4ff 0%, #3b82f6 100%)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -180,7 +180,7 @@ const AdminAuth = () => {
             style={{
               width: '100%',
               padding: '12px',
-              background: 'linear-gradient(135deg, #00d4ff, #00bfff)',
+              background: 'linear-gradient(135deg, #00d4ff, #3b82f6)',
               color: 'white',
               border: 'none',
               borderRadius: '6px',
@@ -240,5 +240,7 @@ const AdminAuth = () => {
 };
 
 export default AdminAuth;
+
+
 
 

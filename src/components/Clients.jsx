@@ -437,7 +437,7 @@ export default function Clients() {
                   <button style={{
                     width: '100%',
                     padding: '10px',
-                    background: 'linear-gradient(135deg, #00d4ff, #00bfff)',
+                    background: 'linear-gradient(135deg, #00d4ff, #3b82f6)',
                     color: 'white',
                     border: 'none',
                     borderRadius: '8px',
@@ -614,7 +614,7 @@ export default function Clients() {
             }}>
               <button style={{
                 padding: '12px',
-                background: 'linear-gradient(135deg, #00d4ff, #00bfff)',
+                background: 'linear-gradient(135deg, #00d4ff, #3b82f6)',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
@@ -657,5 +657,7 @@ export default function Clients() {
     </>
   );
 }
+
+
 
 

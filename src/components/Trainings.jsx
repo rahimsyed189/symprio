@@ -4,13 +4,6 @@ const Trainings = () => {
   const [trainings, setTrainings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchTrainings();
-    // Poll for new trainings every 2 seconds for real-time updates
-    const interval = setInterval(fetchTrainings, 2000);
-    return () => clearInterval(interval);
-  }, []);
-
   const fetchTrainings = async () => {
     try {
       const response = await fetch('http://localhost:5000/api/trainings');
@@ -25,130 +18,136 @@ const Trainings = () => {
     }
   };
 
+  useEffect(() => {
+    fetchTrainings();
+    // Poll for new trainings every 2 seconds for real-time updates
+    const interval = setInterval(fetchTrainings, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const defaultTrainings = [
+    {
+      id: 1,
+      title: 'RPA Fundamentals',
+      description: 'Learn the basics of Robotic Process Automation',
+      instructor: 'John Smith',
+      date: 'Dec 20, 2024',
+      duration: '4 weeks'
+    },
+    {
+      id: 2,
+      title: 'Advanced Automation',
+      description: 'Master advanced automation techniques',
+      instructor: 'Jane Doe',
+      date: 'Jan 5, 2025',
+      duration: '6 weeks'
+    },
+    {
+      id: 3,
+      title: 'AI & ML for Automation',
+      description: 'Integrate AI and Machine Learning with RPA',
+      instructor: 'Mike Johnson',
+      date: 'Jan 15, 2025',
+      duration: '8 weeks'
+    }
+  ];
+
+  const displayTrainings = trainings.length > 0 ? trainings : defaultTrainings;
+
   return (
     <section id="trainings" style={{
-      padding: '40px 20px',
-      background: 'transparent',
-      maxWidth: '1200px',
-      margin: '0 auto',
-      position: 'relative',
-      zIndex: 1
+      padding: '80px 20px',
+      background: '#fff'
     }}>
-      <div style={{ marginBottom: '30px' }}>
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          marginBottom: '8px'
-        }}>
-          <div style={{
-            width: '6px',
-            height: '6px',
-            borderRadius: '50%',
-            background: '#a855f7'
-          }}></div>
-          <span style={{
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+          <h6 style={{
             fontSize: '12px',
-            fontWeight: '600',
-            color: '#a855f7',
+            fontWeight: '700',
+            color: '#3b82f6',
+            letterSpacing: '1.5px',
             textTransform: 'uppercase',
-            letterSpacing: '0.5px'
-          }}>Professional Training</span>
+            margin: '0 0 10px 0'
+          }}>
+            PROFESSIONAL TRAINING
+          </h6>
+          <h2 style={{
+            fontSize: '42px',
+            fontWeight: '700',
+            color: '#1f2937',
+            margin: '0'
+          }}>
+            Trainings & Certifications.
+          </h2>
         </div>
-        <h2 style={{
-          fontSize: '28px',
-          fontWeight: '700',
-          color: '#1f2937',
-          margin: '0 0 8px 0'
-        }}>
-          Trainings & Certifications
-        </h2>
-        <p style={{
-          fontSize: '14px',
-          color: '#6b7280',
-          margin: 0
-        }}>
-          Upskill with expert-led programs
-        </p>
-      </div>
 
-      {loading ? (
-        <div style={{ textAlign: 'center', padding: '20px' }}>
-          <p style={{ color: '#6b7280', fontSize: '14px' }}>Loading trainings...</p>
-        </div>
-      ) : trainings.length === 0 ? (
-        <div style={{
-          background: 'rgba(168, 85, 247, 0.05)',
-          border: '1px dashed rgba(168, 85, 247, 0.3)',
-          borderRadius: '10px',
-          padding: '30px',
-          textAlign: 'center'
-        }}>
-          <p style={{ fontSize: '14px', color: '#6b7280', margin: 0 }}>
-            No trainings scheduled yet. Check back soon!
-          </p>
-        </div>
-      ) : (
+
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 260px))',
-          gap: '16px',
-          justifyContent: 'start'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: '30px'
         }}>
-          {trainings.map((training) => (
-            <div
-              key={training.id}
-              style={{
-                background: 'rgba(255, 255, 255, 0.8)',
-                borderRadius: '10px',
-                overflow: 'hidden',
-                border: '1px solid rgba(168, 85, 247, 0.2)',
-                cursor: 'pointer'
-              }}
-            >
-              {/* Header */}
+          {displayTrainings.map((training) => (
+            <div key={training.id} style={{
+              background: '#fff',
+              border: '1px solid #e5e7eb',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.borderColor = '#3b82f6';
+              e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 191, 255, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderColor = '#e5e7eb';
+              e.currentTarget.style.boxShadow = 'none';
+            }}>
               <div style={{
-                background: 'linear-gradient(135deg, #a855f7, #9333ea)',
-                padding: '14px',
-                color: 'white'
+                background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
+                padding: '20px'
               }}>
                 <h3 style={{
-                  margin: '0 0 4px 0',
-                  fontSize: '15px',
-                  fontWeight: '700'
+                  margin: '0',
+                  fontSize: '18px',
+                  fontWeight: '700',
+                  color: '#fff'
                 }}>
                   {training.title}
                 </h3>
-                <p style={{
-                  margin: 0,
-                  fontSize: '12px',
-                  opacity: 0.9
-                }}>
-                  👨‍🏫 {training.instructor}
-                </p>
               </div>
 
-              {/* Body */}
-              <div style={{ padding: '14px' }}>
+              <div style={{ padding: '25px' }}>
                 <p style={{
                   color: '#6b7280',
-                  fontSize: '12px',
-                  lineHeight: '1.4',
-                  margin: '0 0 10px 0'
+                  fontSize: '14px',
+                  lineHeight: '1.6',
+                  margin: '0 0 20px 0'
                 }}>
                   {training.description}
                 </p>
 
-                {/* Details */}
                 <div style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '6px',
-                  fontSize: '12px',
-                  marginBottom: '10px',
-                  paddingBottom: '10px',
-                  borderBottom: '1px solid rgba(0, 0, 0, 0.05)'
+                  gap: '10px',
+                  fontSize: '14px',
+                  marginBottom: '20px',
+                  paddingBottom: '20px',
+                  borderBottom: '1px solid #e5e7eb'
                 }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    color: '#374151'
+                  }}>
+                    <span>👨‍🏫</span>
+                    <span>{training.instructor}</span>
+                  </div>
                   <div style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -167,28 +166,25 @@ const Trainings = () => {
                     <span>⏱️</span>
                     <span>{training.duration}</span>
                   </div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    color: '#374151'
-                  }}>
-                    <span>👥</span>
-                    <span>Capacity: {training.capacity}</span>
-                  </div>
                 </div>
 
-                {/* CTA Button */}
                 <button style={{
                   width: '100%',
-                  background: 'linear-gradient(135deg, #a855f7, #9333ea)',
-                  color: 'white',
+                  background: '#3b82f6',
+                  color: '#fff',
                   border: 'none',
-                  padding: '8px',
-                  borderRadius: '6px',
+                  padding: '10px 16px',
+                  borderRadius: '4px',
                   fontWeight: '600',
-                  fontSize: '12px',
-                  cursor: 'pointer'
+                  fontSize: '14px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#2563eb';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = '#3b82f6';
                 }}>
                   Enroll →
                 </button>
@@ -196,11 +192,13 @@ const Trainings = () => {
             </div>
           ))}
         </div>
-      )}
+      </div>
     </section>
   );
 };
 
 export default Trainings;
+
+
 
 
