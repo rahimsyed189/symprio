@@ -56,6 +56,7 @@ function initializeDatabase() {
       date TEXT NOT NULL,
       location TEXT NOT NULL,
       type TEXT DEFAULT 'event',
+      link TEXT,
       created_by INTEGER,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (created_by) REFERENCES users(id)
@@ -65,6 +66,12 @@ function initializeDatabase() {
       console.error('Error creating events table:', err);
     } else {
       console.log('Events table ready');
+      // Add link column if it doesn't exist
+      db.run(`ALTER TABLE events ADD COLUMN link TEXT`, (altErr) => {
+        if (altErr && !altErr.message.includes('duplicate column')) {
+          console.log('Link column added to events');
+        }
+      });
     }
   });
 
@@ -78,6 +85,7 @@ function initializeDatabase() {
       instructor TEXT NOT NULL,
       capacity INTEGER DEFAULT 50,
       enrolled INTEGER DEFAULT 0,
+      link TEXT,
       created_by INTEGER,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (created_by) REFERENCES users(id)
@@ -87,6 +95,12 @@ function initializeDatabase() {
       console.error('Error creating trainings table:', err);
     } else {
       console.log('Trainings table ready');
+      // Add link column if it doesn't exist
+      db.run(`ALTER TABLE trainings ADD COLUMN link TEXT`, (altErr) => {
+        if (altErr && !altErr.message.includes('duplicate column')) {
+          console.log('Link column added to trainings');
+        }
+      });
     }
   });
 }
@@ -236,15 +250,15 @@ app.get('/api/events', (req, res) => {
 // Add new event (admin only)
 app.post('/api/events', verifyJWT, (req, res) => {
   try {
-    const { title, description, date, location, type } = req.body;
+    const { title, description, date, location, type, link } = req.body;
 
     if (!title || !description || !date || !location) {
       return res.status(400).json({ error: 'All fields are required' });
     }
 
     db.run(
-      'INSERT INTO events (title, description, date, location, type, created_by) VALUES (?, ?, ?, ?, ?, ?)',
-      [title, description, date, location, type || 'event', req.user.id],
+      'INSERT INTO events (title, description, date, location, type, link, created_by) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [title, description, date, location, type || 'event', link || null, req.user.id],
       function(err) {
         if (err) {
           return res.status(500).json({ error: 'Failed to create event' });
@@ -257,7 +271,8 @@ app.post('/api/events', verifyJWT, (req, res) => {
             description,
             date,
             location,
-            type: type || 'event'
+            type: type || 'event',
+            link: link || null
           }
         });
       }
@@ -296,15 +311,15 @@ app.get('/api/trainings', (req, res) => {
 // Add new training (admin only)
 app.post('/api/trainings', verifyJWT, (req, res) => {
   try {
-    const { title, description, date, duration, instructor, capacity } = req.body;
+    const { title, description, date, duration, instructor, capacity, link } = req.body;
 
     if (!title || !description || !date || !duration || !instructor) {
       return res.status(400).json({ error: 'All fields are required' });
     }
 
     db.run(
-      'INSERT INTO trainings (title, description, date, duration, instructor, capacity, created_by) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      [title, description, date, duration, instructor, capacity || 50, req.user.id],
+      'INSERT INTO trainings (title, description, date, duration, instructor, capacity, link, created_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [title, description, date, duration, instructor, capacity || 50, link || null, req.user.id],
       function(err) {
         if (err) {
           return res.status(500).json({ error: 'Failed to create training' });
@@ -319,7 +334,8 @@ app.post('/api/trainings', verifyJWT, (req, res) => {
             duration,
             instructor,
             capacity: capacity || 50,
-            enrolled: 0
+            enrolled: 0,
+            link: link || null
           }
         });
       }

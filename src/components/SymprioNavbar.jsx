@@ -359,28 +359,6 @@ export default function SymprioNavbar() {
           </button>
         ) : (
           <div style={{ display: 'flex', gap: '10px' }}>
-            <button onClick={() => navigate('/admin')} style={{
-              background: 'transparent',
-              color: '#fff',
-              border: '2px solid #fff',
-              padding: '8px 18px',
-              fontSize: '13px',
-              fontWeight: '700',
-              borderRadius: '3px',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#fff';
-              e.currentTarget.style.color = '#1e5eb8';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'transparent';
-              e.currentTarget.style.color = '#fff';
-            }}
-            >
-              Dashboard
-            </button>
             <button onClick={() => {
               logout();
               navigate('/');

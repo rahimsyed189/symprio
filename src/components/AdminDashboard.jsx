@@ -17,7 +17,8 @@ const AdminDashboard = () => {
     description: '',
     date: '',
     location: '',
-    type: 'event'
+    type: 'event',
+    link: ''
   });
 
   // Training form state
@@ -27,7 +28,8 @@ const AdminDashboard = () => {
     date: '',
     duration: '',
     instructor: '',
-    capacity: '50'
+    capacity: '50',
+    link: ''
   });
 
   // Fetch events and trainings
@@ -73,7 +75,7 @@ const AdminDashboard = () => {
       });
 
       if (response.ok) {
-        setEventForm({ title: '', description: '', date: '', location: '', type: 'event' });
+        setEventForm({ title: '', description: '', date: '', location: '', type: 'event', link: '' });
         setShowEventForm(false);
         fetchEvents();
       } else {
@@ -97,7 +99,7 @@ const AdminDashboard = () => {
       });
 
       if (response.ok) {
-        setTrainingForm({ title: '', description: '', date: '', duration: '', instructor: '', capacity: '50' });
+        setTrainingForm({ title: '', description: '', date: '', duration: '', instructor: '', capacity: '50', link: '' });
         setShowTrainingForm(false);
         fetchTrainings();
       } else {
@@ -178,7 +180,7 @@ const AdminDashboard = () => {
           <button
             onClick={() => {
               logout();
-              navigate('/admin');
+              navigate('/');
             }}
             style={{
               background: '#dc2626',
@@ -326,6 +328,22 @@ const AdminDashboard = () => {
                     onChange={(e) => setEventForm({ ...eventForm, location: e.target.value })}
                     placeholder="Event location"
                     required
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '6px',
+                      boxSizing: 'border-box'
+                    }}
+                  />
+                </div>
+                <div style={{ marginBottom: '16px' }}>
+                  <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600' }}>Registration Link (Optional)</label>
+                  <input
+                    type="url"
+                    value={eventForm.link}
+                    onChange={(e) => setEventForm({ ...eventForm, link: e.target.value })}
+                    placeholder="https://example.com/register"
                     style={{
                       width: '100%',
                       padding: '10px',
@@ -509,6 +527,22 @@ const AdminDashboard = () => {
                     value={trainingForm.capacity}
                     onChange={(e) => setTrainingForm({ ...trainingForm, capacity: e.target.value })}
                     required
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '6px',
+                      boxSizing: 'border-box'
+                    }}
+                  />
+                </div>
+                <div style={{ marginBottom: '16px' }}>
+                  <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600' }}>Enrollment Link (Optional)</label>
+                  <input
+                    type="url"
+                    value={trainingForm.link}
+                    onChange={(e) => setTrainingForm({ ...trainingForm, link: e.target.value })}
+                    placeholder="https://example.com/enroll"
                     style={{
                       width: '100%',
                       padding: '10px',

@@ -9,7 +9,16 @@ const Trainings = () => {
       const response = await fetch('http://localhost:5000/api/trainings');
       if (response.ok) {
         const data = await response.json();
-        setTrainings(data);
+        // Only set if data is not empty, otherwise keep defaults
+        if (data && data.length > 0) {
+          setTrainings(data);
+          console.log('Trainings fetched from backend:', data);
+        } else {
+          console.log('No trainings in backend, using defaults');
+          setTrainings([]);
+        }
+      } else {
+        console.error('Backend response not ok:', response.status);
       }
     } catch (error) {
       console.error('Failed to fetch trainings:', error);
@@ -52,7 +61,7 @@ const Trainings = () => {
     }
   ];
 
-  const displayTrainings = trainings.length > 0 ? trainings : defaultTrainings;
+  const displayTrainings = trainings;
 
   return (
     <section id="trainings" style={{
@@ -61,58 +70,55 @@ const Trainings = () => {
     }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-          <h6 style={{
-            fontSize: '12px',
-            fontWeight: '700',
-            color: '#3b82f6',
-            letterSpacing: '1.5px',
-            textTransform: 'uppercase',
-            margin: '0 0 10px 0'
-          }}>
-            PROFESSIONAL TRAINING
-          </h6>
-          <h2 style={{
-            fontSize: '42px',
+          <h3 style={{
+            fontSize: '28px',
             fontWeight: '700',
             color: '#1f2937',
             margin: '0'
           }}>
-            Trainings & Certifications.
-          </h2>
+            {displayTrainings.length > 0 ? 'Training Programs' : 'No Trainings'}
+          </h3>
         </div>
 
-
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '30px'
-        }}>
+        {displayTrainings.length > 0 && (
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, 300px)',
+            gap: '24px'
+          }}>
           {displayTrainings.map((training) => (
             <div key={training.id} style={{
               background: '#fff',
-              border: '1px solid #e5e7eb',
-              borderRadius: '8px',
+              border: '2px solid #e5e7eb',
+              borderRadius: '12px',
               overflow: 'hidden',
               transition: 'all 0.3s ease',
-              cursor: 'pointer'
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+              cursor: 'pointer',
+              width: '300px',
+              display: 'flex',
+              flexDirection: 'column'
             }}
             onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = '#16a34a';
+              e.currentTarget.style.boxShadow = '0 8px 20px rgba(22, 163, 74, 0.15)';
               e.currentTarget.style.transform = 'translateY(-5px)';
-              e.currentTarget.style.borderColor = '#3b82f6';
-              e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 191, 255, 0.15)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
               e.currentTarget.style.borderColor = '#e5e7eb';
-              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)';
+              e.currentTarget.style.transform = 'translateY(0)';
             }}>
               <div style={{
-                background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
-                padding: '20px'
+                background: 'linear-gradient(135deg, #16a34a, #15803d)',
+                padding: '16px',
+                minHeight: '60px',
+                display: 'flex',
+                alignItems: 'center'
               }}>
                 <h3 style={{
                   margin: '0',
-                  fontSize: '18px',
+                  fontSize: '16px',
                   fontWeight: '700',
                   color: '#fff'
                 }}>
@@ -120,12 +126,12 @@ const Trainings = () => {
                 </h3>
               </div>
 
-              <div style={{ padding: '25px' }}>
+              <div style={{ padding: '20px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <p style={{
                   color: '#6b7280',
-                  fontSize: '14px',
+                  fontSize: '13px',
                   lineHeight: '1.6',
-                  margin: '0 0 20px 0'
+                  margin: '0 0 8px 0'
                 }}>
                   {training.description}
                 </p>
@@ -133,16 +139,16 @@ const Trainings = () => {
                 <div style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '10px',
-                  fontSize: '14px',
-                  marginBottom: '20px',
-                  paddingBottom: '20px',
+                  gap: '8px',
+                  fontSize: '12px',
+                  marginBottom: '0px',
+                  paddingBottom: '8px',
                   borderBottom: '1px solid #e5e7eb'
                 }}>
                   <div style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px',
+                    gap: '6px',
                     color: '#374151'
                   }}>
                     <span>👨‍🏫</span>
@@ -151,7 +157,7 @@ const Trainings = () => {
                   <div style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px',
+                    gap: '6px',
                     color: '#374151'
                   }}>
                     <span>📅</span>
@@ -160,7 +166,7 @@ const Trainings = () => {
                   <div style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px',
+                    gap: '6px',
                     color: '#374151'
                   }}>
                     <span>⏱️</span>
@@ -169,29 +175,31 @@ const Trainings = () => {
                 </div>
 
                 <button style={{
+                  marginTop: 'auto',
                   width: '100%',
-                  background: '#3b82f6',
+                  background: '#16a34a',
                   color: '#fff',
                   border: 'none',
-                  padding: '10px 16px',
-                  borderRadius: '4px',
+                  padding: '8px 12px',
+                  borderRadius: '6px',
                   fontWeight: '600',
-                  fontSize: '14px',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease'
+                  fontSize: '12px',
+                  cursor: training.link ? 'pointer' : 'default',
+                  transition: 'all 0.3s ease',
+                  opacity: training.link ? 1 : 0.5
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#2563eb';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#3b82f6';
+                onClick={() => {
+                  if (training.link) {
+                    window.open(training.link, '_blank');
+                  }
                 }}>
-                  Enroll →
+                  {training.link ? 'Enroll Now' : 'No Link'}
                 </button>
               </div>
             </div>
           ))}
         </div>
+        )}
       </div>
     </section>
   );
