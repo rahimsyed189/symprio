@@ -6,6 +6,7 @@ export default function SymprioNavbar() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [scrolled, setScrolled] = React.useState(false);
+  const [showServicesDropdown, setShowServicesDropdown] = React.useState(false);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -14,6 +15,15 @@ export default function SymprioNavbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const services = [
+    { name: 'Digital Transformation', url: '/digital-transformation' },
+    { name: 'Robotic Process Automation', url: 'https://www.symprio.com/robotic-process-automation/' },
+    { name: 'ERP Practice (Oracle)', url: 'https://www.symprio.com/erp-practice-oracle/' },
+    { name: 'Chatbots', url: '/chatbots' },
+    { name: 'Custom Development', url: 'https://www.symprio.com/custom-development/' },
+    { name: 'Digital Workforce', url: 'https://www.symprio.com/digital-workforce/' }
+  ];
 
   return (
     <>
@@ -239,9 +249,10 @@ export default function SymprioNavbar() {
         <div style={{
           display: 'flex',
           gap: '35px',
-          alignItems: 'center'
+          alignItems: 'center',
+          position: 'relative'
         }}>
-          <a href="#" style={{
+          <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }} style={{
             fontSize: '15px',
             fontWeight: '600',
             color: '#fff',
@@ -256,67 +267,110 @@ export default function SymprioNavbar() {
           >
             Home
           </a>
-          <a href="#" style={{
-            fontSize: '15px',
-            fontWeight: '600',
-            color: '#fff',
-            textDecoration: 'none',
-            transition: 'color 0.3s ease',
-            cursor: 'pointer',
-            fontFamily: 'Segoe UI, Inter, sans-serif',
-            letterSpacing: '0.3px'
-          }}
-          onMouseEnter={(e) => e.target.style.color = '#bfdbfe'}
-          onMouseLeave={(e) => e.target.style.color = '#fff'}
+
+          {/* Services Dropdown */}
+          <div style={{ position: 'relative' }}
+            onMouseEnter={() => setShowServicesDropdown(true)}
+            onMouseLeave={() => setShowServicesDropdown(false)}
           >
-            About
-          </a>
-          <a href="#services" style={{
-            fontSize: '15px',
-            fontWeight: '600',
-            color: '#fff',
-            textDecoration: 'none',
-            transition: 'color 0.3s ease',
-            cursor: 'pointer',
-            fontFamily: 'Segoe UI, Inter, sans-serif',
-            letterSpacing: '0.3px'
-          }}
-          onMouseEnter={(e) => e.target.style.color = '#bfdbfe'}
-          onMouseLeave={(e) => e.target.style.color = '#fff'}
-          >
-            Services
-          </a>
-          <a href="#team" style={{
-            fontSize: '15px',
-            fontWeight: '600',
-            color: '#fff',
-            textDecoration: 'none',
-            transition: 'color 0.3s ease',
-            cursor: 'pointer',
-            fontFamily: 'Segoe UI, Inter, sans-serif',
-            letterSpacing: '0.3px'
-          }}
-          onMouseEnter={(e) => e.target.style.color = '#bfdbfe'}
-          onMouseLeave={(e) => e.target.style.color = '#fff'}
-          >
-            Team
-          </a>
-          <a href="#" style={{
-            fontSize: '15px',
-            fontWeight: '600',
-            color: '#fff',
-            textDecoration: 'none',
-            transition: 'color 0.3s ease',
-            cursor: 'pointer',
-            fontFamily: 'Segoe UI, Inter, sans-serif',
-            letterSpacing: '0.3px'
-          }}
-          onMouseEnter={(e) => e.target.style.color = '#bfdbfe'}
-          onMouseLeave={(e) => e.target.style.color = '#fff'}
-          >
-            Pages
-          </a>
-          <a href="#" style={{
+            <div style={{
+              fontSize: '15px',
+              fontWeight: '600',
+              color: '#fff',
+              textDecoration: 'none',
+              transition: 'color 0.3s ease',
+              cursor: 'pointer',
+              fontFamily: 'Segoe UI, Inter, sans-serif',
+              letterSpacing: '0.3px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '8px 0'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#bfdbfe'}
+            onMouseLeave={(e) => e.currentTarget.style.color = '#fff'}
+            >
+              Services
+              <span style={{ fontSize: '12px', marginTop: '2px' }}>▼</span>
+            </div>
+
+            {/* Dropdown Menu */}
+            {showServicesDropdown && (
+              <div style={{
+                position: 'absolute',
+                top: 'calc(100% + 4px)',
+                left: '0',
+                background: '#fff',
+                borderRadius: '4px',
+                boxShadow: '0 8px 16px rgba(0, 0, 0, 0.15)',
+                minWidth: '280px',
+                zIndex: 10000,
+                overflow: 'hidden'
+              }}>
+                {services.map((service, idx) => 
+                  service.url.startsWith('/') ? (
+                    <div 
+                      key={idx}
+                      onClick={() => navigate(service.url)}
+                      style={{
+                        display: 'block',
+                        padding: '12px 16px',
+                        color: '#1f2937',
+                        fontSize: '14px',
+                        fontWeight: '500',
+                        borderBottom: idx < services.length - 1 ? '1px solid #e5e7eb' : 'none',
+                        transition: 'all 0.3s ease',
+                        cursor: 'pointer'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#f0f9ff';
+                        e.currentTarget.style.color = '#3b82f6';
+                        e.currentTarget.style.paddingLeft = '20px';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = '#fff';
+                        e.currentTarget.style.color = '#1f2937';
+                        e.currentTarget.style.paddingLeft = '16px';
+                      }}
+                    >
+                      {service.name}
+                    </div>
+                  ) : (
+                    <a 
+                      key={idx}
+                      href={service.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'block',
+                        padding: '12px 16px',
+                        color: '#1f2937',
+                        textDecoration: 'none',
+                        fontSize: '14px',
+                        fontWeight: '500',
+                        borderBottom: idx < services.length - 1 ? '1px solid #e5e7eb' : 'none',
+                        transition: 'all 0.3s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#f0f9ff';
+                        e.currentTarget.style.color = '#3b82f6';
+                        e.currentTarget.style.paddingLeft = '20px';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = '#fff';
+                        e.currentTarget.style.color = '#1f2937';
+                        e.currentTarget.style.paddingLeft = '16px';
+                      }}
+                    >
+                      {service.name}
+                    </a>
+                  )
+                )}
+              </div>
+            )}
+          </div>
+
+          <a href="https://symprioideas.medium.com/" target="_blank" rel="noopener noreferrer" style={{
             fontSize: '15px',
             fontWeight: '600',
             color: '#fff',
