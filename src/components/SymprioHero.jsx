@@ -1,12 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function SymprioHero() {
+  const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
+  const [fadeIn, setFadeIn] = useState(true);
+
+  const titles = [
+    {
+      main: "Unlock your business's",
+      sub: "full potential",
+      description: "Transform your operations with strategic solutions designed to maximize efficiency and drive sustainable growth.",
+      banner: "/banner-1.jpg"
+    },
+    {
+      main: "Make The Easiest",
+      sub: "Solution For You",
+      description: "Experience seamless automation and integration tailored to your unique business needs.",
+      banner: "/banner-2.jpg"
+    },
+    {
+      main: "Experience unparalleled",
+      sub: "enterprise performance",
+      description: "Leverage cutting-edge RPA and AI-powered solutions to optimize your business processes.",
+      banner: "/banner-3.jpg"
+    }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFadeIn(false);
+      setTimeout(() => {
+        setCurrentTitleIndex((prev) => (prev + 1) % titles.length);
+        setFadeIn(true);
+      }, 500);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentTitle = titles[currentTitleIndex];
+  
   return (
     <div style={{
       position: 'relative',
       width: '100%',
       minHeight: '420px',
-      background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/hero-banner.png')`,
+      background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${currentTitle.banner}')`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundAttachment: 'fixed',
@@ -14,7 +52,8 @@ export default function SymprioHero() {
       alignItems: 'center',
       justifyContent: 'center',
       padding: '20px 20px 80px',
-      textAlign: 'center'
+      textAlign: 'center',
+      transition: 'background-image 0.5s ease-in-out'
     }}>
       <div style={{ maxWidth: '800px', color: '#fff' }}>
         <h6 style={{
@@ -26,26 +65,47 @@ export default function SymprioHero() {
           marginBottom: '20px',
           margin: '0 0 20px 0'
         }}>
-          Automate Your Business Processes
+          Transform Your Business
         </h6>
-        <h1 style={{
-          fontSize: '56px',
-          fontWeight: '700',
-          lineHeight: '1.2',
-          marginBottom: '20px',
-          margin: '0 0 20px 0',
-          color: '#fff'
+        <div style={{
+          minHeight: '140px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          opacity: fadeIn ? 1 : 0,
+          transition: 'opacity 0.5s ease-in-out'
         }}>
-          Robotic Process Automation
-        </h1>
+          <h1 style={{
+            fontSize: '32px',
+            fontWeight: '600',
+            lineHeight: '1.2',
+            marginBottom: '10px',
+            margin: '0 0 10px 0',
+            color: '#3b82f6'
+          }}>
+            {currentTitle.main}
+          </h1>
+          <h1 style={{
+            fontSize: '56px',
+            fontWeight: '700',
+            lineHeight: '1.2',
+            marginBottom: '20px',
+            margin: '0 0 20px 0',
+            color: '#fff'
+          }}>
+            {currentTitle.sub}
+          </h1>
+        </div>
         <p style={{
           fontSize: '16px',
           color: '#e5e7eb',
           lineHeight: '1.6',
           marginBottom: '30px',
-          margin: '0 0 30px 0'
+          margin: '0 0 30px 0',
+          opacity: fadeIn ? 1 : 0,
+          transition: 'opacity 0.5s ease-in-out'
         }}>
-          Transform your business with intelligent automation solutions. Streamline workflows, reduce costs, and increase efficiency with cutting-edge RPA technology.
+          {currentTitle.description}
         </p>
         <div style={{
           display: 'flex',
@@ -105,5 +165,4 @@ export default function SymprioHero() {
     </div>
   );
 }
-
 
