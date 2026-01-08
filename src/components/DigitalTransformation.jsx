@@ -4,10 +4,27 @@ import { useNavigate } from 'react-router-dom';
 const DigitalTransformation = () => {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
+  const [containerVisible, setContainerVisible] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
     window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const container = document.getElementById('dt-container');
+      if (container) {
+        const rect = container.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.75) {
+          setContainerVisible(true);
+          window.removeEventListener('scroll', handleScroll);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const keyAreas = [
@@ -72,10 +89,13 @@ const DigitalTransformation = () => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         color: '#fff',
-        padding: '40px 20px 40px',
-        textAlign: 'center',
+        padding: '60px 60px 140px',
+        textAlign: 'left',
         marginTop: '0',
-        position: 'relative'
+        position: 'relative',
+        minHeight: '300px',
+        display: 'flex',
+        alignItems: 'flex-start'
       }}>
         <div style={{
           position: 'absolute',
@@ -86,172 +106,174 @@ const DigitalTransformation = () => {
           background: 'rgba(0, 0, 0, 0.4)',
           zIndex: 1
         }}></div>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
-          {/* Breadcrumb Navigation */}
-          <div style={{
-            fontSize: '14px',
-            marginBottom: '20px',
-            animation: isVisible ? 'fadeIn 0.8s ease-out' : 'none'
-          }}>
-            <button
-              onClick={() => navigate('/')}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: '#fff',
-                cursor: 'pointer',
-                textDecoration: 'none',
-                fontSize: '14px',
-                transition: 'opacity 0.3s ease'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
-              onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
-            >
-              Home
-            </button>
-            <span style={{ margin: '0 10px', color: '#fff' }}>/</span>
-            <span style={{ color: '#fff' }}>Digital Transformation</span>
-          </div>
-          
+        <div style={{ maxWidth: '100%', margin: '0', paddingLeft: '0', paddingTop: '0', position: 'relative', zIndex: 2 }}>
           <h1 style={{
-            fontSize: '36px',
+            fontSize: '56px',
             fontWeight: '700',
-            margin: '0 0 10px 0',
+            margin: '0 0 15px 0',
             color: '#fff',
-            animation: isVisible ? 'slideDown 0.8s ease-out 0.1s both' : 'none'
+            animation: isVisible ? 'slideInLeft 0.8s ease-out 0.1s both' : 'none',
+            textAlign: 'left'
           }}>
             Digital Transformation
           </h1>
           <p style={{
-            fontSize: '16px',
-            margin: '0',
-            opacity: 0.95,
-            animation: isVisible ? 'fadeIn 0.8s ease-out 0.3s both' : 'none'
+            fontSize: '18px',
+            color: '#e0e0e0',
+            margin: 0,
+            animation: isVisible ? 'slideInLeft 0.8s ease-out 0.2s both' : 'none',
+            textAlign: 'left'
           }}>
-            All Services
+            Your Partners to Digital Transformation
           </p>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '80px 20px' }}>
-        {/* Two Column Section with Text and Image */}
-        <section style={{ marginBottom: '80px' }}>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '60px',
-            alignItems: 'center'
-          }}>
-            {/* Left Column - Information */}
+      {/* Intro Container - Half on Banner */}
+      <div 
+        id="dt-container"
+        style={{
+          position: 'relative',
+          marginTop: '-120px',
+          marginBottom: '80px',
+          maxWidth: '1200px',
+          margin: '-120px auto 80px',
+          padding: '0 20px',
+          zIndex: 10
+        }}>
+        <div style={{
+          background: '#ffffff',
+          borderRadius: '12px',
+          padding: '50px',
+          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
+          border: '2px solid #e5e7eb',
+          animation: containerVisible ? 'slideUp 0.8s ease-out both' : 'none',
+          position: 'relative',
+          zIndex: 10
+        }}>
+          <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+          {/* Two Column Section with Text and Image */}
+          <section>
             <div style={{
-              animation: isVisible ? 'slideUp 0.8s ease-out 0.1s both' : 'none'
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '60px',
+              alignItems: 'center'
             }}>
-              <h2 style={{ 
-                fontSize: '32px',
-                fontWeight: '700',
-                color: '#1e5eb8',
-                marginTop: 0,
-                marginBottom: '25px'
+              {/* Left Column - Information */}
+              <div style={{
+                animation: isVisible ? 'slideUp 0.8s ease-out 0.1s both' : 'none'
               }}>
-                Digital Transformation
-              </h2>
-              
-              <p style={{ 
-                color: '#4b5563',
-                lineHeight: '1.8',
-                fontSize: '16px',
-                marginBottom: '30px'
-              }}>
-                Symprio helps leading organizations such as Facebook (Meta), Amway, JPA, HRDF and many others in digital transformation initiatives focused on AI, Automation, Process improvements & application rationalization.
-              </p>
-              
-              <div>
-                <h3 style={{ 
-                  fontSize: '18px',
-                  fontWeight: '600',
+                <h2 style={{ 
+                  fontSize: '32px',
+                  fontWeight: '700',
                   color: '#1e5eb8',
                   marginTop: 0,
-                  marginBottom: '12px'
+                  marginBottom: '25px'
                 }}>
-                  Assessment
-                </h3>
-                <ul style={{
-                  listStyle: 'none',
-                  padding: 0,
-                  margin: 0
+                  Digital Transformation
+                </h2>
+                
+                <p style={{ 
+                  color: '#4b5563',
+                  lineHeight: '1.8',
+                  fontSize: '16px',
+                  marginBottom: '30px'
                 }}>
-                  <li style={{
-                    color: '#4b5563',
-                    lineHeight: '1.8',
-                    fontSize: '15px',
-                    marginBottom: '12px',
-                    paddingLeft: '24px',
-                    position: 'relative'
+                  Symprio helps leading organizations such as Facebook (Meta), Amway, JPA, HRDF and many others in digital transformation initiatives focused on AI, Automation, Process improvements & application rationalization.
+                </p>
+                
+                <div>
+                  <h3 style={{ 
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: 'rgba(25, 181, 254, 1)',
+                    marginTop: 0,
+                    marginBottom: '12px'
                   }}>
-                    <span style={{
-                      position: 'absolute',
-                      left: 0,
-                      color: '#3b82f6',
-                      fontWeight: 'bold'
-                    }}>•</span>
-                    Assessment of the entire organization to identify the current state of digital journey
-                  </li>
-                  <li style={{
-                    color: '#4b5563',
-                    lineHeight: '1.8',
-                    fontSize: '15px',
-                    marginBottom: '12px',
-                    paddingLeft: '24px',
-                    position: 'relative'
+                    Assessment
+                  </h3>
+                  <ul style={{
+                    listStyle: 'none',
+                    padding: 0,
+                    margin: 0
                   }}>
-                    <span style={{
-                      position: 'absolute',
-                      left: 0,
-                      color: '#3b82f6',
-                      fontWeight: 'bold'
-                    }}>•</span>
-                    Assessment of awareness and willingness to adopt new technologies
-                  </li>
-                  <li style={{
-                    color: '#4b5563',
-                    lineHeight: '1.8',
-                    fontSize: '15px',
-                    marginBottom: 0,
-                    paddingLeft: '24px',
-                    position: 'relative'
-                  }}>
-                    <span style={{
-                      position: 'absolute',
-                      left: 0,
-                      color: '#3b82f6',
-                      fontWeight: 'bold'
-                    }}>•</span>
-                    Recommendation on technology adoption and provide digital roadmap to the organization
-                  </li>
-                </ul>
+                    <li style={{
+                      color: '#4b5563',
+                      lineHeight: '1.8',
+                      fontSize: '15px',
+                      marginBottom: '12px',
+                      paddingLeft: '24px',
+                      position: 'relative'
+                    }}>
+                      <span style={{
+                        position: 'absolute',
+                        left: 0,
+                        color: '#3b82f6',
+                        fontWeight: 'bold'
+                      }}>•</span>
+                      Assessment of the entire organization to identify the current state of digital journey
+                    </li>
+                    <li style={{
+                      color: '#4b5563',
+                      lineHeight: '1.8',
+                      fontSize: '15px',
+                      marginBottom: '12px',
+                      paddingLeft: '24px',
+                      position: 'relative'
+                    }}>
+                      <span style={{
+                        position: 'absolute',
+                        left: 0,
+                        color: '#3b82f6',
+                        fontWeight: 'bold'
+                      }}>•</span>
+                      Assessment of awareness and willingness to adopt new technologies
+                    </li>
+                    <li style={{
+                      color: '#4b5563',
+                      lineHeight: '1.8',
+                      fontSize: '15px',
+                      marginBottom: 0,
+                      paddingLeft: '24px',
+                      position: 'relative'
+                    }}>
+                      <span style={{
+                        position: 'absolute',
+                        left: 0,
+                        color: '#3b82f6',
+                        fontWeight: 'bold'
+                      }}>•</span>
+                      Recommendation on technology adoption and provide digital roadmap to the organization
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Right Column - Image */}
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                animation: isVisible ? 'slideUp 0.8s ease-out 0.2s both' : 'none'
+              }}>
+                <img 
+                  src="/digitaltransformation/CircleDiagram.jpg"
+                  alt="Digital Transformation Circle Diagram"
+                  style={{
+                    maxWidth: '70%',
+                    height: 'auto'
+                  }}
+                />
               </div>
             </div>
+          </section>
+        </div>
+        </div>
+      </div>
 
-            {/* Right Column - Image */}
-            <div style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              animation: isVisible ? 'slideUp 0.8s ease-out 0.2s both' : 'none'
-            }}>
-              <img 
-                src="/digitaltransformation/CircleDiagram.jpg"
-                alt="Digital Transformation Circle Diagram"
-                style={{
-                  maxWidth: '70%',
-                  height: 'auto'
-                }}
-              />
-            </div>
-          </div>
-        </section>
-
+      {/* Rest of Content */}
+      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 20px 80px 20px' }}>
         {/* Key Areas Section */}
         <section style={{ marginBottom: '80px' }}>
           <h2 style={{
@@ -471,8 +493,12 @@ const DigitalTransformation = () => {
             })}
           </div>
         </section>
+      </div>
+
+      {/* CTA Section */}
+      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 20px 80px 20px' }}>
         <section style={{
-          background: 'linear-gradient(135deg, #1e5eb8 0%, #3b82f6 100%)',
+          background: 'linear-gradient(135deg, rgba(25, 181, 254, 0.8) 0%, rgba(25, 181, 254, 1) 100%)',
           color: '#fff',
           padding: '60px 40px',
           borderRadius: '12px',
@@ -524,11 +550,22 @@ const DigitalTransformation = () => {
         @keyframes slideUp {
           from {
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(60px);
           }
           to {
             opacity: 1;
             transform: translateY(0);
+          }
+        }
+
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
           }
         }
 

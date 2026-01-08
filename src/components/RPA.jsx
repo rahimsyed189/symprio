@@ -4,20 +4,37 @@ import { useNavigate } from 'react-router-dom';
 export default function RPA() {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
+  const [containerVisible, setContainerVisible] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const element = document.getElementById('rpa-container');
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        const isInView = rect.top < window.innerHeight * 0.75;
+        if (isInView) {
+          setContainerVisible(true);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <div>
       {/* Hero Banner */}
       <section style={{
-        backgroundImage: 'url(/digitaltransformation/banner.jpg)',
+        backgroundImage: 'url(/rpa-banner.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         position: 'relative',
-        padding: '40px 20px 40px',
+        padding: '80px 20px',
         textAlign: 'center',
         marginTop: '0',
         color: '#fff'
@@ -29,28 +46,19 @@ export default function RPA() {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.4)',
+          backgroundColor: 'rgba(0, 0, 0, 0.3)',
           zIndex: 1
         }}></div>
 
         {/* Banner content */}
-        <div style={{ position: 'relative', zIndex: 2, maxWidth: '600px' }}>
-          <div style={{
-            fontSize: '14px',
-            color: '#e0e0e0',
-            marginBottom: '20px',
-            animation: isVisible ? 'fadeIn 0.8s ease-out 0.1s both' : 'none'
-          }}>
-            <span style={{ cursor: 'pointer' }} onClick={() => navigate('/')}>Home</span>
-            <span style={{ margin: '0 10px' }}>/</span>
-            <span>RPA</span>
-          </div>
+        <div style={{ position: 'relative', zIndex: 2, maxWidth: '100%', margin: '0', paddingTop: '10px', paddingLeft: '40px', textAlign: 'left' }}>
           <h1 style={{
-            fontSize: '48px',
+            fontSize: '56px',
             fontWeight: '700',
             color: '#fff',
-            margin: '0 0 20px 0',
-            animation: isVisible ? 'slideDown 0.8s ease-out both' : 'none'
+            margin: '-20px 0 20px 0',
+            animation: isVisible ? 'slideInLeft 0.8s ease-out 0.1s both' : 'none',
+            textAlign: 'left'
           }}>
             Robotic Process Automation
           </h1>
@@ -58,12 +66,131 @@ export default function RPA() {
             fontSize: '18px',
             color: '#e0e0e0',
             margin: 0,
-            animation: isVisible ? 'fadeIn 0.8s ease-out 0.2s both' : 'none'
+            animation: isVisible ? 'slideInLeft 0.8s ease-out 0.2s both' : 'none',
+            textAlign: 'left'
           }}>
             Automate Repetitive Tasks, Boost Accuracy & Compliance
           </p>
         </div>
       </section>
+
+      <style>{`
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+
+      {/* RPA Info Container - Overlapping Banner */}
+      <div 
+        id="rpa-container"
+        style={{
+          position: 'relative',
+          marginTop: '-60px',
+          marginBottom: '80px',
+          maxWidth: '1200px',
+          margin: '-60px auto 80px',
+          padding: '0 20px',
+          zIndex: 10
+        }}>
+        <div style={{
+          background: '#ffffff',
+          borderRadius: '12px',
+          padding: '50px',
+          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
+          border: '2px solid #e5e7eb',
+          animation: containerVisible ? 'slideUp 0.8s ease-out both' : 'none',
+          position: 'relative',
+          zIndex: 10
+        }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '50px',
+            alignItems: 'center'
+          }}>
+            {/* Left - Description */}
+            <div>
+              <h3 style={{
+                fontSize: '24px',
+                fontWeight: '700',
+                color: '#0c4a6e',
+                margin: '0 0 20px 0'
+              }}>
+                About RPA
+              </h3>
+              <p style={{
+                fontSize: '15px',
+                lineHeight: '1.8',
+                color: '#374151',
+                margin: '0 0 20px 0'
+              }}>
+                Robotic Process Automation (RPA) is the automation of repetitive, rules-based tasks across departments to boost accuracy, speed and compliance. By deploying intelligent software robots, organizations can eliminate manual work, reduce errors, and free up employees to focus on high-value strategic activities.
+              </p>
+              <p style={{
+                fontSize: '15px',
+                lineHeight: '1.8',
+                color: '#374151',
+                margin: '0'
+              }}>
+                Symprio provides end-to-end RPA services from assessment through delivery, including ongoing support, training, and establishment of an RPA Center of Excellence.
+              </p>
+            </div>
+
+            {/* Right - Key Stats */}
+            <div>
+              <h2 style={{
+                fontSize: '32px',
+                fontWeight: '700',
+                color: '#0c4a6e',
+                margin: '0 0 30px 0'
+              }}>
+                Why RPA?
+              </h2>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '20px'
+              }}>
+                {[
+                  { icon: '⚡', title: 'Faster Execution', desc: '5-10x speed improvement in automated processes' },
+                  { icon: '✅', title: '99.9% Accuracy', desc: 'Eliminate human errors in repetitive tasks' },
+                  { icon: '💰', title: '40-60% Cost Savings', desc: 'Reduce operational costs significantly' },
+                  { icon: '📈', title: 'Scalability', desc: 'Deploy bots across multiple departments effortlessly' }
+                ].map((item, idx) => (
+                  <div key={idx} style={{ display: 'flex', gap: '15px' }}>
+                    <div style={{ fontSize: '28px', minWidth: '40px' }}>{item.icon}</div>
+                    <div>
+                      <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#0c4a6e', margin: '0 0 5px 0' }}>
+                        {item.title}
+                      </h3>
+                      <p style={{ fontSize: '14px', color: '#374151', margin: 0, lineHeight: '1.5' }}>
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Main content container */}
       <div style={{
@@ -72,8 +199,8 @@ export default function RPA() {
         padding: '0 20px'
       }}>
 
-        {/* Introduction Section */}
-        <section style={{ marginTop: '60px', marginBottom: '80px' }}>
+        {/* Introduction Section - Hidden since we have the overlay */}
+        <section style={{ display: 'none', marginTop: '60px', marginBottom: '80px' }}>
           <div style={{
             maxWidth: '900px',
             margin: '0 auto'
@@ -110,43 +237,52 @@ export default function RPA() {
         </section>
 
         {/* Services & Capabilities Section */}
-        <section style={{ marginBottom: '80px' }}>
+        <section style={{ marginBottom: '80px', width: '100%', padding: '0 10px' }}>
           <h2 style={{
-            fontSize: '36px',
+            fontSize: '42px',
             fontWeight: '700',
             color: '#1f2937',
-            marginBottom: '50px',
+            marginBottom: '60px',
             textAlign: 'center'
           }}>
             Services & Capabilities
           </h2>
+
+          {/* Two Column Layout with Icons and Content */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '30px'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))',
+            gap: '50px',
+            alignItems: 'start'
           }}>
             {[
               {
+                icon: '🔍',
                 title: 'RPA Assessment',
                 description: 'Evaluate current processes and identify automation opportunities. Conduct detailed opportunity analysis to prioritize high-impact processes for automation.'
               },
               {
+                icon: '🤖',
                 title: 'RPA Development & Deployment',
                 description: 'Build intelligent bots using UiPath, Microsoft Power Automate and other leading platforms. Ensure robust error handling, security controls and scalability.'
               },
               {
+                icon: '🏢',
                 title: 'Center of Excellence',
                 description: 'Establish governance frameworks, templates, best practices and change management processes. Build internal capability for sustainable automation.'
               },
               {
+                icon: '📊',
                 title: 'Bot Monitoring & Support',
                 description: 'Provide ongoing 24/7 monitoring, performance tuning and incident management. Ensure optimal bot performance and quick resolution of issues.'
               },
               {
+                icon: '📚',
                 title: 'Training & Enablement',
                 description: 'Offer comprehensive training programs for citizen developers and power users. Build internal expertise for long-term automation success.'
               },
               {
+                icon: '⚙️',
                 title: 'Integrated Solutions',
                 description: 'Combine RPA with AI/ML, chatbots and custom development. Create intelligent automation workflows that adapt and improve over time.'
               }
@@ -154,41 +290,58 @@ export default function RPA() {
               <div
                 key={idx}
                 style={{
+                  display: 'flex',
+                  gap: '25px',
                   padding: '30px',
-                  background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',
+                  background: '#f9fafb',
                   borderRadius: '12px',
+                  borderLeft: '5px solid #0c4a6e',
                   transition: 'all 0.4s ease',
                   cursor: 'pointer',
-                  boxShadow: '0 5px 15px rgba(0, 0, 0, 0.08)',
-                  animation: isVisible ? `slideUp 0.8s ease-out ${idx * 0.1}s both` : 'none',
-                  position: 'relative',
-                  overflow: 'hidden'
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.06)',
+                  animation: isVisible ? `slideUp 0.8s ease-out ${idx * 0.1}s both` : 'none'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.15)';
-                  e.currentTarget.style.transform = 'translateY(-8px)';
+                  e.currentTarget.style.boxShadow = '0 12px 24px rgba(12, 74, 110, 0.15)';
+                  e.currentTarget.style.transform = 'translateX(10px)';
+                  e.currentTarget.style.borderLeftColor = '#3b82f6';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.08)';
-                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.06)';
+                  e.currentTarget.style.transform = 'translateX(0)';
+                  e.currentTarget.style.borderLeftColor = '#0c4a6e';
                 }}
               >
-                <h3 style={{
-                  fontSize: '20px',
-                  fontWeight: '700',
-                  color: '#000000',
-                  margin: '0 0 12px 0'
+                {/* Icon */}
+                <div style={{
+                  fontSize: '48px',
+                  minWidth: '60px',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  marginTop: '5px'
                 }}>
-                  {service.title}
-                </h3>
-                <p style={{
-                  fontSize: '14px',
-                  color: '#374151',
-                  lineHeight: '1.7',
-                  margin: 0
-                }}>
-                  {service.description}
-                </p>
+                  {service.icon}
+                </div>
+
+                {/* Content */}
+                <div style={{ flex: 1 }}>
+                  <h3 style={{
+                    fontSize: '20px',
+                    fontWeight: '700',
+                    color: '#0c4a6e',
+                    margin: '0 0 12px 0'
+                  }}>
+                    {service.title}
+                  </h3>
+                  <p style={{
+                    fontSize: '15px',
+                    color: '#4b5563',
+                    lineHeight: '1.7',
+                    margin: 0
+                  }}>
+                    {service.description}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

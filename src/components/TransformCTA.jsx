@@ -3,7 +3,7 @@ import React from 'react';
 export default function TransformCTA() {
   return (
     <section style={{
-      background: 'linear-gradient(135deg, #1e5eb8 0%, #3b82f6 100%)',
+      background: 'linear-gradient(135deg, rgba(25, 181, 254, 0.8) 0%, rgba(25, 181, 254, 1) 100%)',
       color: '#fff',
       padding: '80px 20px',
       textAlign: 'center',
@@ -40,7 +40,7 @@ export default function TransformCTA() {
         }}>
           <button style={{
             background: '#fff',
-            color: '#1e5eb8',
+            color: 'rgba(25, 181, 254, 1)',
             border: 'none',
             padding: '14px 32px',
             borderRadius: '6px',

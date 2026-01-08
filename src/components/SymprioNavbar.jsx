@@ -234,7 +234,7 @@ export default function SymprioNavbar() {
         left: 0,
         right: 0,
         height: '58px',
-        background: '#1e5eb8',
+        background: 'linear-gradient(90deg, rgba(15, 140, 200, 0.95) 0%, rgba(25, 181, 254, 0.9) 100%)',
         zIndex: 10001,
         display: 'flex',
         alignItems: 'center',
@@ -320,7 +320,7 @@ export default function SymprioNavbar() {
         {!user ? (
           <button onClick={() => navigate('/admin')} style={{
             background: '#fff',
-            color: '#1e5eb8',
+            color: 'rgba(25, 181, 254, 1)',
             border: 'none',
             padding: '10px 24px',
             fontSize: '13px',

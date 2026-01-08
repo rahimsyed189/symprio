@@ -1,6 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function KeyBenefits() {
+  const [isVisible, setIsVisible] = useState(false);
+  const [containerVisible, setContainerVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const element = document.getElementById('keybenefits-container');
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        const isInView = rect.top < window.innerHeight * 0.75;
+        if (isInView) {
+          setContainerVisible(true);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   const benefits = [
     {
       title: "End-to-End Digital Transformation",
@@ -17,39 +39,69 @@ export default function KeyBenefits() {
   ];
 
   return (
-    <section style={{
-      maxWidth: '1200px',
-      margin: '0 auto',
-      padding: '80px 20px',
-      backgroundColor: '#fff'
-    }}>
+    <div style={{ background: '#fff' }}>
+      {/* Banner with Gradient */}
       <div style={{
-        textAlign: 'center',
-        marginBottom: '60px'
+        background: 'linear-gradient(135deg, rgba(10, 100, 150, 1) 0%, rgba(15, 140, 200, 1) 100%)',
+        color: '#fff',
+        padding: '60px 60px 100px',
+        textAlign: 'left',
+        marginTop: '0',
+        position: 'relative',
+        minHeight: '280px',
+        display: 'flex',
+        alignItems: 'flex-start'
       }}>
-        <h2 style={{
-          fontSize: '36px',
-          fontWeight: '700',
-          color: '#1f2937',
-          margin: '0 0 20px 0'
-        }}>
-          Why Choose Symprio?
-        </h2>
-        <p style={{
-          fontSize: '16px',
-          color: '#6b7280',
-          maxWidth: '600px',
-          margin: '0 auto'
-        }}>
-          Our core capabilities that drive your success
-        </p>
+        <div style={{ maxWidth: '100%', margin: '0', paddingLeft: '0', paddingTop: '0', position: 'relative', zIndex: 2 }}>
+          <h1 style={{
+            fontSize: '48px',
+            fontWeight: '700',
+            margin: '0 0 15px 0',
+            color: '#fff',
+            animation: isVisible ? 'slideInLeft 0.8s ease-out 0.1s both' : 'none',
+            textAlign: 'left'
+          }}>
+            Why Choose Symprio?
+          </h1>
+          <p style={{
+            fontSize: '18px',
+            color: '#e0e0e0',
+            margin: 0,
+            animation: isVisible ? 'slideInLeft 0.8s ease-out 0.2s both' : 'none',
+            textAlign: 'left'
+          }}>
+            Our core capabilities that drive your success
+          </p>
+        </div>
       </div>
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-        gap: '40px'
-      }}>
+      {/* Benefits Container - Overlapping Banner */}
+      <div 
+        id="keybenefits-container"
+        style={{
+          position: 'relative',
+          marginTop: '-80px',
+          marginBottom: '80px',
+          maxWidth: '1200px',
+          margin: '-80px auto 80px',
+          padding: '0 20px',
+          zIndex: 10
+        }}>
+        <div style={{
+          background: '#ffffff',
+          borderRadius: '12px',
+          padding: '50px',
+          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
+          border: '2px solid #e5e7eb',
+          animation: containerVisible ? 'slideUp 0.8s ease-out both' : 'none',
+          position: 'relative',
+          zIndex: 10
+        }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '40px'
+          }}>
         {benefits.map((benefit, idx) => (
           <div
             key={idx}
@@ -149,7 +201,32 @@ export default function KeyBenefits() {
             </p>
           </div>
         ))}
+          </div>
+        </div>
       </div>
-    </section>
+
+      <style>{`
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+    </div>
   );
 }
