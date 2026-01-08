@@ -18,6 +18,9 @@ import SymprioFooter from './components/SymprioFooter';
 import DigitalTransformation from './components/DigitalTransformation';
 import Chatbots from './components/Chatbots';
 import RPA from './components/RPA';
+import ERP from './components/ERP';
+import CustomDevelopment from './components/CustomDevelopment';
+import DigitalWorkforce from './components/DigitalWorkforce';
 import AboutUs from './components/AboutUs';
 import AdminAuth from './components/AdminAuth';
 import AdminDashboard from './components/AdminDashboard';
@@ -80,6 +83,9 @@ function App() {
       <Route path="/digital-transformation" element={<ServicePage component={DigitalTransformation} />} />
       <Route path="/chatbots" element={<ServicePage component={Chatbots} />} />
       <Route path="/rpa" element={<ServicePage component={RPA} />} />
+      <Route path="/erp" element={<ServicePage component={ERP} />} />
+      <Route path="/custom-development" element={<ServicePage component={CustomDevelopment} />} />
+      <Route path="/digital-workforce" element={<ServicePage component={DigitalWorkforce} />} />
       <Route path="/clients" element={<Clients />} />
       <Route 
         path="/admin" 

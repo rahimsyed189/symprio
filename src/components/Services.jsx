@@ -32,19 +32,19 @@ const Services = () => {
       number: '04',
       title: 'ERP & Enterprise Platforms',
       description: 'Oracle Cloud/R12 implementations, integrations and upgrades. Deep APAC expertise with proven methodology for successful enterprise platform deployments.',
-      link: 'https://www.symprio.com/erp-practice-oracle/'
+      link: '/erp'
     },
     {
       number: '05',
       title: 'Custom Software Development',
       description: 'Full‑stack development, mobile apps and cloud‑native solutions. Agile methodologies and modern frameworks to deliver solutions aligned with your business goals.',
-      link: 'https://www.symprio.com/custom-development/'
+      link: '/custom-development'
     },
     {
       number: '06',
       title: 'Digital Workforce Services',
       description: 'Skilled IT and non‑IT professionals with flexible engagement models. Staff augmentation, managed teams and full outsourcing solutions tailored to your needs.',
-      link: 'https://www.symprio.com/digital-workforce/'
+      link: '/digital-workforce'
     }
   ];
 

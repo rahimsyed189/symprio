@@ -78,7 +78,8 @@ export default function ServicesLanding() {
         'Integrations & Extensions: Integrate ERP with AI, RPA and custom applications. Provide extensibility through REST APIs, PL/SQL and workflow customisation.',
         'Analytics & Reporting: Leverage BI, analytics and automation for real‑time insights.',
         'Support & Enhancement: Continuous support for Oracle Cloud and R12, including upgrades and automation.'
-      ]
+      ],
+      link: '/erp'
     },
     {
       number: '05',
@@ -89,7 +90,8 @@ export default function ServicesLanding() {
         'Agile & Hybrid Methodologies: Deliver software through agile, waterfall or hybrid approaches to match client needs.',
         'DevOps & CI/CD: End‑to‑end lifecycle management, from assessment to DevOps and deployment.',
         'Technology Expertise: Front‑end frameworks (React, Angular), back‑end services (Node.js, .NET), databases and API design.'
-      ]
+      ],
+      link: '/custom-development'
     },
     {
       number: '06',
@@ -99,7 +101,8 @@ export default function ServicesLanding() {
         'Talent Solutions: Offer skilled resources across IT and non‑IT roles (IT support engineer, security consultant, software developer, project manager, testers, recruiters and marketing specialists).',
         'Flexible Engagement Models: Provide on‑demand staffing, managed teams or full outsourcing.',
         'Talent Development: Upskilling and reskilling programs to ensure teams stay current.'
-      ]
+      ],
+      link: '/digital-workforce'
     },
     {
       number: '07',
