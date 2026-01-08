@@ -3,19 +3,28 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import SymprioNavbar from './components/SymprioNavbar';
 import SymprioHero from './components/SymprioHero';
+import KeyBenefits from './components/KeyBenefits';
 import SymprioStats from './components/SymprioStats';
 import EventsAndTrainings from './components/EventsAndTrainings';
 import Services from './components/Services';
+import FeaturedCaseStudy from './components/FeaturedCaseStudy';
+import Testimonials from './components/Testimonials';
+import FooterCTA from './components/FooterCTA';
 import TeamMembers from './components/TeamMembers';
 import EInvoicing from './components/EInvoicing';
 import DocumentUnderstanding from './components/DocumentUnderstanding';
+import TransformCTA from './components/TransformCTA';
 import SymprioFooter from './components/SymprioFooter';
 import DigitalTransformation from './components/DigitalTransformation';
 import Chatbots from './components/Chatbots';
+import RPA from './components/RPA';
+import AboutUs from './components/AboutUs';
 import AdminAuth from './components/AdminAuth';
 import AdminDashboard from './components/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import Clients from './components/Clients';
+import ServicesLanding from './components/ServicesLanding';
+import AgenticAI from './components/AgenticAI';
 
 const HomePage = () => {
   return (
@@ -28,12 +37,16 @@ const HomePage = () => {
     }}>
       <SymprioNavbar />
       <SymprioHero />
+      <KeyBenefits />
       <SymprioStats />
       <EventsAndTrainings />
       <Services />
+      <FeaturedCaseStudy />
+      <Testimonials />
       <TeamMembers />
       <EInvoicing />
       <DocumentUnderstanding />
+      <TransformCTA />
       <SymprioFooter />
     </div>
   );
@@ -61,8 +74,12 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/about" element={<ServicePage component={AboutUs} />} />
+      <Route path="/services" element={<ServicePage component={ServicesLanding} />} />
+      <Route path="/agentic-ai" element={<ServicePage component={AgenticAI} />} />
       <Route path="/digital-transformation" element={<ServicePage component={DigitalTransformation} />} />
       <Route path="/chatbots" element={<ServicePage component={Chatbots} />} />
+      <Route path="/rpa" element={<ServicePage component={RPA} />} />
       <Route path="/clients" element={<Clients />} />
       <Route 
         path="/admin" 

@@ -1,40 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export default function SymprioHero() {
-  const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
-  const [fadeIn, setFadeIn] = useState(true);
-
-  const titles = [
-    {
-      title: "Unlock Your Business's Full Potential",
-      description: "Transform your operations with strategic solutions designed to maximize efficiency and drive sustainable growth.",
-      banner: "/banner-1.jpg"
-    },
-    {
-      title: "Make The Easiest Solution For You",
-      description: "Experience seamless automation and integration tailored to your unique business needs.",
-      banner: "/banner-2.jpg"
-    },
-    {
-      title: "Experience Unparalleled Enterprise Performance",
-      description: "Leverage cutting-edge RPA and AI-powered solutions to optimize your business processes.",
-      banner: "/banner-3.jpg"
-    }
-  ];
+  const titleRef = useRef(null);
+  const descRef = useRef(null);
+  const [showAnimation, setShowAnimation] = useState(false);
+  const heroContent = {
+    title: "Empowering Enterprises with Intelligent Automation & AI‑Driven Innovation",
+    description: "Reduce costs, accelerate growth and free your teams to focus on what matters with Symprio's digital transformation, AI and automation solutions.",
+    banner: "/banner-1.jpg"
+  };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setFadeIn(false);
-      setTimeout(() => {
-        setCurrentTitleIndex((prev) => (prev + 1) % titles.length);
-        setFadeIn(true);
-      }, 500);
-    }, 5000);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowAnimation(entry.isIntersecting);
+      },
+      { threshold: 0.2 }
+    );
 
-    return () => clearInterval(interval);
+    if (titleRef.current) {
+      observer.observe(titleRef.current);
+    }
+
+    return () => {
+      if (titleRef.current) {
+        observer.unobserve(titleRef.current);
+      }
+    };
   }, []);
-
-  const currentTitle = titles[currentTitleIndex];
   
   return (
     <div style={{
@@ -55,12 +48,10 @@ export default function SymprioHero() {
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${currentTitle.banner}')`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${heroContent.banner}')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
-        transition: 'opacity 0.8s ease-in-out',
-        opacity: fadeIn ? 1 : 0
+        backgroundAttachment: 'fixed'
       }}></div>
       
       <div style={{
@@ -69,53 +60,29 @@ export default function SymprioHero() {
         position: 'relative',
         zIndex: 10
       }}>
-        <h6 style={{
-          fontSize: '14px',
-          fontWeight: '600',
-          color: '#3b82f6',
-          letterSpacing: '1.5px',
-          textTransform: 'uppercase',
-          marginBottom: '20px',
-          margin: '0 0 20px 0',
-          opacity: fadeIn ? 1 : 0,
-          transform: fadeIn ? 'translateY(0)' : 'translateY(-20px)',
-          transition: 'all 0.6s ease-in-out'
-        }}>
-          Transform Your Business
-        </h6>
-        
-        <div style={{
-          minHeight: '140px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          opacity: fadeIn ? 1 : 0,
-          transform: fadeIn ? 'translateY(0)' : 'translateY(30px)',
-          transition: 'all 0.8s ease-in-out'
-        }}>
-          <h1 style={{
-            fontSize: '56px',
-            fontWeight: '700',
-            lineHeight: '1.3',
-            marginBottom: '20px',
-            margin: '0 0 20px 0',
-            color: '#fff'
-          }}>
-            {currentTitle.title}
-          </h1>
-        </div>
+        <h1 style={{
+          fontSize: '56px',
+          fontWeight: '700',
+          lineHeight: '1.3',
+          marginBottom: '30px',
+          margin: '0 0 30px 0',
+          color: '#fff',
+          animation: showAnimation ? 'bannerSlideIn 1.2s cubic-bezier(0.13, 0.53, 0.13, 0.96) 0s both' : 'none'
+        }}
+        ref={titleRef}>
+          {heroContent.title}
+        </h1>
         
         <p style={{
           fontSize: '16px',
           color: '#e5e7eb',
           lineHeight: '1.6',
-          marginBottom: '30px',
-          margin: '0 0 30px 0',
-          opacity: fadeIn ? 1 : 0,
-          transform: fadeIn ? 'translateY(0)' : 'translateY(40px)',
-          transition: 'all 1s ease-in-out'
-        }}>
-          {currentTitle.description}
+          marginBottom: '40px',
+          margin: '0 0 40px 0',
+          animation: showAnimation ? 'bannerSlideIn 1.2s cubic-bezier(0.13, 0.53, 0.13, 0.96) 0.4s both' : 'none'
+        }}
+        ref={descRef}>
+          {heroContent.description}
         </p>
         
         <div style={{
@@ -123,10 +90,7 @@ export default function SymprioHero() {
           gap: '20px',
           justifyContent: 'center',
           alignItems: 'center',
-          flexWrap: 'wrap',
-          opacity: fadeIn ? 1 : 0,
-          transform: fadeIn ? 'translateY(0)' : 'translateY(50px)',
-          transition: 'all 1.2s ease-in-out'
+          flexWrap: 'wrap'
         }}>
           <button style={{
             background: '#3b82f6',
@@ -152,43 +116,51 @@ export default function SymprioHero() {
             e.target.style.boxShadow = 'none';
           }}
           >
-            Make Appointment
+            Talk to an Expert
           </button>
-          <a href="https://www.youtube.com/watch?v=4lnpcpZY5PI" style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '10px',
+          <button style={{
+            background: 'transparent',
             color: '#fff',
-            textDecoration: 'none',
+            border: '2px solid #fff',
+            padding: '10px 28px',
             fontSize: '14px',
             fontWeight: '600',
+            borderRadius: '4px',
             cursor: 'pointer',
-            transition: 'color 0.3s ease'
+            transition: 'all 0.3s ease',
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px'
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.color = '#3b82f6';
+            e.target.style.background = '#fff';
+            e.target.style.color = '#3b82f6';
+            e.target.style.transform = 'translateY(-3px)';
+            e.target.style.boxShadow = '0 10px 20px rgba(255, 255, 255, 0.3)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.color = '#fff';
+            e.target.style.background = 'transparent';
+            e.target.style.color = '#fff';
+            e.target.style.transform = 'translateY(0)';
+            e.target.style.boxShadow = 'none';
           }}
           >
-            <span style={{
-              width: '50px',
-              height: '50px',
-              background: 'rgba(255, 255, 255, 0.2)',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              border: '2px solid #3b82f6',
-              transition: 'all 0.3s ease'
-            }}>
-              ▶
-            </span>
-            Watch Video
-          </a>
+            Book a Demo
+          </button>
         </div>
       </div>
+
+      <style>{`
+        @keyframes bannerSlideIn {
+          0% {
+            opacity: 0;
+            transform: translateX(-80px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+      `}</style>
     </div>
   );
 }
