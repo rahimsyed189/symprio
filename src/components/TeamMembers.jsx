@@ -11,7 +11,7 @@ const TeamMembers = () => {
     {
       name: 'Vilhelm Bjermeland',
       position: 'COO, USA',
-      image: '/vilhelm.png',
+      image: '/vilhelm.jpeg',
       color: '#3b82f6',
       id: 1,
       linkedin: 'https://www.linkedin.com/in/get2vil/'
@@ -19,7 +19,7 @@ const TeamMembers = () => {
     {
       name: 'Prabin Vijay',
       position: 'Practice Lead, APAC',
-      image: '/prabin.png',
+      image: '/prabin.jpeg',
       color: '#8b5cf6',
       id: 2,
       linkedin: 'https://www.linkedin.com/in/prabin-vijay-89a2758/'
@@ -27,7 +27,7 @@ const TeamMembers = () => {
     {
       name: 'Vivek Krishna',
       position: 'Director - Automation Services, APAC',
-      image: '/vivek.png',
+      image: '/vivek.jpeg',
       color: '#ec4899',
       id: 3,
       linkedin: 'https://www.linkedin.com/in/vivekkkrishna/'
@@ -35,7 +35,7 @@ const TeamMembers = () => {
     {
       name: 'Ramalingam Dushyanth',
       position: 'Practice Head - Automation',
-      image: '/dushy.jpg',
+      image: '/dushy.jpeg',
       color: '#f59e0b',
       id: 4,
       linkedin: 'https://www.linkedin.com/in/ddr-dushy/'
@@ -136,7 +136,7 @@ const TeamMembers = () => {
                   overflow: 'hidden',
                   position: 'relative',
                   boxShadow: `0 20px 40px ${member.color}30`,
-                  backgroundColor: '#ffffff',
+                  backgroundColor: '#000000',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -151,7 +151,7 @@ const TeamMembers = () => {
                     height: '100%',
                     objectFit: 'contain',
                     objectPosition: 'center',
-                    backgroundColor: '#ffffff',
+                    backgroundColor: '#000000',
                     transition: 'transform 0.5s ease',
                     animation: isVisible ? `zoomIn 0.8s ease-out ${idx * 0.15}s both` : 'none'
                   }}

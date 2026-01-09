@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import SymprioNavbar from './components/SymprioNavbar';
 import SymprioHero from './components/SymprioHero';
@@ -73,6 +73,11 @@ const ServicePage = ({ component: Component }) => {
 
 function App() {
   const { user } = useAuth();
+  const location = useLocation();
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <Routes>

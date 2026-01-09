@@ -267,22 +267,6 @@ export default function SymprioNavbar() {
             Home
           </a>
 
-          <a href="/about" onClick={(e) => { e.preventDefault(); navigate('/about'); }} style={{
-            fontSize: '15px',
-            fontWeight: '600',
-            color: '#fff',
-            textDecoration: 'none',
-            transition: 'color 0.3s ease',
-            cursor: 'pointer',
-            fontFamily: 'Segoe UI, Inter, sans-serif',
-            letterSpacing: '0.3px'
-          }}
-          onMouseEnter={(e) => e.target.style.color = '#bfdbfe'}
-          onMouseLeave={(e) => e.target.style.color = '#fff'}
-          >
-            About
-          </a>
-
           <a href="/services" onClick={(e) => { e.preventDefault(); navigate('/services'); }} style={{
             fontSize: '15px',
             fontWeight: '600',
@@ -313,6 +297,22 @@ export default function SymprioNavbar() {
           onMouseLeave={(e) => e.target.style.color = '#fff'}
           >
             Blog
+          </a>
+
+          <a href="/about" onClick={(e) => { e.preventDefault(); navigate('/about'); }} style={{
+            fontSize: '15px',
+            fontWeight: '600',
+            color: '#fff',
+            textDecoration: 'none',
+            transition: 'color 0.3s ease',
+            cursor: 'pointer',
+            fontFamily: 'Segoe UI, Inter, sans-serif',
+            letterSpacing: '0.3px'
+          }}
+          onMouseEnter={(e) => e.target.style.color = '#bfdbfe'}
+          onMouseLeave={(e) => e.target.style.color = '#fff'}
+          >
+            About
           </a>
         </div>
 

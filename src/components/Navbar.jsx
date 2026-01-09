@@ -70,7 +70,7 @@ const Navbar = () => {
         }}
         onMouseEnter={(e) => e.currentTarget.style.color = '#00d4ff'}
         onMouseLeave={(e) => e.currentTarget.style.color = '#333333'}>
-          About
+          Contact
         </a>
         <a href="#" style={{
           fontSize: '14px',
@@ -82,7 +82,19 @@ const Navbar = () => {
         }}
         onMouseEnter={(e) => e.currentTarget.style.color = '#00d4ff'}
         onMouseLeave={(e) => e.currentTarget.style.color = '#333333'}>
-          Contact
+          Blog
+        </a>
+        <a href="#" style={{
+          fontSize: '14px',
+          color: '#333333',
+          textDecoration: 'none',
+          fontWeight: '500',
+          transition: 'color 0.3s ease',
+          cursor: 'pointer'
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.color = '#00d4ff'}
+        onMouseLeave={(e) => e.currentTarget.style.color = '#333333'}>
+          About
         </a>
       </nav>
 
