@@ -643,7 +643,6 @@ export default function AgenticAI() {
                   })}
                 </div>
               </div>
-              </div>
               <div style={{ flex: '1', minWidth: 0 }}>
               {/* Agentic AI Column */}
               <div style={{
