@@ -4,6 +4,12 @@ export default function AgenticAI() {
   const [expandedUseCase, setExpandedUseCase] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const [containerVisible, setContainerVisible] = useState(false);
+  const [flowerScroll, setFlowerScroll] = useState(0);
+  const [comparisonScroll, setComparisonScroll] = useState(0);
+  const [whyMattersScroll, setWhyMattersScroll] = useState(0);
+  const [capabilitiesScroll, setCapabilitiesScroll] = useState(0);
+  const [introParaScroll, setIntroParaScroll] = useState(0);
+  const [pageScroll, setPageScroll] = useState(0);
 
   useEffect(() => {
     setIsVisible(true);
@@ -11,13 +17,45 @@ export default function AgenticAI() {
 
   useEffect(() => {
     const handleScroll = () => {
+      setPageScroll(window.scrollY);
       const element = document.getElementById('agentic-container');
+      const flowerElement = document.getElementById('flower-circle');
+      const comparisonElement = document.getElementById('comparison-section');
+      const whyMattersElement = document.getElementById('why-matters-section');
+      const capabilitiesElement = document.getElementById('capabilities-section');
+      const introParaElement = document.getElementById('intro-para');
+      
       if (element) {
         const rect = element.getBoundingClientRect();
         const isInView = rect.top < window.innerHeight * 0.75;
         if (isInView) {
           setContainerVisible(true);
         }
+      }
+      if (flowerElement) {
+        const rect = flowerElement.getBoundingClientRect();
+        const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height * 0.5)));
+        setFlowerScroll(progress);
+      }
+      if (comparisonElement) {
+        const rect = comparisonElement.getBoundingClientRect();
+        const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height * 0.5)));
+        setComparisonScroll(progress);
+      }
+      if (whyMattersElement) {
+        const rect = whyMattersElement.getBoundingClientRect();
+        const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height * 0.5)));
+        setWhyMattersScroll(progress);
+      }
+      if (capabilitiesElement) {
+        const rect = capabilitiesElement.getBoundingClientRect();
+        const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height * 0.5)));
+        setCapabilitiesScroll(progress);
+      }
+      if (introParaElement) {
+        const rect = introParaElement.getBoundingClientRect();
+        const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height * 0.5)));
+        setIntroParaScroll(progress);
       }
     };
 
@@ -128,8 +166,60 @@ export default function AgenticAI() {
     <div style={{
       background: '#fff',
       color: '#1f2937',
-      fontFamily: "'Poppins', sans-serif"
+      fontFamily: "'Poppins', sans-serif",
+      position: 'relative',
+      overflow: 'hidden'
     }}>
+      {/* Animated Background Elements */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 0,
+        pointerEvents: 'none',
+        overflow: 'hidden'
+      }}>
+        {/* Floating Orb 1 */}
+        <div style={{
+          position: 'absolute',
+          width: '400px',
+          height: '400px',
+          background: 'radial-gradient(circle, rgba(12, 74, 110, 0.15) 0%, transparent 70%)',
+          borderRadius: '50%',
+          top: `${-100 + (pageScroll * 0.1) % 300}px`,
+          left: `${-150 + (pageScroll * 0.05) % 200}px`,
+          filter: 'blur(60px)'
+        }}/>
+        
+        {/* Floating Orb 2 */}
+        <div style={{
+          position: 'absolute',
+          width: '500px',
+          height: '500px',
+          background: 'radial-gradient(circle, rgba(8, 145, 178, 0.1) 0%, transparent 70%)',
+          borderRadius: '50%',
+          bottom: `${-200 + (pageScroll * 0.08) % 300}px`,
+          right: `${-250 + (pageScroll * 0.06) % 250}px`,
+          filter: 'blur(80px)'
+        }}/>
+        
+        {/* Floating Orb 3 */}
+        <div style={{
+          position: 'absolute',
+          width: '350px',
+          height: '350px',
+          background: 'radial-gradient(circle, rgba(102, 217, 255, 0.08) 0%, transparent 70%)',
+          borderRadius: '50%',
+          top: `${50 + (pageScroll * 0.12) % 200}px`,
+          right: `${100 + (pageScroll * 0.04) % 150}px`,
+          filter: 'blur(70px)'
+        }}/>
+      </div>
+
+      {/* Content Wrapper */}
+      <div style={{ position: 'relative', zIndex: 1 }}>
       {/* Hero Section */}
       <section style={{
         background: 'url("/agentic-ai-banner.jpg") center/cover no-repeat',
@@ -197,10 +287,7 @@ export default function AgenticAI() {
         }}>
         <div style={{
           background: '#ffffff',
-          borderRadius: '12px',
           padding: '50px',
-          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
-          border: '2px solid #e5e7eb',
           animation: containerVisible ? 'slideUp 0.8s ease-out both' : 'none',
           position: 'relative',
           zIndex: 10
@@ -223,80 +310,93 @@ export default function AgenticAI() {
             marginBottom: '80px'
           }}>
             {/* Left Side - Content */}
-            <div>
-              <p style={{
+            <div id="capabilities-section">
+              <p id="intro-para" style={{
                 fontSize: '16px',
                 color: '#4b5563',
                 lineHeight: '1.9',
-                margin: '0 0 25px 0'
+                margin: '0 0 25px 0',
+                opacity: 1,
+                transform: `translateY(${Math.max(0, (1 - Math.min(introParaScroll * 2, 1)) * 20)}px)`,
+                transition: 'all 0.6s ease-out'
               }}>
                 Agentic AI represents the next stage of AI evolution. While generative AI assists humans, agentic AI agents can reason, make decisions and execute tasks autonomously. They operate as digital team members, planning tasks, monitoring outcomes and adjusting strategies without constant human oversight.
               </p>
 
               <div style={{
-                background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',
-                padding: '30px',
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(219, 234, 254, 0.6) 100%)',
+                padding: '20px',
                 borderRadius: '12px',
-                marginBottom: '25px',
-                borderLeft: '4px solid #0c4a6e'
+                marginBottom: '20px',
+                border: '2px solid #dbeafe',
+                opacity: 1,
+                transform: `translateX(${Math.max(0, (1 - Math.min(capabilitiesScroll * 2, 1)) * 40)}px)`,
+                transition: 'all 0.6s ease-out',
+                boxShadow: `0 10px 30px rgba(12, 74, 110, 0.08)`,
+                position: 'relative',
+                overflow: 'hidden'
               }}>
                 <div style={{
-                  fontSize: '24px',
-                  marginBottom: '12px'
+                  position: 'relative',
+                  zIndex: 1
                 }}>
-                  🎯
+                  <p style={{
+                    fontSize: '14px',
+                    fontWeight: '700',
+                    color: '#0c4a6e',
+                    margin: '0 0 6px 0'
+                  }}>
+                    Key Capabilities
+                  </p>
+                  <p style={{
+                    fontSize: '12px',
+                    color: '#374151',
+                    margin: 0,
+                    lineHeight: '1.6'
+                  }}>
+                    Autonomous reasoning, real-time decision making, continuous learning, multi-task orchestration
+                  </p>
                 </div>
-                <p style={{
-                  fontSize: '16px',
-                  fontWeight: '600',
-                  color: '#0c4a6e',
-                  margin: '0 0 8px 0'
-                }}>
-                  Key Capabilities
-                </p>
-                <p style={{
-                  fontSize: '14px',
-                  color: '#374151',
-                  margin: 0,
-                  lineHeight: '1.7'
-                }}>
-                  Autonomous reasoning, real-time decision making, continuous learning, multi-task orchestration, and seamless integration with existing systems
-                </p>
               </div>
 
               <div style={{
-                background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',
-                padding: '30px',
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(219, 234, 254, 0.6) 100%)',
+                padding: '20px',
                 borderRadius: '12px',
-                borderLeft: '4px solid #0c4a6e'
+                border: '2px solid #dbeafe',
+                opacity: 1,
+                transform: `translateX(${Math.max(0, (1 - Math.min((capabilitiesScroll - 0.15) * 2.5, 1)) * 40)}px)`,
+                transition: 'all 0.6s ease-out',
+                boxShadow: `0 10px 30px rgba(12, 74, 110, 0.08)`,
+                position: 'relative',
+                overflow: 'hidden'
               }}>
                 <div style={{
-                  fontSize: '24px',
-                  marginBottom: '12px'
+                  position: 'relative',
+                  zIndex: 1
                 }}>
-                  📈
+                  <p style={{
+                    fontSize: '14px',
+                    fontWeight: '700',
+                    color: '#0c4a6e',
+                    margin: '0 0 6px 0'
+                  }}>
+                    Industry Outlook
+                  </p>
+                  <p style={{
+                    fontSize: '12px',
+                    color: '#374151',
+                    margin: 0,
+                    lineHeight: '1.6'
+                  }}>
+                    Analyst firms predict 40% of large enterprises will deploy autonomous AI agents by 2025
+                  </p>
                 </div>
-                <p style={{
-                  fontSize: '16px',
-                  fontWeight: '600',
-                  color: '#0c4a6e',
-                  margin: '0 0 8px 0'
-                }}>
-                  Industry Outlook
-                </p>
-                <p style={{
-                  fontSize: '14px',
-                  color: '#374151',
-                  margin: 0,
-                  lineHeight: '1.7'
-                }}>
-                  Analyst firms predict over 40% of large enterprises will deploy autonomous AI agents by 2025, representing a $500B+ market opportunity
-                </p>
               </div>
             </div>
 
             {/* Right Side - Visual */}
-            <div style={{
+            <div id="flower-circle" style={{
               position: 'relative',
               height: '400px',
               display: 'flex',
@@ -304,52 +404,131 @@ export default function AgenticAI() {
               justifyContent: 'center'
             }}>
               <svg width="100%" height="100%" viewBox="0 0 400 400" style={{ maxWidth: '100%' }}>
-                {/* Central Agent Node */}
-                <circle cx="200" cy="200" r="50" fill="url(#gradientCenter)" stroke="#0c4a6e" strokeWidth="3" />
-                <text x="200" y="210" textAnchor="middle" fontSize="32" fontWeight="bold" fill="#fff">
+                {/* Animated Rotating Rings Design */}
+                
+                {/* Outer Ring - Rotating */}
+                <circle 
+                  cx="200" 
+                  cy="200" 
+                  r="160" 
+                  fill="none" 
+                  stroke="#0c4a6e" 
+                  strokeWidth="3"
+                  opacity={Math.min(flowerScroll * 2, 1)}
+                  style={{
+                    strokeDasharray: '502',
+                    strokeDashoffset: Math.min(flowerScroll * 200, 502),
+                    transition: 'all 0.3s ease-out',
+                    filter: `drop-shadow(0 0 ${Math.min(flowerScroll * 15, 8)}px rgba(12, 74, 110, 0.5))`
+                  }}
+                />
+
+                {/* Middle Ring - Rotating Opposite */}
+                <circle 
+                  cx="200" 
+                  cy="200" 
+                  r="120" 
+                  fill="none" 
+                  stroke="#0891b2" 
+                  strokeWidth="2"
+                  opacity={Math.min((flowerScroll - 0.1) * 2.5, 1)}
+                  style={{
+                    strokeDasharray: '377',
+                    strokeDashoffset: Math.min((flowerScroll - 0.1) * -150, 0),
+                    transition: 'all 0.3s ease-out',
+                    filter: `drop-shadow(0 0 ${Math.min((flowerScroll - 0.1) * 12, 6)}px rgba(8, 145, 178, 0.4))`
+                  }}
+                />
+
+                {/* Inner Ring - Pulsing */}
+                <circle 
+                  cx="200" 
+                  cy="200" 
+                  r="80" 
+                  fill="none" 
+                  stroke="#66d9ff" 
+                  strokeWidth="2"
+                  opacity={Math.min((flowerScroll - 0.2) * 3, 1)}
+                  style={{
+                    filter: `drop-shadow(0 0 ${Math.min((flowerScroll - 0.2) * 10, 5)}px rgba(102, 217, 255, 0.6))`,
+                    transition: 'all 0.3s ease-out'
+                  }}
+                />
+
+                {/* Central Glowing Circle */}
+                <circle 
+                  cx="200" 
+                  cy="200" 
+                  r="45" 
+                  fill="url(#gradientCenter)"
+                  stroke="none"
+                  opacity={Math.min(flowerScroll * 2, 1)}
+                  style={{
+                    transform: `scale(${0.6 + flowerScroll * 0.4})`,
+                    transformOrigin: '200px 200px',
+                    transition: 'all 0.3s ease-out',
+                    filter: `drop-shadow(0 0 ${Math.min(flowerScroll * 20, 15)}px rgba(12, 74, 110, 0.4))`
+                  }}
+                />
+
+                {/* Center Icon with Pulse */}
+                <text 
+                  x="200" 
+                  y="210" 
+                  textAnchor="middle" 
+                  fontSize="32" 
+                  fontWeight="bold" 
+                  fill="#fff"
+                  style={{
+                    opacity: Math.min(flowerScroll * 2, 1),
+                    transform: `scale(${0.6 + flowerScroll * 0.4})`,
+                    transformOrigin: '200px 200px',
+                    transition: 'all 0.3s ease-out'
+                  }}
+                >
                   🤖
                 </text>
 
-                {/* Orbital rings */}
-                <circle cx="200" cy="200" r="120" fill="none" stroke="#dbeafe" strokeWidth="2" strokeDasharray="5,5" opacity="0.5" />
-                <circle cx="200" cy="200" r="160" fill="none" stroke="#bfdbfe" strokeWidth="2" strokeDasharray="5,5" opacity="0.5" />
-
-                {/* Top - Reasoning */}
-                <circle cx="200" cy="60" r="35" fill="linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)" stroke="#0c4a6e" strokeWidth="2" />
-                <text x="200" y="72" textAnchor="middle" fontSize="24">🧠</text>
-                <line x1="200" y1="95" x2="200" y2="150" stroke="#0c4a6e" strokeWidth="2" strokeDasharray="3,3" />
-                <text x="200" y="50" textAnchor="middle" fontSize="12" fontWeight="700" fill="#0c4a6e">Reasoning</text>
-
-                {/* Right - Decision Making */}
-                <circle cx="310" cy="130" r="35" fill="linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)" stroke="#0c4a6e" strokeWidth="2" />
-                <text x="310" y="142" textAnchor="middle" fontSize="24">⚡</text>
-                <line x1="265" y1="155" x2="230" y2="175" stroke="#0c4a6e" strokeWidth="2" strokeDasharray="3,3" />
-                <text x="330" y="135" textAnchor="start" fontSize="12" fontWeight="700" fill="#0c4a6e">Decision</text>
-                <text x="330" y="150" textAnchor="start" fontSize="12" fontWeight="700" fill="#0c4a6e">Making</text>
-
-                {/* Bottom Right - Learning */}
-                <circle cx="310" cy="270" r="35" fill="linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)" stroke="#0c4a6e" strokeWidth="2" />
-                <text x="310" y="282" textAnchor="middle" fontSize="24">📚</text>
-                <line x1="265" y1="245" x2="230" y2="225" stroke="#0c4a6e" strokeWidth="2" strokeDasharray="3,3" />
-                <text x="330" y="270" textAnchor="start" fontSize="12" fontWeight="700" fill="#0c4a6e">Learning</text>
-
-                {/* Bottom - Execution */}
-                <circle cx="200" cy="340" r="35" fill="linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)" stroke="#0c4a6e" strokeWidth="2" />
-                <text x="200" y="352" textAnchor="middle" fontSize="24">✅</text>
-                <line x1="200" y1="305" x2="200" y2="250" stroke="#0c4a6e" strokeWidth="2" strokeDasharray="3,3" />
-                <text x="200" y="385" textAnchor="middle" fontSize="12" fontWeight="700" fill="#0c4a6e">Execution</text>
-
-                {/* Left - Planning */}
-                <circle cx="90" cy="270" r="35" fill="linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)" stroke="#0c4a6e" strokeWidth="2" />
-                <text x="90" y="282" textAnchor="middle" fontSize="24">📋</text>
-                <line x1="135" y1="245" x2="170" y2="225" stroke="#0c4a6e" strokeWidth="2" strokeDasharray="3,3" />
-                <text x="70" y="310" textAnchor="middle" fontSize="12" fontWeight="700" fill="#0c4a6e">Planning</text>
-
-                {/* Top Left - Autonomy */}
-                <circle cx="90" cy="130" r="35" fill="linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)" stroke="#0c4a6e" strokeWidth="2" />
-                <text x="90" y="142" textAnchor="middle" fontSize="24">🎯</text>
-                <line x1="135" y1="155" x2="170" y2="175" stroke="#0c4a6e" strokeWidth="2" strokeDasharray="3,3" />
-                <text x="70" y="115" textAnchor="middle" fontSize="12" fontWeight="700" fill="#0c4a6e">Autonomy</text>
+                {/* Decorative Dots around center - appearing one by one with labels */}
+                {[
+                  {angle: 0, label: 'Decision Making'},
+                  {angle: 90, label: 'Reasoning'},
+                  {angle: 180, label: 'Autonomy'},
+                  {angle: 270, label: 'Execution'}
+                ].map((item, idx) => {
+                  const dotTrigger = 0.15 + idx * 0.1;
+                  const dotProgress = Math.max(0, Math.min(1, (flowerScroll - dotTrigger) * 3));
+                  const rad = (item.angle * Math.PI) / 180;
+                  const x = 200 + 110 * Math.cos(rad);
+                  const y = 200 + 110 * Math.sin(rad);
+                  const labelX = 200 + 155 * Math.cos(rad);
+                  const labelY = 200 + 155 * Math.sin(rad);
+                  
+                  return (
+                    <g key={idx} style={{
+                      opacity: dotProgress,
+                      transform: `scale(${0.5 + dotProgress * 0.5})`,
+                      transformOrigin: `${x}px ${y}px`,
+                      transition: 'all 0.4s ease-out'
+                    }}>
+                      <circle cx={x} cy={y} r="12" fill="#0c4a6e" opacity="0.8" />
+                      <circle cx={x} cy={y} r="12" fill="none" stroke="#66d9ff" strokeWidth="2" />
+                      <text 
+                        x={labelX} 
+                        y={labelY + 4} 
+                        textAnchor="middle" 
+                        fontSize="11" 
+                        fontWeight="600" 
+                        fill="#0891b2"
+                        style={{
+                          letterSpacing: '0.5px'
+                        }}
+                      >
+                        {item.label}
+                      </text>
+                    </g>
+                  );
+                })}
 
                 <defs>
                   <linearGradient id="gradientCenter" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -362,99 +541,180 @@ export default function AgenticAI() {
           </div>
 
           {/* Comparison Table */}
-          <div style={{
+          <div id="comparison-section" style={{
             marginTop: '60px',
-            padding: '40px',
+            padding: '40px 20px',
             background: 'linear-gradient(135deg, #f0f9ff 0%, #f0f4f8 100%)',
             borderRadius: '12px',
-            border: '2px solid #dbeafe'
+            border: '2px solid #dbeafe',
+            overflow: 'visible',
+            position: 'relative',
+            display: 'flex',
+            flexDirection: 'column'
           }}>
             <h3 style={{
               fontSize: '24px',
               fontWeight: '700',
               color: '#1f2937',
               margin: '0 0 30px 0',
-              textAlign: 'center'
+              textAlign: 'center',
+              opacity: 1,
+              transform: `translateY(${Math.max(0, (1 - Math.min(comparisonScroll * 2, 1)) * 10)}px)`,
+              transition: 'all 0.4s ease-out'
             }}>
               Generative AI vs Agentic AI
             </h3>
 
+            {/* Two Column Layout */}
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: '20px'
+              display: 'flex',
+              gap: '30px',
+              position: 'relative',
+              width: '100%',
+              justifyContent: 'space-between',
+              alignItems: 'stretch'
             }}>
-              {/* Header */}
-              <div style={{
-                fontWeight: '700',
-                color: '#1f2937',
-                fontSize: '14px',
-                paddingBottom: '15px',
-                borderBottom: '2px solid #0c4a6e'
-              }}>
-                Aspect
+              <div style={{ flex: '1', minWidth: 0 }}>
               </div>
+              {/* Generative AI Column */}
               <div style={{
-                fontWeight: '700',
-                color: '#1f2937',
-                fontSize: '14px',
-                paddingBottom: '15px',
-                borderBottom: '2px solid #0c4a6e'
+                padding: '30px',
+                background: 'linear-gradient(135deg, rgba(245, 245, 245, 0.8) 0%, rgba(240, 240, 240, 0.6) 100%)',
+                borderRadius: '8px',
+                border: '1px solid #e0e0e0',
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
+                position: 'relative',
+                overflow: 'hidden'
               }}>
-                Generative AI
-              </div>
-              <div style={{
-                fontWeight: '700',
-                color: '#1f2937',
-                fontSize: '14px',
-                paddingBottom: '15px',
-                borderBottom: '2px solid #0c4a6e'
-              }}>
-                Agentic AI
-              </div>
+                  {/* Top accent bar */}
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '3px',
+                    background: '#0078d4',
+                  }}/>
 
-              {/* Rows */}
-              {[
-                { aspect: 'Autonomy', gen: 'Requires human prompts', agent: 'Self-directed execution' },
-                { aspect: 'Decision Making', gen: 'Suggests options', agent: 'Makes autonomous decisions' },
-                { aspect: 'Persistence', gen: 'Single task focus', agent: 'Multi-task orchestration' },
-                { aspect: 'Learning', gen: 'Static knowledge', agent: 'Continuous improvement' },
-                { aspect: 'Integration', gen: 'Output dependent', agent: 'System-wide automation' }
-              ].map((row, idx) => (
-                <div key={idx} style={{ display: 'contents' }}>
                   <div style={{
-                    fontSize: '14px',
+                    fontSize: '18px',
                     fontWeight: '600',
-                    color: '#0c4a6e',
-                    paddingTop: '15px'
+                    color: '#000000',
+                    marginBottom: '24px',
+                    textAlign: 'center',
+                    marginTop: '12px'
                   }}>
-                    {row.aspect}
+                    💬 Generative AI
                   </div>
-                  <div style={{
-                    fontSize: '14px',
-                    color: '#374151',
-                    paddingTop: '15px',
-                    lineHeight: '1.5'
-                  }}>
-                    {row.gen}
-                  </div>
-                  <div style={{
-                    fontSize: '14px',
-                    color: '#374151',
-                    paddingTop: '15px',
-                    lineHeight: '1.5',
-                    background: 'rgba(12, 74, 110, 0.05)',
-                    padding: '15px',
-                    borderRadius: '6px'
-                  }}>
-                    {row.agent}
-                  </div>
+                  
+                  {[
+                    { label: 'Autonomy', value: 'Requires human prompts' },
+                    { label: 'Decision Making', value: 'Suggests options' },
+                    { label: 'Persistence', value: 'Single task focus' },
+                    { label: 'Learning', value: 'Static knowledge' },
+                    { label: 'Integration', value: 'Output dependent' }
+                  ].map((item, idx) => {
+                    return (
+                      <div key={idx} style={{
+                        marginBottom: '16px',
+                        paddingBottom: '16px',
+                        borderBottom: idx < 4 ? '1px solid #e0e0e0' : 'none'
+                      }}>
+                        <div style={{
+                          fontSize: '11px',
+                          fontWeight: '700',
+                          color: '#0078d4',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.5px',
+                          marginBottom: '6px'
+                        }}>
+                          {item.label}
+                        </div>
+                        <div style={{
+                          fontSize: '13px',
+                          color: '#333333',
+                          lineHeight: '1.5',
+                          fontWeight: '400'
+                        }}>
+                          {item.value}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-              ))}
+              </div>
+              </div>
+              <div style={{ flex: '1', minWidth: 0 }}>
+              {/* Agentic AI Column */}
+              <div style={{
+                padding: '30px',
+                background: 'linear-gradient(135deg, rgba(245, 245, 245, 0.8) 0%, rgba(240, 240, 240, 0.6) 100%)',
+                borderRadius: '8px',
+                border: '1px solid #e0e0e0',
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                  {/* Top accent bar */}
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '3px',
+                    background: '#107c10',
+                  }}/>
+
+                  <div style={{
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: '#000000',
+                    marginBottom: '24px',
+                    textAlign: 'center',
+                    marginTop: '12px'
+                  }}>
+                    🤖 Agentic AI
+                  </div>
+                  
+                  {[
+                    { label: 'Autonomy', value: 'Self-directed execution' },
+                    { label: 'Decision Making', value: 'Makes autonomous decisions' },
+                    { label: 'Persistence', value: 'Multi-task orchestration' },
+                    { label: 'Learning', value: 'Continuous improvement' },
+                    { label: 'Integration', value: 'System-wide automation' }
+                  ].map((item, idx) => {
+                    return (
+                      <div key={idx} style={{
+                        marginBottom: '16px',
+                        paddingBottom: '16px',
+                        borderBottom: idx < 4 ? '1px solid #e0e0e0' : 'none'
+                      }}>
+                        <div style={{
+                          fontSize: '11px',
+                          fontWeight: '700',
+                          color: '#107c10',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.5px',
+                          marginBottom: '6px'
+                        }}>
+                          {item.label}
+                        </div>
+                        <div style={{
+                          fontSize: '13px',
+                          color: '#333333',
+                          lineHeight: '1.5',
+                          fontWeight: '400'
+                        }}>
+                          {item.value}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
       {/* Introduction Section - Hidden */}
       <section style={{
@@ -467,7 +727,7 @@ export default function AgenticAI() {
       </section>
 
       {/* Why It Matters Section */}
-      <section style={{
+      <section id="why-matters-section" style={{
         maxWidth: '1100px',
         margin: '0 auto',
         padding: '80px 20px'
@@ -477,7 +737,10 @@ export default function AgenticAI() {
           fontWeight: '700',
           color: '#1f2937',
           margin: '0 0 60px 0',
-          textAlign: 'center'
+          textAlign: 'center',
+          opacity: 1,
+          transform: `translateY(${Math.max(0, (1 - Math.min(whyMattersScroll * 2, 1)) * 10)}px)`,
+          transition: 'all 0.4s ease-out'
         }}>
           Why Agentic AI Matters
         </h2>
@@ -487,253 +750,332 @@ export default function AgenticAI() {
           gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
           gap: '30px'
         }}>
-          {whyMatters.map((item, idx) => (
-            <div
-              key={idx}
-              style={{
-                padding: '40px',
-                background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',
-                borderRadius: '12px',
-                border: '2px solid #7dd3fc',
-                textAlign: 'center',
-                transition: 'all 0.4s ease',
-                position: 'relative',
-                overflow: 'hidden'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 20px 40px rgba(12, 74, 110, 0.2)';
-                e.currentTarget.style.transform = 'translateY(-12px) scale(1.02)';
-                e.currentTarget.style.borderColor = '#0c4a6e';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 5px 15px rgba(12, 74, 110, 0.1)';
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.borderColor = '#7dd3fc';
-              }}
-            >
-              {/* Watermark Number */}
-              <div style={{
-                position: 'absolute',
-                top: '15px',
-                right: '20px',
-                fontSize: '48px',
-                fontWeight: '700',
-                color: '#0c4a6e',
-                opacity: 0.1
-              }}>
-                {String(idx + 1).padStart(2, '0')}
+          {whyMatters.map((item, idx) => {
+            return (
+              <div
+                key={idx}
+                style={{
+                  padding: '40px',
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(219, 234, 254, 0.7) 100%)',
+                  borderRadius: '16px',
+                  border: '2px solid #dbeafe',
+                  textAlign: 'center',
+                  transition: 'all 0.3s ease',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  boxShadow: '0 8px 20px rgba(12, 74, 110, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 25px 50px rgba(12, 74, 110, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.9)';
+                  e.currentTarget.style.transform = 'translateY(-12px) scale(1.02)';
+                  e.currentTarget.style.borderColor = '#0c4a6e';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(12, 74, 110, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8)';
+                  e.currentTarget.style.transform = `translateY(0) scale(1)`;
+                  e.currentTarget.style.borderColor = '#dbeafe';
+                }}
+              >
+                {/* Shiny Light Overlay */}
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: '50%',
+                  background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, transparent 100%)',
+                  pointerEvents: 'none',
+                  borderRadius: '16px 16px 0 0'
+                }}/>
+
+                {/* Watermark Number */}
+                <div style={{
+                  position: 'absolute',
+                  top: '15px',
+                  right: '20px',
+                  fontSize: '48px',
+                  fontWeight: '700',
+                  color: '#0c4a6e',
+                  opacity: 0.1,
+                  zIndex: 0
+                }}>
+                  {String(idx + 1).padStart(2, '0')}
+                </div>
+
+                {/* Icon Container */}
+                <div style={{
+                  fontSize: '70px',
+                  marginBottom: '25px',
+                  position: 'relative',
+                  zIndex: 1
+                }}>
+                  {item.icon}
+                </div>
+
+                <h3 style={{
+                  fontSize: '24px',
+                  fontWeight: '700',
+                  color: '#0c4a6e',
+                  margin: '0 0 15px 0',
+                  position: 'relative',
+                  zIndex: 1
+                }}>
+                  {item.title}
+                </h3>
+
+                <p style={{
+                  fontSize: '15px',
+                  color: '#374151',
+                  lineHeight: '1.7',
+                  margin: '0',
+                  position: 'relative',
+                  zIndex: 1
+                }}>
+                  {item.description}
+                </p>
+
+                {/* Bottom Accent - Animated */}
+                <div style={{
+                  height: '2px',
+                  background: 'linear-gradient(90deg, transparent, #0c4a6e, transparent)',
+                  marginTop: '25px',
+                  opacity: 0.6,
+                  position: 'relative',
+                  zIndex: 1
+                }} />
               </div>
-
-              {/* Icon Container */}
-              <div style={{
-                fontSize: '60px',
-                marginBottom: '25px'
-              }}>
-                {item.icon}
-              </div>
-
-              <h3 style={{
-                fontSize: '22px',
-                fontWeight: '700',
-                color: '#0c4a6e',
-                margin: '0 0 15px 0'
-              }}>
-                {item.title}
-              </h3>
-
-              <p style={{
-                fontSize: '15px',
-                color: '#374151',
-                lineHeight: '1.7',
-                margin: '0'
-              }}>
-                {item.description}
-              </p>
-
-              {/* Bottom Accent */}
-              <div style={{
-                height: '3px',
-                background: 'linear-gradient(90deg, transparent, #0c4a6e, transparent)',
-                marginTop: '25px',
-                opacity: 0.6
-              }} />
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
       {/* Enterprise Use Cases Section */}
       <section style={{
         width: '100%',
-        padding: '60px 10px',
-        backgroundColor: '#ffffff'
+        padding: '80px 20px',
+        backgroundColor: '#f8fafc'
       }}>
         <h2 style={{
           fontSize: '42px',
           fontWeight: '700',
           color: '#1f2937',
-          margin: '0 0 50px 0',
+          margin: '0 0 60px 0',
           textAlign: 'center'
         }}>
           Enterprise Use Cases
         </h2>
 
+        {/* Horizontal Flow Container */}
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '20px',
-          padding: '0 10px'
+          maxWidth: '1400px',
+          margin: '0 auto',
+          position: 'relative',
+          overflow: 'auto',
+          paddingBottom: '20px'
         }}>
-          {useCases.map((useCase, idx) => {
-            const colors = [
-              { bg: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)', icon: '📞', accent: '#0c4a6e' },
-              { bg: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)', icon: '💼', accent: '#0c4a6e' },
-              { bg: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)', icon: '📦', accent: '#0c4a6e' },
-              { bg: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)', icon: '💰', accent: '#0c4a6e' },
-              { bg: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)', icon: '👥', accent: '#0c4a6e' }
-            ];
-            const color = colors[idx];
-            
-            return (
-              <div
-                key={idx}
-                style={{
-                  padding: '0',
-                  background: color.bg,
-                  borderRadius: '10px',
-                  cursor: 'pointer',
-                  transition: 'all 0.4s ease',
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-                  overflow: 'hidden',
-                  position: 'relative',
-                  minHeight: expandedUseCase === idx ? 'auto' : '260px',
-                  display: 'flex',
-                  flexDirection: 'column'
-                }}
-                onClick={() => setExpandedUseCase(expandedUseCase === idx ? null : idx)}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.12)';
-                  e.currentTarget.style.transform = 'translateY(-6px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                {/* Header with Icon and Number */}
-                <div style={{
-                  padding: '20px 20px 15px',
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  justifyContent: 'space-between'
-                }}>
-                  <div>
-                    <div style={{
-                      fontSize: '32px',
-                      marginBottom: '8px'
-                    }}>
-                      {color.icon}
-                    </div>
-                    <h3 style={{
-                      fontSize: '17px',
-                      fontWeight: '700',
-                      color: '#000000',
-                      margin: '0 0 8px 0',
-                      lineHeight: '1.3'
-                    }}>
-                      {useCase.title}
-                    </h3>
-                  </div>
+          {/* SVG Arrows Background */}
+          <svg style={{
+            position: 'absolute',
+            top: '50%',
+            left: '0',
+            right: '0',
+            height: '60px',
+            pointerEvents: 'none',
+            zIndex: 0,
+            transform: 'translateY(-30px)'
+          }} preserveAspectRatio="none" viewBox="0 0 100 60">
+            <defs>
+              <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                <polygon points="0 0, 10 3, 0 6" fill="#0c4a6e" opacity="0.3" />
+              </marker>
+            </defs>
+            <line x1="0" y1="30" x2="100" y2="30" stroke="#0c4a6e" strokeWidth="2" opacity="0.2" markerEnd="url(#arrowhead)" strokeDasharray="5,5" />
+          </svg>
+
+          {/* Cards Container */}
+          <div style={{
+            display: 'flex',
+            gap: '25px',
+            overflowX: 'auto',
+            paddingTop: '20px',
+            paddingBottom: '10px',
+            position: 'relative',
+            zIndex: 1,
+            scrollBehavior: 'smooth'
+          }}>
+            {useCases.map((useCase, idx) => {
+              const colors = [
+                { bg: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(219, 234, 254, 0.6) 100%)', icon: '📞', accent: '#0c4a6e', border: '#dbeafe' },
+                { bg: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(219, 234, 254, 0.6) 100%)', icon: '💼', accent: '#0c4a6e', border: '#dbeafe' },
+                { bg: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(219, 234, 254, 0.6) 100%)', icon: '📦', accent: '#0c4a6e', border: '#dbeafe' },
+                { bg: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(219, 234, 254, 0.6) 100%)', icon: '💰', accent: '#0c4a6e', border: '#dbeafe' },
+                { bg: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(219, 234, 254, 0.6) 100%)', icon: '👥', accent: '#0c4a6e', border: '#dbeafe' }
+              ];
+              const color = colors[idx];
+              
+              return (
+                <div
+                  key={idx}
+                  style={{
+                    flex: '0 0 280px',
+                    padding: '25px',
+                    background: color.bg,
+                    borderRadius: '14px',
+                    border: `2px solid ${color.border}`,
+                    cursor: 'pointer',
+                    transition: 'all 0.4s ease',
+                    boxShadow: '0 8px 20px rgba(12, 74, 110, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8)',
+                    overflow: 'hidden',
+                    position: 'relative',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    minHeight: '320px'
+                  }}
+                  onClick={() => setExpandedUseCase(expandedUseCase === idx ? null : idx)}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = '0 15px 35px rgba(12, 74, 110, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.9)';
+                    e.currentTarget.style.transform = 'translateY(-8px)';
+                    e.currentTarget.style.borderColor = color.accent;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = '0 8px 20px rgba(12, 74, 110, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.borderColor = color.border;
+                  }}
+                >
+                  {/* Shiny Overlay */}
                   <div style={{
-                    fontSize: '24px',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '40%',
+                    background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, transparent 100%)',
+                    pointerEvents: 'none',
+                    borderRadius: '14px 14px 0 0'
+                  }}/>
+
+                  {/* Corner Number Watermark */}
+                  <div style={{
+                    position: 'absolute',
+                    top: '12px',
+                    right: '16px',
+                    fontSize: '40px',
                     fontWeight: '700',
                     color: color.accent,
-                    opacity: 0.2
+                    opacity: 0.1,
+                    zIndex: 0
                   }}>
                     {useCase.number}
                   </div>
-                </div>
 
-                {/* Overview Text */}
-                <p style={{
-                  fontSize: '13px',
-                  color: '#374151',
-                  margin: '0 20px 18px',
-                  lineHeight: '1.5',
-                  flex: 1
-                }}>
-                  {useCase.overview}
-                </p>
+                  {/* Content */}
+                  <div style={{ position: 'relative', zIndex: 1 }}>
+                    {/* Icon and Header */}
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      marginBottom: '15px'
+                    }}>
+                      <div style={{ fontSize: '36px' }}>
+                        {color.icon}
+                      </div>
+                      <h3 style={{
+                        fontSize: '16px',
+                        fontWeight: '700',
+                        color: '#1f2937',
+                        margin: 0,
+                        lineHeight: '1.3'
+                      }}>
+                        {useCase.title}
+                      </h3>
+                    </div>
 
-                {/* Expand Arrow/Button with Animation */}
-                <div style={{
-                  padding: '0 20px 18px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  color: color.accent,
-                  fontSize: '13px',
-                  fontWeight: '600',
-                  cursor: 'pointer'
-                }}>
-                  <span style={{
-                    display: 'inline-block',
-                    transition: 'transform 0.3s ease',
-                    transform: expandedUseCase === idx ? 'rotate(90deg)' : 'rotate(0deg)'
-                  }}>
-                    →
-                  </span>
-                  <span>{expandedUseCase === idx ? 'Hide Details' : 'View Details'}</span>
-                </div>
+                    {/* Overview */}
+                    <p style={{
+                      fontSize: '13px',
+                      color: '#4b5563',
+                      margin: '0 0 18px 0',
+                      lineHeight: '1.5',
+                      flex: 1
+                    }}>
+                      {useCase.overview}
+                    </p>
 
-                {/* Expanded Details */}
-                {expandedUseCase === idx && (
-                  <div style={{
-                    padding: '0 20px 20px',
-                    borderTop: '2px solid rgba(12, 74, 110, 0.2)',
-                    marginTop: '12px'
-                  }}>
-                    <h4 style={{
+                    {/* View Details Button */}
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      color: color.accent,
                       fontSize: '12px',
                       fontWeight: '700',
-                      color: color.accent,
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.5px',
-                      margin: '0 0 12px 0'
+                      cursor: 'pointer',
+                      marginTop: 'auto'
                     }}>
-                      Key Benefits:
-                    </h4>
-                    <ul style={{
-                      margin: '0',
-                      padding: '0',
-                      listStyle: 'none'
-                    }}>
-                      {useCase.benefits.map((benefit, bIdx) => (
-                        <li key={bIdx} style={{
-                          fontSize: '12px',
-                          color: '#374151',
-                          marginBottom: '10px',
-                          paddingLeft: '18px',
-                          position: 'relative',
-                          lineHeight: '1.5'
-                        }}>
-                          <span style={{
-                            position: 'absolute',
-                            left: '0',
-                            color: color.accent,
-                            fontWeight: '700'
-                          }}>
-                            •
-                          </span>
-                          {benefit}
-                        </li>
-                      ))}
-                    </ul>
+                      <span style={{
+                        display: 'inline-block',
+                        transition: 'transform 0.3s ease',
+                        transform: expandedUseCase === idx ? 'rotate(90deg)' : 'rotate(0deg)'
+                      }}>
+                        →
+                      </span>
+                      <span>{expandedUseCase === idx ? 'Hide Details' : 'View Details'}</span>
+                    </div>
                   </div>
-                )}
-              </div>
-            );
-          })}
+
+                  {/* Expanded Details */}
+                  {expandedUseCase === idx && (
+                    <div style={{
+                      marginTop: '15px',
+                      paddingTop: '15px',
+                      borderTop: `2px solid ${color.border}`,
+                      position: 'relative',
+                      zIndex: 1
+                    }}>
+                      <h4 style={{
+                        fontSize: '11px',
+                        fontWeight: '700',
+                        color: color.accent,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.5px',
+                        margin: '0 0 10px 0'
+                      }}>
+                        Key Benefits:
+                      </h4>
+                      <ul style={{
+                        margin: '0',
+                        padding: '0',
+                        listStyle: 'none'
+                      }}>
+                        {useCase.benefits.map((benefit, bIdx) => (
+                          <li key={bIdx} style={{
+                            fontSize: '11px',
+                            color: '#4b5563',
+                            marginBottom: '8px',
+                            paddingLeft: '16px',
+                            position: 'relative',
+                            lineHeight: '1.4'
+                          }}>
+                            <span style={{
+                              position: 'absolute',
+                              left: '0',
+                              color: color.accent,
+                              fontWeight: '700'
+                            }}>
+                              •
+                            </span>
+                            {benefit}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 

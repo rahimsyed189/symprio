@@ -20,7 +20,7 @@ export default function SymprioStats() {
           gap: '20px'
         }}>
           {stats.map((stat, idx) => (
-            <div key={idx} style={{
+            <div key={idx} data-aos="fade-up" data-aos-delay={idx * 120} data-aos-duration="700" data-aos-offset="50" style={{
               textAlign: 'center',
               padding: '12px 15px'
             }}>

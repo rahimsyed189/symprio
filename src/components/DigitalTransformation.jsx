@@ -1,10 +1,309 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+// Zigzag Features Component
+const ZigzagFeatures = () => {
+  const [scrollOffset, setScrollOffset] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const zigzagSection = document.getElementById('zigzag-section');
+      if (zigzagSection) {
+        // Get section position in document
+        const sectionRect = zigzagSection.getBoundingClientRect();
+        const sectionTopInDoc = sectionRect.top + window.scrollY;
+        const sectionHeight = sectionRect.height;
+        
+        // Get current scroll position
+        const currentScroll = window.scrollY;
+        
+        // Calculate how much we've scrolled INTO the section
+        const scrollIntoSection = currentScroll - sectionTopInDoc;
+        
+        // Only animate when section is in/near view
+        if (scrollIntoSection > -window.innerHeight && scrollIntoSection < sectionHeight) {
+          // Clamp between 0 and section height for smooth progression
+          const clampedScroll = Math.max(0, Math.min(scrollIntoSection, sectionHeight));
+          // Map to line animation (smaller multiplier for controlled flow)
+          setScrollOffset(clampedScroll / 3);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const features = [
+    {
+      title: 'Enterprise Platform',
+      description: 'Building scalable enterprise solutions that streamline operations, enhance collaboration, and drive digital transformation at organizational level. Our enterprise platforms provide robust infrastructure for modern business needs.',
+      image: '/digitaltransformation/enterprise-platform.png',
+      imagePosition: 'left'
+    },
+    {
+      title: 'Hyper Automation',
+      description: 'Advanced automation capabilities that combine RPA, AI, and intelligent process automation to eliminate manual work, reduce errors, and accelerate business processes. Unlock unprecedented efficiency gains across your operations.',
+      image: '/digitaltransformation/hyper-automation-new.png',
+      imagePosition: 'right'
+    },
+    {
+      title: 'Upskilling and Reskilling',
+      description: 'Comprehensive workforce development programs designed to equip your teams with cutting-edge skills. Our training initiatives ensure your employees stay ahead of technological advancements and business evolution.',
+      image: '/digitaltransformation/upskilling-reskilling.png',
+      imagePosition: 'left'
+    },
+    {
+      title: 'Improving Customer Experience',
+      description: 'Enhance customer interactions through intelligent automation, personalized engagement, and seamless omnichannel experiences. Deliver exceptional value at every touchpoint and build lasting customer relationships.',
+      image: '/digitaltransformation/customer-experience-new.png',
+      imagePosition: 'right'
+    },
+    {
+      title: 'Enhancing Operational Efficiency',
+      description: 'Optimize workflows, reduce operational costs, and improve resource utilization through intelligent automation. Achieve more with less while maintaining quality standards and improving employee satisfaction.',
+      image: '/digitaltransformation/operational-efficiency-new.png',
+      imagePosition: 'left'
+    },
+    {
+      title: 'Increasing Service Accessibility',
+      description: 'Make your services accessible to a broader audience through digital-first approaches. Ensure 24/7 availability, multi-channel support, and inclusive design that serves all customer segments effectively.',
+      image: '/digitaltransformation/service-accessibility.png',
+      imagePosition: 'right'
+    },
+    {
+      title: 'Data Security',
+      description: 'Protect your organization with comprehensive security measures, advanced threat detection, and compliance frameworks. Our data security solutions ensure confidentiality, integrity, and availability of your critical information.',
+      image: '/digitaltransformation/data-security.png',
+      imagePosition: 'left'
+    }
+  ];
+
+  return (
+    <section id="zigzag-section" style={{
+      maxWidth: '1200px',
+      margin: '0 auto',
+      padding: '60px 20px',
+      position: 'relative'
+    }}>
+      {/* Animated Scroll-Triggered Glowing Elements */}
+      <div style={{
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none',
+        zIndex: 0
+      }}>
+        {/* Glowing orbs that appear on scroll */}
+        <div style={{
+          position: 'absolute',
+          width: '120px',
+          height: '120px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          top: '150px',
+          opacity: Math.min(scrollOffset / 100, 1),
+          transition: 'opacity 0.3s ease-out'
+        }}>
+          <div style={{
+            width: '100%',
+            height: '100%',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(102, 217, 255, 0.6) 0%, rgba(102, 217, 255, 0.2) 70%, transparent 100%)',
+            boxShadow: '0 0 40px rgba(102, 217, 255, 0.5)',
+            animation: 'pulse 3s ease-in-out infinite'
+          }}/>
+        </div>
+
+        {/* Additional scroll-triggered elements */}
+        <div style={{
+          position: 'absolute',
+          width: '100px',
+          height: '100px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          top: '800px',
+          opacity: Math.min(Math.max((scrollOffset - 300) / 100, 0), 1),
+          transition: 'opacity 0.3s ease-out'
+        }}>
+          <div style={{
+            width: '100%',
+            height: '100%',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.6) 0%, rgba(139, 92, 246, 0.2) 70%, transparent 100%)',
+            boxShadow: '0 0 40px rgba(139, 92, 246, 0.5)',
+            animation: 'pulse 3s ease-in-out infinite 0.5s'
+          }}/>
+        </div>
+      </div>
+
+      {/* Content with relative positioning */}
+      <div style={{ position: 'relative', zIndex: 1 }}>
+      {/* Animated Title Section */}
+      <div style={{
+        textAlign: 'center',
+        marginBottom: '80px'
+      }}>
+        <h2
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-offset="50"
+          style={{
+            fontSize: '48px',
+            fontWeight: '800',
+            color: '#1f2937',
+            margin: '0 0 15px 0',
+            lineHeight: '1.3'
+          }}
+        >
+          Digital Transformation Solutions
+        </h2>
+        <div
+          data-aos="fade-up"
+          data-aos-delay="100"
+          data-aos-duration="800"
+          data-aos-offset="50"
+          style={{
+            width: '80px',
+            height: '5px',
+            background: 'linear-gradient(90deg, #19b5fe, #0f8cc8)',
+            margin: '20px auto 30px',
+            borderRadius: '3px'
+          }}
+        />
+        <p
+          data-aos="fade-up"
+          data-aos-delay="150"
+          data-aos-duration="800"
+          data-aos-offset="50"
+          style={{
+            fontSize: '18px',
+            color: '#6b7280',
+            maxWidth: '600px',
+            margin: '0 auto',
+            lineHeight: '1.6'
+          }}
+        >
+          Comprehensive solutions designed to accelerate your digital journey and drive sustainable business growth
+        </p>
+      </div>
+
+      {features.map((feature, idx) => (
+        <div
+          key={idx}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '50px',
+            alignItems: 'center',
+            marginBottom: '60px',
+            gridAutoFlow: feature.imagePosition === 'right' ? 'dense' : 'initial'
+          }}
+        >
+          {/* Image Container */}
+          <div
+            data-aos={feature.imagePosition === 'left' ? 'fade-right' : 'fade-left'}
+            data-aos-duration="900"
+            data-aos-offset="50"
+            style={{
+              order: feature.imagePosition === 'right' ? 2 : 1,
+              display: 'flex',
+              alignItems: 'flex-start',
+              justifyContent: feature.imagePosition === 'left' ? 'flex-start' : 'flex-end',
+              minHeight: 'auto',
+              backgroundColor: '#ffffff',
+              borderRadius: '0',
+              overflow: 'visible',
+              padding: '0'
+            }}
+          >
+            <img
+              src={feature.image}
+              alt={feature.title}
+              style={{
+                maxWidth: '100%',
+                maxHeight: '200px',
+                objectFit: 'contain',
+                width: 'auto',
+                height: 'auto'
+              }}
+            />
+          </div>
+
+          {/* Text Container */}
+          <div
+            data-aos={feature.imagePosition === 'left' ? 'fade-left' : 'fade-right'}
+            data-aos-delay="100"
+            data-aos-duration="900"
+            data-aos-offset="50"
+            style={{
+              order: feature.imagePosition === 'right' ? 1 : 2
+            }}
+          >
+            <h3 style={{
+              fontSize: '36px',
+              fontWeight: '800',
+              color: '#1f2937',
+              margin: '0 0 20px 0',
+              lineHeight: '1.3'
+            }}>
+              {feature.title}
+            </h3>
+            <div style={{
+              width: '60px',
+              height: '4px',
+              background: 'linear-gradient(90deg, #19b5fe, #0f8cc8)',
+              borderRadius: '2px',
+              margin: '20px 0 30px 0'
+            }} />
+            <p style={{
+              fontSize: '16px',
+              color: '#6b7280',
+              lineHeight: '1.8',
+              margin: '0',
+              textAlign: 'justify'
+            }}>
+              {feature.description}
+            </p>
+          </div>
+        </div>
+      ))}
+      </div>
+
+      <style>{`
+        @keyframes dashflow {
+          0% {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 0;
+          }
+          100% {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: -1000;
+          }
+        }
+
+        @keyframes pulse {
+          0%, 100% {
+            r: 8;
+            opacity: 0.7;
+          }
+          50% {
+            r: 12;
+            opacity: 0.3;
+          }
+        }
+      `}</style>
+    </section>
+  );
+};
+
 const DigitalTransformation = () => {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
   const [containerVisible, setContainerVisible] = useState(false);
+  const [coverageItemsScroll, setCoverageItemsScroll] = useState(0);
 
   useEffect(() => {
     setIsVisible(true);
@@ -25,6 +324,24 @@ const DigitalTransformation = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const handleCoverageScroll = () => {
+      const coverageSection = document.getElementById('coverage-section');
+      if (coverageSection) {
+        const rect = coverageSection.getBoundingClientRect();
+        const sectionTop = rect.top;
+        const sectionHeight = rect.height;
+        
+        // Calculate progress: 0 when section is below, 1 when fully visible
+        const progress = Math.max(0, Math.min(1, (window.innerHeight - sectionTop) / (window.innerHeight + sectionHeight * 0.5)));
+        setCoverageItemsScroll(progress);
+      }
+    };
+
+    window.addEventListener('scroll', handleCoverageScroll);
+    return () => window.removeEventListener('scroll', handleCoverageScroll);
   }, []);
 
   const keyAreas = [
@@ -143,10 +460,10 @@ const DigitalTransformation = () => {
         }}>
         <div style={{
           background: '#ffffff',
-          borderRadius: '12px',
+          borderRadius: '0',
           padding: '50px',
-          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
-          border: '2px solid #e5e7eb',
+          boxShadow: 'none',
+          border: 'none',
           animation: containerVisible ? 'slideUp 0.8s ease-out both' : 'none',
           position: 'relative',
           zIndex: 10
@@ -272,225 +589,136 @@ const DigitalTransformation = () => {
         </div>
       </div>
 
+      {/* Zigzag Features Section */}
+      <ZigzagFeatures />
+
       {/* Rest of Content */}
       <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 20px 80px 20px' }}>
-        {/* Key Areas Section */}
-        <section style={{ marginBottom: '80px' }}>
+        {/* Areas of Coverage Section - Simple Layout */}
+        <section id="coverage-section" style={{ marginBottom: '80px' }}>
           <h2 style={{
             fontSize: '36px',
             fontWeight: '700',
             color: '#1f2937',
-            marginBottom: '50px',
-            textAlign: 'center'
-          }}>
-            Key Areas of Digital Transformation
-          </h2>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '30px',
-            position: 'relative',
-            paddingTop: '60px'
-          }}>
-            {/* Connecting lines SVG overlay with arrows */}
-            <svg 
-              style={{
-                position: 'absolute',
-                top: '0',
-                left: '0',
-                width: '100%',
-                height: '80px',
-                pointerEvents: 'none',
-                zIndex: 0
-              }}
-              viewBox="0 0 1200 80"
-              preserveAspectRatio="none"
-            >
-              {/* Define arrowhead marker */}
-              <defs>
-                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                  <polygon points="0 0, 10 3, 0 6" fill="#3b82f6" />
-                </marker>
-              </defs>
-              
-              {/* Dotted lines connecting cards with arrows */}
-              <line x1="12.5%" y1="40" x2="37.5%" y2="40" stroke="#3b82f6" strokeWidth="2" strokeDasharray="8,4" markerEnd="url(#arrowhead)" />
-              <line x1="37.5%" y1="40" x2="62.5%" y2="40" stroke="#3b82f6" strokeWidth="2" strokeDasharray="8,4" markerEnd="url(#arrowhead)" />
-              <line x1="62.5%" y1="40" x2="87.5%" y2="40" stroke="#3b82f6" strokeWidth="2" strokeDasharray="8,4" markerEnd="url(#arrowhead)" />
-            </svg>
-
-            {/* Cards with relative positioning */}
-            {[
-              { title: 'Enterprise Platform', icon: '/digitaltransformation/process_box_1.png' },
-              { title: 'Hyper Automation', icon: '/digitaltransformation/process_box_2.png' },
-              { title: 'Design and Build', icon: '/digitaltransformation/process_box_3.png' },
-              { title: 'Upskilling and Reskilling Workforce', icon: '/digitaltransformation/why_3_3.png' },
-              { title: 'Improving Customer Experience', icon: '/digitaltransformation/counter_2_4.png' },
-              { title: 'Enhancing Operational Efficiency', icon: '/digitaltransformation/process_box_3.png' },
-              { title: 'Increasing Service Accessibility', icon: '/digitaltransformation/process_box_4.png' },
-              { title: 'Ensuring Data Security', icon: '/digitaltransformation/process_box_1.png' }
-            ].map((area, idx) => {
-              const positionInRow = idx % 4;
-              const offsetDown = positionInRow % 2 === 1 ? '40px' : '0';
-              return (
-                <div
-                  key={idx}
-                  style={{
-                    background: '#f9fafb',
-                    padding: '30px',
-                    borderRadius: '8px',
-                    border: '1px solid #e5e7eb',
-                    textAlign: 'center',
-                    transition: 'all 0.3s ease',
-                    cursor: 'pointer',
-                    animation: isVisible ? `slideUp 0.8s ease-out ${idx * 0.05}s both` : 'none',
-                    position: 'relative',
-                    zIndex: 1,
-                    marginTop: offsetDown,
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.15)';
-                    e.currentTarget.style.transform = 'translateY(-8px)';
-                    e.currentTarget.style.borderColor = '#3b82f6';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.borderColor = '#e5e7eb';
-                  }}
-                >
-                  <img 
-                    src={area.icon}
-                    alt={area.title}
-                    style={{
-                      width: '100px',
-                      height: '100px',
-                      marginBottom: '20px',
-                      objectFit: 'contain'
-                    }}
-                  />
-                  <h3 style={{
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    color: '#1f2937',
-                    margin: '0'
-                  }}>
-                    {area.title}
-                  </h3>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* Areas of Coverage Section */}
-        <section style={{ marginBottom: '80px' }}>
-          <h2 style={{
-            fontSize: '36px',
-            fontWeight: '700',
-            color: '#1f2937',
-            marginBottom: '50px',
-            textAlign: 'center'
+            marginBottom: '80px',
+            textAlign: 'center',
+            animation: 'fadeIn 0.8s ease-out both'
           }}>
             Areas of Coverage
           </h2>
+
+          {/* Simple 2-Column Layout */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '30px',
-            position: 'relative',
-            paddingTop: '60px'
+            gridTemplateColumns: '200px 1fr',
+            gap: '120px',
+            alignItems: 'flex-start',
+            maxWidth: '1000px',
+            margin: '0 auto'
           }}>
-            {/* Connecting lines SVG overlay with arrows */}
-            <svg 
-              style={{
-                position: 'absolute',
-                top: '0',
-                left: '0',
-                width: '100%',
-                height: '80px',
-                pointerEvents: 'none',
-                zIndex: 0
-              }}
-              viewBox="0 0 1200 80"
-              preserveAspectRatio="none"
-            >
-              {/* Define arrowhead marker */}
-              <defs>
-                <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                  <polygon points="0 0, 10 3, 0 6" fill="#3b82f6" />
-                </marker>
-              </defs>
-              
-              {/* Dotted lines connecting cards with arrows */}
-              <line x1="12.5%" y1="40" x2="37.5%" y2="40" stroke="#3b82f6" strokeWidth="2" strokeDasharray="8,4" markerEnd="url(#arrowhead2)" />
-              <line x1="37.5%" y1="40" x2="62.5%" y2="40" stroke="#3b82f6" strokeWidth="2" strokeDasharray="8,4" markerEnd="url(#arrowhead2)" />
-              <line x1="62.5%" y1="40" x2="87.5%" y2="40" stroke="#3b82f6" strokeWidth="2" strokeDasharray="8,4" markerEnd="url(#arrowhead2)" />
-            </svg>
+            {/* Left: Smaller Hub Image */}
+            <div style={{
+              position: 'relative',
+              width: '200px',
+              height: '200px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              animation: 'fadeIn 0.8s ease-out 0.1s both'
+            }}>
+              <img
+                src="/digitaltransformation/coverage-hub.png"
+                alt="Areas of Coverage Hub"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain'
+                }}
+              />
+            </div>
 
-            {/* Cards with relative positioning */}
-            {[
-              { title: 'Ecosystem', icon: '/digitaltransformation/service_3d_1.png' },
-              { title: 'Organization Culture', icon: '/digitaltransformation/service_3d_3.png' },
-              { title: 'Change Management', icon: '/digitaltransformation/service_3d_4.png' },
-              { title: 'Data & Insights', icon: '/digitaltransformation/service_3d_1.png' },
-              { title: 'Customer Experience', icon: '/digitaltransformation/service_3d_2.png' },
-              { title: 'Innovation', icon: '/digitaltransformation/service_3d_1.png' },
-              { title: 'Technology', icon: '/digitaltransformation/service_3d_2.png' },
-              { title: 'People & Skillset', icon: '/digitaltransformation/service_3d_4.png' }
-            ].map((area, idx) => {
-              const positionInRow = idx % 4;
-              const offsetDown = positionInRow % 2 === 1 ? '40px' : '0';
-              return (
-                <div
-                  key={idx}
-                  style={{
-                    background: '#f9fafb',
-                    padding: '30px',
-                    borderRadius: '8px',
-                    border: '1px solid #e5e7eb',
-                    textAlign: 'center',
-                    transition: 'all 0.3s ease',
-                    cursor: 'pointer',
-                    animation: isVisible ? `slideUp 0.8s ease-out ${idx * 0.05}s both` : 'none',
-                    position: 'relative',
-                    zIndex: 1,
-                    marginTop: offsetDown,
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.15)';
-                    e.currentTarget.style.transform = 'translateY(-8px)';
-                    e.currentTarget.style.borderColor = '#3b82f6';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.borderColor = '#e5e7eb';
-                  }}
-                >
-                  <img 
-                    src={area.icon}
-                    alt={area.title}
-                    style={{
-                      width: '100px',
-                      height: '100px',
-                      marginBottom: '20px',
-                      objectFit: 'contain'
-                    }}
-                  />
-                  <h3 style={{
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    color: '#1f2937',
-                    margin: '0'
-                  }}>
-                    {area.title}
-                  </h3>
-                </div>
-              );
-            })}
+            {/* Right: Scroll-Animated List */}
+            <div style={{
+              paddingTop: '20px'
+            }}>
+              <ul style={{
+                listStyle: 'none',
+                padding: 0,
+                margin: 0,
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: '24px 40px'
+              }}>
+                {[
+                  'Ecosystem',
+                  'Organization Culture',
+                  'Change Management',
+                  'Data & Insights',
+                  'Customer Experience',
+                  'Innovation',
+                  'Technology',
+                  'People & Skillset'
+                ].map((item, idx) => {
+                  // Calculate when this item should appear during scroll (staggered)
+                  const itemTrigger = idx * 0.08; // Each item appears at 8% progress intervals
+                  const itemVisible = coverageItemsScroll > itemTrigger;
+                  const itemProgress = Math.max(0, Math.min(1, (coverageItemsScroll - itemTrigger) * 10));
+                  
+                  return (
+                    <li
+                      key={idx}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        opacity: itemProgress,
+                        transform: `translateX(${(1 - itemProgress) * 40}px) translateY(${(1 - itemProgress) * 20}px)`,
+                        transition: 'all 0.4s ease-out'
+                      }}
+                    >
+                      <div style={{
+                        width: '20px',
+                        height: '20px',
+                        borderRadius: '4px',
+                        border: '2px solid #19b5fe',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: '#f0f9ff',
+                        flexShrink: 0,
+                        position: 'relative'
+                      }}>
+                        {itemVisible && (
+                          <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 14 14"
+                            fill="none"
+                            style={{
+                              stroke: '#19b5fe',
+                              strokeWidth: '2',
+                              strokeLinecap: 'round',
+                              strokeLinejoin: 'round',
+                              animation: 'drawCheckmark 0.6s ease-out'
+                            }}
+                          >
+                            <polyline points="2 7 6 10 12 3" />
+                          </svg>
+                        )}
+                      </div>
+                      <span style={{
+                        color: '#4b5563',
+                        fontSize: '15px',
+                        fontWeight: '500',
+                        lineHeight: '1.5'
+                      }}>
+                        {item}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
         </section>
       </div>
@@ -575,6 +803,28 @@ const DigitalTransformation = () => {
           }
           to {
             opacity: 1;
+          }
+        }
+
+        @keyframes drawCheckmark {
+          from {
+            stroke-dasharray: 20;
+            stroke-dashoffset: 20;
+          }
+          to {
+            stroke-dasharray: 20;
+            stroke-dashoffset: 0;
+          }
+        }
+
+        @keyframes pulse {
+          0%, 100% {
+            box-shadow: 0 0 40px rgba(102, 217, 255, 0.5), inset 0 0 20px rgba(102, 217, 255, 0.2);
+            transform: scale(1);
+          }
+          50% {
+            box-shadow: 0 0 60px rgba(102, 217, 255, 0.8), inset 0 0 30px rgba(102, 217, 255, 0.4);
+            transform: scale(1.05);
           }
         }
       `}</style>

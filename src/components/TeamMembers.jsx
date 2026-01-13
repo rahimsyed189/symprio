@@ -55,7 +55,7 @@ const TeamMembers = () => {
         textAlign: 'center',
         marginBottom: '80px'
       }}>
-        <span style={{
+        <span data-aos="fade-up" data-aos-duration="800" data-aos-offset="50" style={{
           fontSize: '14px',
           fontWeight: '700',
           color: '#3b82f6',
@@ -66,7 +66,7 @@ const TeamMembers = () => {
         }}>
           Our Team
         </span>
-        <h2 style={{
+        <h2 data-aos="fade-up" data-aos-delay="100" data-aos-duration="800" data-aos-offset="50" style={{
           fontSize: '48px',
           fontWeight: '800',
           color: '#1f2937',
@@ -84,7 +84,7 @@ const TeamMembers = () => {
             borderRadius: '3px'
           }}
         />
-        <p style={{
+        <p data-aos="fade-up" data-aos-delay="150" data-aos-duration="800" data-aos-offset="50" style={{
           fontSize: '16px',
           color: '#6b7280',
           margin: '0',
@@ -106,6 +106,10 @@ const TeamMembers = () => {
         {team.map((member, idx) => (
           <div
             key={member.id}
+            data-aos="zoom-in"
+            data-aos-delay={idx * 120}
+            data-aos-duration="700"
+            data-aos-offset="50"
             style={{
               textAlign: 'center',
               animation: isVisible ? `fadeInUp 0.8s ease-out ${idx * 0.15}s both` : 'none'

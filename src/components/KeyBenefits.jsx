@@ -53,7 +53,7 @@ export default function KeyBenefits() {
         alignItems: 'flex-start'
       }}>
         <div style={{ maxWidth: '100%', margin: '0', paddingLeft: '0', paddingTop: '0', position: 'relative', zIndex: 2 }}>
-          <h1 style={{
+          <h1 data-aos="slide-left" data-aos-duration="900" style={{
             fontSize: '48px',
             fontWeight: '700',
             margin: '0 0 15px 0',
@@ -63,7 +63,7 @@ export default function KeyBenefits() {
           }}>
             Why Choose Symprio?
           </h1>
-          <p style={{
+          <p data-aos="slide-left" data-aos-delay="150" data-aos-duration="900" style={{
             fontSize: '18px',
             color: '#e0e0e0',
             margin: 0,
@@ -78,6 +78,9 @@ export default function KeyBenefits() {
       {/* Benefits Container - Overlapping Banner */}
       <div 
         id="keybenefits-container"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+        data-aos-offset="100"
         style={{
           position: 'relative',
           marginTop: '-80px',
@@ -99,12 +102,15 @@ export default function KeyBenefits() {
         }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gridTemplateColumns: 'repeat(3, 1fr)',
             gap: '40px'
           }}>
         {benefits.map((benefit, idx) => (
           <div
             key={idx}
+            data-aos="fade-in"
+            data-aos-delay={idx * 200}
+            data-aos-duration="800"
             style={{
               padding: '40px',
               background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',

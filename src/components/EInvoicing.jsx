@@ -21,7 +21,7 @@ const EInvoicing = () => {
         alignItems: 'center'
       }}>
         {/* Left side - Content */}
-        <div style={{
+        <div data-aos="fade-right" data-aos-duration="900" data-aos-delay="100" style={{
           animation: isVisible ? 'fadeInLeft 0.8s ease-out' : 'none'
         }}>
           <h2 style={{
@@ -75,7 +75,7 @@ const EInvoicing = () => {
         </div>
 
         {/* Right side - Image */}
-        <div style={{
+        <div data-aos="fade-left" data-aos-duration="900" data-aos-delay="200" style={{
           textAlign: 'center',
           animation: isVisible ? 'fadeInRight 0.8s ease-out' : 'none'
         }}>

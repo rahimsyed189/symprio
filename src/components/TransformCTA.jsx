@@ -13,7 +13,7 @@ export default function TransformCTA() {
         maxWidth: '800px',
         margin: '0 auto'
       }}>
-        <h2 style={{
+        <h2 data-aos="fade-down" data-aos-duration="900" style={{
           fontSize: '42px',
           fontWeight: '700',
           marginBottom: '24px',
@@ -22,7 +22,7 @@ export default function TransformCTA() {
           Ready to Transform Your Business?
         </h2>
         
-        <p style={{
+        <p data-aos="fade-up" data-aos-delay="150" data-aos-duration="900" style={{
           fontSize: '18px',
           lineHeight: '1.8',
           marginBottom: '40px',
@@ -31,7 +31,7 @@ export default function TransformCTA() {
           Let our team of experts guide you through your digital transformation journey. Schedule a consultation today and discover how Symprio can unlock new opportunities for growth and efficiency.
         </p>
 
-        <div style={{
+        <div data-aos="zoom-in" data-aos-delay="300" data-aos-duration="800" style={{
           display: 'flex',
           gap: '16px',
           justifyContent: 'center',

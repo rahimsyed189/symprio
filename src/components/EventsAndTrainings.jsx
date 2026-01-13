@@ -83,8 +83,8 @@ const EventsAndTrainings = () => {
             gridTemplateColumns: 'repeat(auto-fill, 300px)',
             gap: '24px'
           }}>
-            {allItems.map((item) => (
-              <div key={`${item.itemType}-${item.id}`} style={{
+            {allItems.map((item, idx) => (
+              <div key={`${item.itemType}-${item.id}`} data-aos="fade-up" data-aos-delay={idx * 100} data-aos-duration="700" data-aos-offset="50" style={{
                 background: '#fff',
                 border: '2px solid #e5e7eb',
                 borderRadius: '12px',

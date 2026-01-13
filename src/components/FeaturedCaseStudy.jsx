@@ -15,7 +15,7 @@ export default function FeaturedCaseStudy() {
         alignItems: 'center'
       }}>
         {/* Image/Content Side */}
-        <div style={{
+        <div data-aos="fade-right" data-aos-duration="800" data-aos-offset="50" style={{
           backgroundColor: '#f0f4f8',
           borderRadius: '8px',
           overflow: 'hidden',
@@ -36,7 +36,7 @@ export default function FeaturedCaseStudy() {
         </div>
 
         {/* Text Content Side */}
-        <div>
+        <div data-aos="fade-left" data-aos-duration="800" data-aos-delay="100" data-aos-offset="50">
           <h2 style={{
             fontSize: '32px',
             fontWeight: '700',

@@ -78,6 +78,10 @@ const Services = () => {
           {services.map((service, idx) => (
             <div
               key={idx}
+              data-aos="fade-up"
+              data-aos-delay={idx * 150}
+              data-aos-duration="800"
+              data-aos-offset="50"
               style={{
                 padding: '30px',
                 background: '#ffffff',

@@ -18,27 +18,6 @@ export default function SympriBrands() {
       background: '#fff'
     }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-          <h6 style={{
-            fontSize: '12px',
-            fontWeight: '700',
-            color: '#3b82f6',
-            letterSpacing: '1.5px',
-            textTransform: 'uppercase',
-            margin: '0 0 10px 0'
-          }}>
-            SPONSORS
-          </h6>
-          <h2 style={{
-            fontSize: '42px',
-            fontWeight: '700',
-            color: '#1f2937',
-            margin: '0'
-          }}>
-            Popular Brand.
-          </h2>
-        </div>
-
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
@@ -46,7 +25,7 @@ export default function SympriBrands() {
           alignItems: 'center'
         }}>
           {brands.map((brand, idx) => (
-            <div key={idx} style={{
+            <div key={idx} data-aos="fade-in" data-aos-delay={idx * 150} data-aos-duration="800" data-aos-offset="50" style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',

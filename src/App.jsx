@@ -1,5 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import { useAuth } from './context/AuthContext';
 import SymprioNavbar from './components/SymprioNavbar';
 import SymprioHero from './components/SymprioHero';
@@ -78,6 +80,38 @@ function App() {
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
+
+  React.useEffect(() => {
+    console.log('🚀 Initializing AOS');
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: false,
+      offset: 50,
+      delay: 0,
+      mirror: true,
+      anchorPlacement: 'top-bottom',
+      disable: false
+    });
+    
+    console.log('✅ AOS initialized');
+    AOS.refresh();
+    console.log('✅ AOS refreshed');
+  }, []);
+
+  React.useEffect(() => {
+    console.log('🔄 Refreshing AOS on route change');
+    setTimeout(() => AOS.refresh(), 100);
+  }, [location.pathname]);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      AOS.refresh();
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <Routes>

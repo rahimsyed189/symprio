@@ -21,7 +21,7 @@ const DocumentUnderstanding = () => {
         alignItems: 'center'
       }}>
         {/* Left side - Image */}
-        <div style={{
+        <div data-aos="fade-left" data-aos-duration="900" data-aos-delay="100" style={{
           textAlign: 'center',
           animation: isVisible ? 'fadeInLeft 0.8s ease-out' : 'none',
           order: 2
@@ -45,7 +45,7 @@ const DocumentUnderstanding = () => {
         </div>
 
         {/* Right side - Content */}
-        <div style={{
+        <div data-aos="fade-right" data-aos-duration="900" data-aos-delay="200" style={{
           animation: isVisible ? 'fadeInRight 0.8s ease-out' : 'none',
           order: 1
         }}>

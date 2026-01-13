@@ -53,6 +53,10 @@ export default function Testimonials() {
           {testimonials.map((testimonial, idx) => (
             <div
               key={idx}
+              data-aos="fade-up"
+              data-aos-delay={idx * 150}
+              data-aos-duration="800"
+              data-aos-offset="50"
               style={{
                 background: '#fff',
                 padding: '30px',
@@ -115,7 +119,7 @@ export default function Testimonials() {
 
       {/* Partners/Logos */}
       <div>
-        <h3 style={{
+        <h3 data-aos="fade-up" data-aos-duration="800" data-aos-offset="50" style={{
           fontSize: '24px',
           fontWeight: '700',
           color: '#1f2937',
@@ -135,6 +139,10 @@ export default function Testimonials() {
           {partners.map((partner, idx) => (
             <div
               key={idx}
+              data-aos="zoom-in"
+              data-aos-delay={idx * 150}
+              data-aos-duration="700"
+              data-aos-offset="50"
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -148,7 +156,7 @@ export default function Testimonials() {
                 height: '100px'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.1)';
+                e.currentTarget.style.transform = 'scale(1.2)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'scale(1)';
