@@ -16,23 +16,43 @@ export default function FeaturedCaseStudy() {
       }}>
         {/* Image/Content Side */}
         <div data-aos="fade-right" data-aos-duration="800" data-aos-offset="50" style={{
-          backgroundColor: '#f0f4f8',
-          borderRadius: '8px',
+          background: 'linear-gradient(135deg, #19b5fe, #0f8cc8)',
+          borderRadius: '0px',
           overflow: 'hidden',
-          minHeight: '300px',
+          minHeight: '500px',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'space-between',
+          padding: '60px 40px',
+          position: 'relative'
         }}>
-          <img 
-            src="/case-study.jpg" 
-            alt="Case Study" 
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover'
-            }}
-          />
+          {/* Briefcase Icon */}
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="1.5" style={{
+            width: '150px',
+            height: '150px',
+            opacity: 0.95,
+            flexShrink: 0
+          }}>
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+            <line x1="9" y1="12" x2="9" y2="17"/>
+            <line x1="15" y1="12" x2="15" y2="17"/>
+          </svg>
+
+          <div style={{
+            fontSize: '48px',
+            fontWeight: '700',
+            color: '#ffffff',
+            writingMode: 'vertical-rl',
+            textOrientation: 'mixed',
+            letterSpacing: '12px',
+            lineHeight: '1.1',
+            fontFamily: 'Georgia, serif',
+            flexShrink: 0,
+            marginRight: '0'
+          }}>
+            Case Study
+          </div>
         </div>
 
         {/* Text Content Side */}

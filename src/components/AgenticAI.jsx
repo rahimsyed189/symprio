@@ -220,7 +220,7 @@ export default function AgenticAI() {
       <div style={{ position: 'relative', zIndex: 1 }}>
       {/* Hero Section */}
       <section style={{
-        background: 'url("/agentic-ai-banner.jpg") center/cover no-repeat',
+        background: 'url("/agentic-ai-banner.png") center/cover no-repeat',
         color: '#fff',
         padding: '80px 20px',
         textAlign: 'left'
@@ -433,7 +433,7 @@ export default function AgenticAI() {
                 <circle 
                   cx="200" 
                   cy="200" 
-                  r="160" 
+                  r="190" 
                   fill="none" 
                   stroke="#0c4a6e" 
                   strokeWidth="3"
@@ -449,7 +449,7 @@ export default function AgenticAI() {
                 <circle 
                   cx="200" 
                   cy="200" 
-                  r="120" 
+                  r="145" 
                   fill="none" 
                   stroke="#0891b2" 
                   strokeWidth="2"
@@ -465,7 +465,7 @@ export default function AgenticAI() {
                 <circle 
                   cx="200" 
                   cy="200" 
-                  r="80" 
+                  r="100" 
                   fill="none" 
                   stroke="#66d9ff" 
                   strokeWidth="2"
@@ -479,7 +479,7 @@ export default function AgenticAI() {
                 <circle 
                   cx="200" 
                   cy="200" 
-                  r="45" 
+                  r="55" 
                   fill="url(#gradientCenter)"
                   stroke="none"
                   opacity={Math.min(flowerScroll * 2, 1)}
@@ -531,8 +531,8 @@ export default function AgenticAI() {
                       transformOrigin: `${x}px ${y}px`,
                       transition: 'all 0.4s ease-out'
                     }}>
-                      <circle cx={x} cy={y} r="12" fill="#0c4a6e" opacity="0.8" />
-                      <circle cx={x} cy={y} r="12" fill="none" stroke="#ffffff" strokeWidth="2" />
+                      <circle cx={x} cy={y} r="16" fill="#0c4a6e" opacity="0.8" />
+                      <circle cx={x} cy={y} r="16" fill="none" stroke="#ffffff" strokeWidth="2" />
                       <text 
                         x={x} 
                         y={y + 4} 
@@ -630,7 +630,7 @@ export default function AgenticAI() {
               <table style={{
                 width: '100%',
                 borderCollapse: 'collapse',
-                fontSize: '12px',
+                fontSize: '15px',
                 textAlign: 'left'
               }}>
                 <thead>
@@ -642,19 +642,8 @@ export default function AgenticAI() {
                       padding: '12px',
                       fontWeight: '700',
                       color: '#1f2937',
-                      textAlign: 'center'
-                    }}>Aspect</th>
-                    <th style={{
-                      padding: '12px',
-                      fontWeight: '700',
-                      color: '#1f2937',
-                      textAlign: 'center'
-                    }}>Generative AI</th>
-                    <th style={{
-                      padding: '12px',
-                      fontWeight: '700',
-                      color: '#1f2937',
-                      textAlign: 'center'
+                      textAlign: 'center',
+                      fontSize: '16px'
                     }}>Agentic AI</th>
                   </tr>
                 </thead>
@@ -737,7 +726,7 @@ export default function AgenticAI() {
               transition: 'all 0.4s ease-out'
             }}>
               <p style={{
-                fontSize: '14px',
+                fontSize: '16px',
                 color: '#666666',
                 lineHeight: '1.6',
                 margin: '0'
@@ -760,46 +749,67 @@ export default function AgenticAI() {
 
       {/* Why It Matters Section */}
       <section id="why-matters-section" style={{
-        maxWidth: '1100px',
-        margin: '0 auto',
-        padding: '80px 20px'
+        width: '100%',
+        margin: '0',
+        padding: '0 20px',
+        position: 'relative',
+        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+        borderRadius: '0px',
+        overflow: 'hidden'
       }}>
-        <h2 style={{
-          fontSize: '42px',
-          fontWeight: '700',
-          color: '#1f2937',
-          margin: '0 0 60px 0',
-          textAlign: 'center',
-          opacity: 1,
-          transform: `translateY(${Math.max(0, (1 - Math.min(whyMattersScroll * 2, 1)) * 10)}px)`,
-          transition: 'all 0.4s ease-out'
-        }}>
-          Why Agentic AI Matters
-        </h2>
+        {/* Overlay */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'transparent',
+          zIndex: 1
+        }}></div>
 
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '30px'
+          position: 'relative',
+          zIndex: 2,
+          padding: '80px 20px'
         }}>
-          {whyMatters.map((item, idx) => {
-            return (
-              <div
-                key={idx}
-                style={{
-                  padding: '40px',
-                  background: 'linear-gradient(135deg, #19b5fe, #0f8cc8)',
-                  borderRadius: '16px',
-                  border: 'none',
-                  textAlign: 'center',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  boxShadow: 'none'
-                }}
+          <h2 style={{
+            fontSize: '42px',
+            fontWeight: '700',
+            color: '#ffffff',
+            margin: '0 0 60px 0',
+            textAlign: 'center',
+            opacity: 1,
+            transform: `translateY(${Math.max(0, (1 - Math.min(whyMattersScroll * 2, 1)) * 10)}px)`,
+            transition: 'all 0.4s ease-out'
+          }}>
+            Why Agentic AI Matters
+          </h2>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '30px'
+          }}>
+            {whyMatters.map((item, idx) => {
+              return (
+                <div
+                  key={idx}
+                  style={{
+                    padding: '40px',
+                    background: '#ffffff',
+                    backdropFilter: 'none',
+                    borderRadius: '16px',
+                    border: '1px solid #e5e7eb',
+                    textAlign: 'center',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    boxShadow: 'none'
+                  }}
                 data-aos="fade-up"
                 data-aos-delay={idx * 100}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
                   e.currentTarget.style.transform = 'translateY(-8px)';
                 }}
                 onMouseLeave={(e) => {
@@ -814,8 +824,8 @@ export default function AgenticAI() {
                   right: '20px',
                   fontSize: '48px',
                   fontWeight: '700',
-                  color: '#ffffff',
-                  opacity: 0.1,
+                  color: '#0f172a',
+                  opacity: 0.05,
                   zIndex: 0
                 }}>
                   {String(idx + 1).padStart(2, '0')}
@@ -827,9 +837,9 @@ export default function AgenticAI() {
                   marginBottom: '25px',
                   position: 'relative',
                   zIndex: 1,
-                  color: '#e5e7eb',
-                  filter: 'grayscale(100%) brightness(0.9)',
-                  opacity: 0.8
+                  color: '#1f2937',
+                  filter: 'grayscale(0%) brightness(1)',
+                  opacity: 1
                 }}>
                   {item.icon}
                 </div>
@@ -837,7 +847,7 @@ export default function AgenticAI() {
                 <h3 style={{
                   fontSize: '24px',
                   fontWeight: '700',
-                  color: '#ffffff',
+                  color: '#1f2937',
                   margin: '0 0 15px 0',
                   position: 'relative',
                   zIndex: 1
@@ -847,7 +857,7 @@ export default function AgenticAI() {
 
                 <p style={{
                   fontSize: '15px',
-                  color: '#ffffff',
+                  color: '#666666',
                   lineHeight: '1.7',
                   margin: '0',
                   position: 'relative',
@@ -868,6 +878,7 @@ export default function AgenticAI() {
               </div>
             );
           })}
+        </div>
         </div>
       </section>
 
@@ -1021,7 +1032,9 @@ export default function AgenticAI() {
                       <span style={{
                         display: 'inline-block',
                         transition: 'transform 0.3s ease',
-                        transform: expandedUseCase === idx ? 'rotate(90deg)' : 'rotate(0deg)'
+                        transform: expandedUseCase === idx ? 'rotate(90deg)' : 'rotate(0deg)',
+                        fontSize: '28px',
+                        letterSpacing: '2px'
                       }}>
                         →
                       </span>

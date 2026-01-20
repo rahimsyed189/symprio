@@ -3,30 +3,6 @@ import React from 'react';
 export default function SymprioFooter() {
   return (
     <>
-      {/* Top Section with CTA */}
-      <section style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '60px 20px',
-        textAlign: 'center'
-      }}>
-        <h3 style={{
-          fontSize: '24px',
-          fontWeight: '700',
-          color: '#1f2937',
-          marginBottom: '15px'
-        }}>
-          Looking For RPA, AI, ML, ERP Or Any Custom Development Solutions?
-        </h3>
-        <p style={{
-          fontSize: '14px',
-          color: '#6b7280',
-          marginBottom: '30px'
-        }}>
-          Process consultants with a care to identify the root cause and determined to deliver efficient solutions.
-        </p>
-      </section>
-
       {/* Footer */}
       <footer style={{
         background: '#1f2937',

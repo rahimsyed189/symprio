@@ -83,15 +83,13 @@ export default function ServicesLanding() {
     },
     {
       number: '05',
-      title: 'Custom Software Development',
-      description: 'Full‑stack development, mobile apps and cloud‑native solutions.',
+      title: 'Consulting & Strategy',
+      description: 'Process & technology advisory for digital strategies and innovation.',
       points: [
-        'Full‑Stack Development: Web, mobile and cloud‑native applications using modern frameworks and languages.',
-        'Agile & Hybrid Methodologies: Deliver software through agile, waterfall or hybrid approaches to match client needs.',
-        'DevOps & CI/CD: End‑to‑end lifecycle management, from assessment to DevOps and deployment.',
-        'Technology Expertise: Front‑end frameworks (React, Angular), back‑end services (Node.js, .NET), databases and API design.'
-      ],
-      link: '/custom-development'
+        'Process & Technology Advisory: Evaluate operational processes, identify automation opportunities and recommend technology solutions.',
+        'Change Management & Training: Develop communication plans, training materials and adoption strategies.',
+        'Innovation Workshops: Facilitate workshops to co-create digital strategies, prototypes and roadmaps.'
+      ]
     },
     {
       number: '06',
@@ -106,13 +104,15 @@ export default function ServicesLanding() {
     },
     {
       number: '07',
-      title: 'Consulting & Strategy',
-      description: 'Process & technology advisory for digital strategies and innovation.',
+      title: 'Custom Software Development',
+      description: 'Full‑stack development, mobile apps and cloud‑native solutions.',
       points: [
-        'Process & Technology Advisory: Evaluate operational processes, identify automation opportunities and recommend technology solutions.',
-        'Change Management & Training: Develop communication plans, training materials and adoption strategies.',
-        'Innovation Workshops: Facilitate workshops to co-create digital strategies, prototypes and roadmaps.'
-      ]
+        'Full‑Stack Development: Web, mobile and cloud‑native applications using modern frameworks and languages.',
+        'Agile & Hybrid Methodologies: Deliver software through agile, waterfall or hybrid approaches to match client needs.',
+        'DevOps & CI/CD: End‑to‑end lifecycle management, from assessment to DevOps and deployment.',
+        'Technology Expertise: Front‑end frameworks (React, Angular), back‑end services (Node.js, .NET), databases and API design.'
+      ],
+      link: '/custom-development'
     }
   ];
 
@@ -201,8 +201,9 @@ export default function ServicesLanding() {
       }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '30px'
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: '30px',
+          justifyItems: 'center'
         }}>
           {services.map((service, idx) => (
             <div
@@ -219,7 +220,9 @@ export default function ServicesLanding() {
                 overflow: 'hidden',
                 cursor: 'pointer',
                 animation: isVisible ? `slideUp 0.8s ease-out ${idx * 0.1}s both` : 'none',
-                maxHeight: expandedIndex === idx ? '1000px' : '300px'
+                minHeight: '380px',
+                display: 'flex',
+                flexDirection: 'column'
               }}
               onMouseEnter={(e) => {
                 if (expandedIndex !== idx) {
@@ -340,91 +343,98 @@ export default function ServicesLanding() {
               </div>
 
               {/* Content */}
-              <div style={{ position: 'relative', zIndex: 1 }}>
-                <div className="service-number" style={{
-                  fontSize: '32px',
-                  fontWeight: '700',
-                  color: expandedIndex === idx ? '#ffffff' : '#3b82f6',
-                  marginBottom: '15px',
-                  animation: isVisible ? `scaleIn 0.8s ease-out ${idx * 0.1 + 0.1}s both` : 'none'
-                }}>
-                  {service.number}
-                </div>
-                <h3 style={{
-                  fontSize: '20px',
-                  fontWeight: '600',
-                  color: expandedIndex === idx ? '#ffffff' : '#1f2937',
-                  margin: '0 0 15px 0',
-                  animation: isVisible ? `fadeInUp 0.8s ease-out ${idx * 0.1 + 0.15}s both` : 'none'
-                }}>
-                  {service.title}
-                </h3>
-                <div
-                  style={{
-                    width: '40px',
-                    height: '3px',
-                    background: expandedIndex === idx ? 'linear-gradient(90deg, #ffffff, #e0e7ff)' : 'linear-gradient(90deg, #3b82f6, #8b5cf6)',
+              <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
+                <div>
+                  <div className="service-number" style={{
+                    fontSize: '32px',
+                    fontWeight: '700',
+                    color: expandedIndex === idx ? '#ffffff' : '#3b82f6',
                     marginBottom: '15px',
-                    borderRadius: '2px',
-                    animation: isVisible ? `expandLine 0.8s ease-out ${idx * 0.1 + 0.2}s both` : 'none'
-                  }}
-                />
-                <p style={{
-                  fontSize: '14px',
-                  color: expandedIndex === idx ? '#e0e7ff' : '#6b7280',
-                  margin: '0 0 20px 0',
-                  lineHeight: '1.6',
-                  animation: isVisible ? `fadeInUp 0.8s ease-out ${idx * 0.1 + 0.25}s both` : 'none'
-                }}>
-                  {service.description}
-                </p>
-
-                {/* Expandable Points */}
-                {expandedIndex === idx && (
-                  <div style={{
-                    marginTop: '25px',
-                    paddingTop: '25px',
-                    borderTop: '2px solid rgba(255, 255, 255, 0.3)',
-                    animation: `fadeIn 0.4s ease-out`
+                    animation: isVisible ? `scaleIn 0.8s ease-out ${idx * 0.1 + 0.1}s both` : 'none'
                   }}>
-                    <h4 style={{
-                      fontSize: '14px',
-                      fontWeight: '700',
-                      color: '#e0e7ff',
-                      margin: '0 0 15px 0',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.5px'
-                    }}>
-                      Key Capabilities:
-                    </h4>
-                    <ul style={{
-                      margin: '0',
-                      padding: '0',
-                      listStyle: 'none'
-                    }}>
-                      {service.points.map((point, pointIdx) => (
-                        <li key={pointIdx} style={{
-                          fontSize: '13px',
-                          color: '#e0e7ff',
-                          marginBottom: '12px',
-                          paddingLeft: '20px',
-                          position: 'relative',
-                          lineHeight: '1.5'
-                        }}>
-                          <span style={{
-                            position: 'absolute',
-                            left: '0',
-                            color: '#ffffff',
-                            fontWeight: '700'
-                          }}>•</span>
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
+                    {service.number}
                   </div>
-                )}
+                  <h3 style={{
+                    fontSize: '20px',
+                    fontWeight: '600',
+                    color: expandedIndex === idx ? '#ffffff' : '#1f2937',
+                    margin: '0 0 15px 0',
+                    animation: isVisible ? `fadeInUp 0.8s ease-out ${idx * 0.1 + 0.15}s both` : 'none'
+                  }}>
+                    {service.title}
+                  </h3>
+                  <div
+                    style={{
+                      width: '40px',
+                      height: '3px',
+                      background: expandedIndex === idx ? 'linear-gradient(90deg, #ffffff, #e0e7ff)' : 'linear-gradient(90deg, #3b82f6, #8b5cf6)',
+                      marginBottom: '15px',
+                      borderRadius: '2px',
+                      animation: isVisible ? `expandLine 0.8s ease-out ${idx * 0.1 + 0.2}s both` : 'none'
+                    }}
+                  />
+                  <p style={{
+                    fontSize: '14px',
+                    color: expandedIndex === idx ? '#e0e7ff' : '#6b7280',
+                    margin: '0 0 20px 0',
+                    lineHeight: '1.6',
+                    animation: isVisible ? `fadeInUp 0.8s ease-out ${idx * 0.1 + 0.25}s both` : 'none',
+                    display: '-webkit-box',
+                    WebkitLineClamp: expandedIndex === idx ? 'unset' : '3',
+                    WebkitBoxOrient: 'vertical',
+                    overflow: expandedIndex === idx ? 'visible' : 'hidden',
+                    textOverflow: 'ellipsis'
+                  }}>
+                    {service.description}
+                  </p>
 
-                {/* Expand/Collapse Arrow */}
+                  {/* Expandable Points */}
+                  {expandedIndex === idx && (
+                    <div style={{
+                      marginTop: '25px',
+                      paddingTop: '25px',
+                      borderTop: '2px solid rgba(255, 255, 255, 0.3)',
+                      animation: `fadeIn 0.4s ease-out`
+                    }}>
+                      <h4 style={{
+                        fontSize: '14px',
+                        fontWeight: '700',
+                        color: '#e0e7ff',
+                        margin: '0 0 15px 0',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.5px'
+                      }}>
+                        Key Capabilities:
+                      </h4>
+                      <ul style={{
+                        margin: '0',
+                        padding: '0',
+                        listStyle: 'none'
+                      }}>
+                        {service.points.map((point, pointIdx) => (
+                          <li key={pointIdx} style={{
+                            fontSize: '13px',
+                            color: '#e0e7ff',
+                            marginBottom: '12px',
+                            paddingLeft: '20px',
+                            position: 'relative',
+                            lineHeight: '1.5'
+                          }}>
+                            <span style={{
+                              position: 'absolute',
+                              left: '0',
+                              color: '#ffffff',
+                              fontWeight: '700'
+                            }}>•</span>
+                            {point}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+
+                {/* Expand/Collapse Button */}
                 <span 
                   className="expand-arrow"
                   style={{
@@ -435,10 +445,13 @@ export default function ServicesLanding() {
                     display: 'inline-block',
                     transition: 'all 0.3s ease',
                     cursor: 'pointer',
-                    marginTop: expandedIndex === idx ? '15px' : '0',
-                    padding: '8px 12px',
+                    marginTop: '15px',
+                    padding: '10px 16px',
                     borderRadius: '4px',
-                    userSelect: 'none'
+                    userSelect: 'none',
+                    backgroundColor: expandedIndex === idx ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+                    border: expandedIndex === idx ? '1px solid rgba(255, 255, 255, 0.3)' : '1px solid #e5e7eb',
+                    width: 'fit-content'
                   }}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -451,7 +464,7 @@ export default function ServicesLanding() {
                     e.currentTarget.style.opacity = '1';
                   }}
                 >
-                  {expandedIndex === idx ? '▼ Show Less' : '▶ Show More'}
+                  {expandedIndex === idx ? '− Show Less' : '+ Show More'}
                 </span>
               </div>
             </div>

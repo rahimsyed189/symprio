@@ -27,21 +27,28 @@ export default function Testimonials() {
   ];
 
   return (
+    <>
     <section style={{
-      maxWidth: '1200px',
-      margin: '0 auto',
+      width: '100%',
+      margin: '0',
       padding: '80px 20px',
-      backgroundColor: '#f9fafb'
+      background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+      borderRadius: '0px',
+      borderTop: '3px solid #ffffff'
     }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
       {/* Testimonials */}
       <div style={{ marginBottom: '80px' }}>
         <h2 style={{
           fontSize: '36px',
           fontWeight: '700',
-          color: '#1f2937',
+          color: '#ffffff',
           textAlign: 'center',
           margin: '0 0 60px 0'
-        }}>
+        }}
+        data-aos="fade-up"
+        data-aos-duration="800"
+        data-aos-once="false">
           What Our Clients Say
         </h2>
 
@@ -55,12 +62,13 @@ export default function Testimonials() {
               key={idx}
               data-aos="fade-up"
               data-aos-delay={idx * 150}
-              data-aos-duration="800"
-              data-aos-offset="50"
+              data-aos-duration="1000"
+              data-aos-offset="100"
+              data-aos-once="false"
               style={{
-                background: '#fff',
+                background: '#ffffff',
                 padding: '30px',
-                borderRadius: '8px',
+                borderRadius: '0px',
                 border: '1px solid #e5e7eb',
                 boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
                 transition: 'all 0.3s ease'
@@ -116,10 +124,19 @@ export default function Testimonials() {
           ))}
         </div>
       </div>
+      </div>
+    </section>
 
-      {/* Partners/Logos */}
-      <div>
-        <h3 data-aos="fade-up" data-aos-duration="800" data-aos-offset="50" style={{
+    {/* Partners Section - White Background */}
+    <section style={{
+      width: '100%',
+      margin: '0',
+      padding: '80px 20px',
+      background: '#ffffff',
+      borderRadius: '0px'
+    }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <h3 data-aos="fade-up" data-aos-duration="800" data-aos-offset="100" data-aos-once="false" style={{
           fontSize: '24px',
           fontWeight: '700',
           color: '#1f2937',
@@ -172,5 +189,6 @@ export default function Testimonials() {
         </div>
       </div>
     </section>
+    </>
   );
 }

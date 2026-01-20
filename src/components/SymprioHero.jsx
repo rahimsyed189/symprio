@@ -118,34 +118,6 @@ export default function SymprioHero() {
           >
             Talk to an Expert
           </button>
-          <button style={{
-            background: 'transparent',
-            color: '#fff',
-            border: '2px solid #fff',
-            padding: '10px 28px',
-            fontSize: '14px',
-            fontWeight: '600',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            transition: 'all 0.3s ease',
-            textTransform: 'uppercase',
-            letterSpacing: '0.5px'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.background = '#fff';
-            e.target.style.color = '#3b82f6';
-            e.target.style.transform = 'translateY(-3px)';
-            e.target.style.boxShadow = '0 10px 20px rgba(255, 255, 255, 0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.background = 'transparent';
-            e.target.style.color = '#fff';
-            e.target.style.transform = 'translateY(0)';
-            e.target.style.boxShadow = 'none';
-          }}
-          >
-            Book a Demo
-          </button>
         </div>
       </div>
 

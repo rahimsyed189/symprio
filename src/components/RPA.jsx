@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default function RPA() {
   const navigate = useNavigate();
@@ -8,6 +10,12 @@ export default function RPA() {
 
   useEffect(() => {
     setIsVisible(true);
+    AOS.init({
+      duration: 800,
+      easing: 'ease-out',
+      once: false,
+      offset: 100
+    });
   }, []);
 
   useEffect(() => {
@@ -236,15 +244,20 @@ export default function RPA() {
           </div>
         </section>
 
-        {/* Services & Capabilities Section */}
-        <section style={{ marginBottom: '80px', width: '100%', padding: '0 10px' }}>
+        {/* Services & Capabilities Section - Dark Background */}
+        <section style={{ width: '100vw', position: 'relative', left: '50%', right: '50%', marginLeft: 'calc(-50vw)', marginRight: 'calc(-50vw)', padding: '80px 20px', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', marginBottom: '80px' }}>
           <h2 style={{
             fontSize: '42px',
             fontWeight: '700',
-            color: '#1f2937',
+            color: '#ffffff',
             marginBottom: '60px',
-            textAlign: 'center'
-          }}>
+            textAlign: 'center',
+            maxWidth: '1200px',
+            margin: '0 auto 60px'
+          }}
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-once="false">
             Services & Capabilities
           </h2>
 
@@ -253,7 +266,9 @@ export default function RPA() {
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))',
             gap: '50px',
-            alignItems: 'start'
+            alignItems: 'start',
+            maxWidth: '1200px',
+            margin: '0 auto'
           }}>
             {[
               {
@@ -293,23 +308,30 @@ export default function RPA() {
                   display: 'flex',
                   gap: '25px',
                   padding: '30px',
-                  background: '#f9fafb',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  backdropFilter: 'blur(10px)',
                   borderRadius: '12px',
-                  borderLeft: '5px solid #0c4a6e',
+                  borderLeft: '5px solid #19b5fe',
                   transition: 'all 0.4s ease',
                   cursor: 'pointer',
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.06)',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
                   animation: isVisible ? `slideUp 0.8s ease-out ${idx * 0.1}s both` : 'none'
                 }}
+                data-aos="fade-up"
+                data-aos-delay={idx * 100}
+                data-aos-duration="1000"
+                data-aos-once="false"
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 12px 24px rgba(12, 74, 110, 0.15)';
+                  e.currentTarget.style.boxShadow = '0 12px 40px rgba(25, 181, 254, 0.25)';
                   e.currentTarget.style.transform = 'translateX(10px)';
-                  e.currentTarget.style.borderLeftColor = '#3b82f6';
+                  e.currentTarget.style.borderLeftColor = '#66d9ff';
+                  e.currentTarget.style.background = 'rgba(25, 181, 254, 0.15)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.06)';
+                  e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.2)';
                   e.currentTarget.style.transform = 'translateX(0)';
-                  e.currentTarget.style.borderLeftColor = '#0c4a6e';
+                  e.currentTarget.style.borderLeftColor = '#19b5fe';
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
                 }}
               >
                 {/* Icon */}
@@ -328,14 +350,14 @@ export default function RPA() {
                   <h3 style={{
                     fontSize: '20px',
                     fontWeight: '700',
-                    color: '#0c4a6e',
+                    color: '#19b5fe',
                     margin: '0 0 12px 0'
                   }}>
                     {service.title}
                   </h3>
                   <p style={{
                     fontSize: '15px',
-                    color: '#4b5563',
+                    color: '#e0e7ff',
                     lineHeight: '1.7',
                     margin: 0
                   }}>
@@ -347,24 +369,36 @@ export default function RPA() {
           </div>
         </section>
 
-        {/* Benefits Section */}
-        <section style={{ marginBottom: '80px' }}>
+        {/* Benefits Section - White Background */}
+        <section style={{ marginBottom: '0', width: '100%', padding: '80px 20px', background: '#ffffff', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <h2 style={{
             fontSize: '36px',
             fontWeight: '700',
             color: '#1f2937',
             marginBottom: '50px',
             textAlign: 'center'
-          }}>
+          }}
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-once="false">
             Key Benefits
           </h2>
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
             gap: '40px',
-            maxWidth: '1000px',
-            margin: '0 auto'
-          }}>
+            maxWidth: '1200px',
+            margin: '0 auto',
+            width: '100%',
+            justifyItems: 'center',
+            paddingLeft: '20px',
+            paddingRight: '20px'
+          }}
+          data-aos="fade-up"
+          data-aos-delay="100"
+          data-aos-duration="800"
+          data-aos-once="false">
             {[
               {
                 title: '24/7 Execution & Accuracy',
@@ -385,8 +419,14 @@ export default function RPA() {
                   borderRadius: '12px',
                   boxShadow: '0 5px 15px rgba(0, 0, 0, 0.08)',
                   transition: 'all 0.4s ease',
-                  animation: isVisible ? `slideUp 0.8s ease-out ${idx * 0.15}s both` : 'none'
+                  animation: isVisible ? `slideUp 0.8s ease-out ${idx * 0.15}s both` : 'none',
+                  maxWidth: '400px',
+                  width: '100%'
                 }}
+                data-aos="fade-up"
+                data-aos-delay={idx * 150}
+                data-aos-duration="1000"
+                data-aos-once="false"
                 onMouseEnter={(e) => {
                   e.currentTarget.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.15)';
                   e.currentTarget.style.transform = 'translateY(-8px)';
@@ -436,26 +476,35 @@ export default function RPA() {
               </div>
             ))}
           </div>
+          </div>
         </section>
 
-        {/* Industry Use Cases Section */}
-        <section style={{ marginBottom: '80px' }}>
-          <h2 style={{
-            fontSize: '36px',
-            fontWeight: '700',
-            color: '#1f2937',
-            marginBottom: '50px',
-            textAlign: 'center'
-          }}>
-            Industry Use Cases
-          </h2>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '25px',
-            maxWidth: '1100px',
-            margin: '0 auto'
-          }}>
+        {/* Industry Use Cases Section - Dark Background */}
+        <section style={{ width: '100vw', position: 'relative', left: '50%', right: '50%', marginLeft: 'calc(-50vw)', marginRight: 'calc(-50vw)', padding: '80px 20px', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', marginBottom: '80px' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <h2 style={{
+              fontSize: '36px',
+              fontWeight: '700',
+              color: '#ffffff',
+              marginBottom: '50px',
+              textAlign: 'center'
+            }}
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-once="false">
+              Industry Use Cases
+            </h2>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '25px',
+              maxWidth: '1100px',
+              margin: '0 auto'
+            }}
+            data-aos="fade-up"
+            data-aos-delay="100"
+            data-aos-duration="800"
+            data-aos-once="false">
             {[
               {
                 industry: 'Finance & Accounting',
@@ -482,20 +531,24 @@ export default function RPA() {
                 key={idx}
                 style={{
                   padding: '28px',
-                  border: '2px solid #dbeafe',
+                  border: '2px solid #19b5fe',
                   borderRadius: '8px',
-                  background: '#f0f9ff',
+                  background: 'rgba(25, 181, 254, 0.1)',
                   transition: 'all 0.3s ease',
                   animation: isVisible ? `slideUp 0.8s ease-out ${idx * 0.1}s both` : 'none'
                 }}
+                data-aos="fade-up"
+                data-aos-delay={idx * 100}
+                data-aos-duration="1000"
+                data-aos-once="false"
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = '#0284c7';
-                  e.currentTarget.style.background = '#e0f2fe';
-                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(2, 132, 199, 0.15)';
+                  e.currentTarget.style.borderColor = '#66d9ff';
+                  e.currentTarget.style.background = 'rgba(25, 181, 254, 0.2)';
+                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(25, 181, 254, 0.25)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = '#dbeafe';
-                  e.currentTarget.style.background = '#f0f9ff';
+                  e.currentTarget.style.borderColor = '#19b5fe';
+                  e.currentTarget.style.background = 'rgba(25, 181, 254, 0.1)';
                   e.currentTarget.style.boxShadow = 'none';
                 }}
               >
@@ -508,14 +561,14 @@ export default function RPA() {
                 <h4 style={{
                   fontSize: '18px',
                   fontWeight: '700',
-                  color: '#0c4a6e',
+                  color: '#ffffff',
                   margin: '0 0 15px 0'
                 }}>
                   {useCase.industry}
                 </h4>
                 <ul style={{
                   fontSize: '14px',
-                  color: '#374151',
+                  color: '#cbd5e1',
                   lineHeight: '1.8',
                   margin: 0,
                   paddingLeft: '20px'
@@ -526,8 +579,9 @@ export default function RPA() {
                 </ul>
               </div>
             ))}
+            </div>
           </div>
-        </section>
+        </section>>
 
         {/* Metrics & Proof Section */}
         <section style={{ marginBottom: '80px' }}>

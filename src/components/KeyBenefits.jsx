@@ -40,9 +40,9 @@ export default function KeyBenefits() {
 
   return (
     <div style={{ background: '#fff' }}>
-      {/* Banner with Gradient */}
+      {/* Banner with Dark Gradient */}
       <div style={{
-        background: 'linear-gradient(135deg, rgba(10, 100, 150, 1) 0%, rgba(15, 140, 200, 1) 100%)',
+        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
         color: '#fff',
         padding: '60px 60px 100px',
         textAlign: 'left',
@@ -50,7 +50,8 @@ export default function KeyBenefits() {
         position: 'relative',
         minHeight: '280px',
         display: 'flex',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
+        overflow: 'hidden'
       }}>
         <div style={{ maxWidth: '100%', margin: '0', paddingLeft: '0', paddingTop: '0', position: 'relative', zIndex: 2 }}>
           <h1 data-aos="slide-left" data-aos-duration="900" style={{
@@ -108,12 +109,13 @@ export default function KeyBenefits() {
         {benefits.map((benefit, idx) => (
           <div
             key={idx}
-            data-aos="fade-in"
-            data-aos-delay={idx * 200}
+            data-aos={idx % 2 === 0 ? "fade-left" : "fade-right"}
+            data-aos-delay={idx * 150}
             data-aos-duration="800"
+            data-aos-once="false"
             style={{
               padding: '40px',
-              background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',
+              background: 'linear-gradient(135deg, #19b5fe 0%, #0f8cc8 100%)',
               borderRadius: '12px',
               transition: 'all 0.4s ease',
               position: 'relative',
@@ -165,11 +167,11 @@ export default function KeyBenefits() {
               pointerEvents: 'none'
             }}>
               {idx === 0 ? (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{width: '100%', height: '100%', color: '#0369a1'}}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{width: '100%', height: '100%', color: '#ffffff'}}>
                   <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
                 </svg>
               ) : idx === 1 ? (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{width: '100%', height: '100%', color: '#0891b2'}}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{width: '100%', height: '100%', color: '#ffffff'}}>
                   <rect x="6" y="8" width="12" height="12" rx="2"/>
                   <path d="M9 8V6c0-1 .5-2 1-2h4c.5 0 1 1 1 2v2"/>
                   <circle cx="10" cy="13" r="1" fill="currentColor"/>
@@ -178,7 +180,7 @@ export default function KeyBenefits() {
                   <path d="M7 11h1M16 11h1"/>
                 </svg>
               ) : (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{width: '100%', height: '100%', color: '#0d9488'}}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{width: '100%', height: '100%', color: '#ffffff'}}>
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                   <path d="M12 12h.01"/>
                 </svg>
@@ -187,7 +189,7 @@ export default function KeyBenefits() {
             <h3 style={{
               fontSize: '24px',
               fontWeight: '700',
-              color: '#000000',
+              color: '#ffffff',
               margin: '0 0 12px 0',
               transition: 'all 0.4s ease',
               transformOrigin: 'center'
@@ -196,10 +198,10 @@ export default function KeyBenefits() {
             </h3>
             <p style={{
               fontSize: '13px',
-              color: '#374151',
+              color: '#ffffff',
               lineHeight: '1.7',
               margin: '0',
-              opacity: 1,
+              opacity: 0.95,
               transition: 'all 0.4s ease',
               transformOrigin: 'center'
             }}>

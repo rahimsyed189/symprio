@@ -13,8 +13,6 @@ import FeaturedCaseStudy from './components/FeaturedCaseStudy';
 import Testimonials from './components/Testimonials';
 import FooterCTA from './components/FooterCTA';
 import TeamMembers from './components/TeamMembers';
-import EInvoicing from './components/EInvoicing';
-import DocumentUnderstanding from './components/DocumentUnderstanding';
 import TransformCTA from './components/TransformCTA';
 import SymprioFooter from './components/SymprioFooter';
 import DigitalTransformation from './components/DigitalTransformation';
@@ -49,8 +47,6 @@ const HomePage = () => {
       <FeaturedCaseStudy />
       <Testimonials />
       <TeamMembers />
-      <EInvoicing />
-      <DocumentUnderstanding />
       <TransformCTA />
       <SymprioFooter />
     </div>

@@ -32,12 +32,12 @@ export default function SymprioNavbar() {
         top: 0,
         left: 0,
         right: 0,
-        background: '#fff',
+        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
         padding: '20px 60px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderBottom: '1px solid #e5e7eb',
+        borderBottom: '3px solid #ffffff',
         zIndex: 10001,
         transform: scrolled ? 'translateY(-80px)' : 'translateY(0)',
         transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -57,7 +57,8 @@ export default function SymprioNavbar() {
             style={{
               height: '45px',
               width: 'auto',
-              objectFit: 'contain'
+              objectFit: 'contain',
+              filter: 'brightness(0) invert(1)'
             }}
           />
         </div>
@@ -87,7 +88,7 @@ export default function SymprioNavbar() {
               <div style={{
                 fontSize: '13px',
                 fontWeight: '600',
-                color: '#1f2937',
+                color: '#ffffff',
                 letterSpacing: '0.3px'
               }}>
                 +60 13 880 2574
@@ -107,7 +108,7 @@ export default function SymprioNavbar() {
           <div style={{
             width: '1.5px',
             height: '50px',
-            background: 'linear-gradient(to bottom, transparent, #9ca3af, transparent)',
+            background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.3), transparent)',
             opacity: 0.8
           }}></div>
 
@@ -132,14 +133,14 @@ export default function SymprioNavbar() {
               <div style={{
                 fontSize: '13px',
                 fontWeight: '600',
-                color: '#1f2937',
+                color: '#ffffff',
                 letterSpacing: '0.3px'
               }}>
                 Symprio Sdn Bhd, Tower B, 8-05
               </div>
               <div style={{
                 fontSize: '11px',
-                color: '#6b7280',
+                color: '#cbd5e1',
                 fontWeight: '500',
                 letterSpacing: '0.2px'
               }}>
@@ -177,14 +178,14 @@ export default function SymprioNavbar() {
               <div style={{
                 fontSize: '13px',
                 fontWeight: '600',
-                color: '#1f2937',
+                color: '#ffffff',
                 letterSpacing: '0.3px'
               }}>
                 contact@symprio.com
               </div>
               <div style={{
                 fontSize: '11px',
-                color: '#6b7280',
+                color: '#cbd5e1',
                 fontWeight: '500',
                 letterSpacing: '0.2px'
               }}>

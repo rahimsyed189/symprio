@@ -44,12 +44,14 @@ const TeamMembers = () => {
 
   return (
     <section style={{
-      maxWidth: '1300px',
-      margin: '0 auto',
+      width: '100%',
+      margin: '0',
       padding: '100px 20px',
-      backgroundColor: '#f8fafc',
-      borderRadius: '20px'
+      background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+      borderRadius: '0px',
+      borderTop: '3px solid #ffffff'
     }}>
+      <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
       {/* Header */}
       <div style={{
         textAlign: 'center',
@@ -58,7 +60,7 @@ const TeamMembers = () => {
         <span data-aos="fade-up" data-aos-duration="800" data-aos-offset="50" style={{
           fontSize: '14px',
           fontWeight: '700',
-          color: '#3b82f6',
+          color: '#19b5fe',
           letterSpacing: '2px',
           textTransform: 'uppercase',
           marginBottom: '15px',
@@ -69,7 +71,7 @@ const TeamMembers = () => {
         <h2 data-aos="fade-up" data-aos-delay="100" data-aos-duration="800" data-aos-offset="50" style={{
           fontSize: '48px',
           fontWeight: '800',
-          color: '#1f2937',
+          color: '#ffffff',
           margin: '0 0 15px 0',
           lineHeight: '1.2'
         }}>
@@ -86,7 +88,7 @@ const TeamMembers = () => {
         />
         <p data-aos="fade-up" data-aos-delay="150" data-aos-duration="800" data-aos-offset="50" style={{
           fontSize: '16px',
-          color: '#6b7280',
+          color: '#cbd5e1',
           margin: '0',
           maxWidth: '500px',
           margin: '0 auto'
@@ -281,6 +283,7 @@ const TeamMembers = () => {
           }
         }
       `}</style>
+      </div>
     </section>
   );
 };
