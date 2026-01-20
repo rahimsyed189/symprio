@@ -581,7 +581,7 @@ export default function RPA() {
             ))}
             </div>
           </div>
-        </section>>
+        </section>
 
         {/* Metrics & Proof Section */}
         <section style={{ marginBottom: '80px' }}>
