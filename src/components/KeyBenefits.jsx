@@ -3,263 +3,319 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 export default function KeyBenefits() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [containerVisible, setContainerVisible] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [expandedBenefit, setExpandedBenefit] = useState(null);
 
   useEffect(() => {
     AOS.init({
-      duration: 1000,
+      duration: 800,
       once: false,
-      mirror: true
+      offset: 100
     });
-    setIsVisible(true);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const element = document.getElementById('keybenefits-banner');
-      if (element) {
-        const rect = element.getBoundingClientRect();
-        const elementHeight = element.offsetHeight;
-        const windowHeight = window.innerHeight;
-        
-        // Calculate scroll progress from banner
-        const progress = Math.max(0, Math.min(1, (windowHeight - rect.top) / (windowHeight + elementHeight)));
-        setScrollProgress(progress);
-        
-        const container = document.getElementById('keybenefits-container');
-        const containerRect = container?.getBoundingClientRect();
-        const isInView = containerRect?.top < window.innerHeight * 0.75;
-        if (isInView) {
-          setContainerVisible(true);
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
   const benefits = [
     {
+      id: 1,
+      icon: '🚀',
       title: "End-to-End Digital Transformation",
-      description: "From assessment to execution, we guide your organisation through every stage of its digital journey. We combine domain expertise with proven methodologies to optimize processes, integrate modern technologies and align solutions with your business goals."
+      subtitle: "From Assessment to Execution",
+      description: "From assessment to execution, we guide your organisation through every stage of its digital journey. We combine domain expertise with proven methodologies to optimize processes, integrate modern technologies and align solutions with your business goals.",
+      highlights: ["Assessment & Strategy", "Process Optimization", "Technology Integration", "Business Alignment"]
     },
     {
+      id: 2,
+      icon: '🤖',
       title: "AI & Agentic AI Solutions",
-      description: "Unlike traditional AI assistants, agentic AI solutions act as autonomous digital team members capable of reasoning, planning and acting with minimal oversight. Symprio delivers autonomous agents for customer service, sales, supply chain and more, enabling enterprises to scale efficiency and innovation."
+      subtitle: "Autonomous Digital Team Members",
+      description: "Unlike traditional AI assistants, agentic AI solutions act as autonomous digital team members capable of reasoning, planning and acting with minimal oversight. Symprio delivers autonomous agents for customer service, sales, supply chain and more.",
+      highlights: ["Autonomous Agents", "Customer Service AI", "Sales Automation", "Supply Chain Intelligence"]
     },
     {
+      id: 3,
+      icon: '🌐',
       title: "Trusted Industry Expertise",
-      description: "Our consultants have deep experience across sectors such as banking, public sector, telecom, healthcare and manufacturing. With offices in Silicon Valley and the Indo-Pacific region, we combine global know-how with local insight."
+      subtitle: "Global Know-how, Local Insight",
+      description: "Our consultants have deep experience across sectors such as banking, public sector, telecom, healthcare and manufacturing. With offices in Silicon Valley and the Indo-Pacific region, we combine global know-how with local insight.",
+      highlights: ["Banking & Finance", "Healthcare", "Telecom", "Manufacturing & Public Sector"]
     }
   ];
 
   return (
-    <div style={{ background: '#fff' }}>
-      {/* Banner with Scroll Color Animation */}
+    <section 
+      id="benefits-section"
+      style={{
+        background: '#ffffff',
+        padding: '0',
+        position: 'relative',
+        overflow: 'visible',
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'stretch'
+      }}>
+      {/* Content starts here */}
+      {/* LEFT SIDE - Title with Logo */}
       <div 
-        id="keybenefits-banner"
         style={{
-          background: `linear-gradient(135deg, rgb(${Math.round(255 - scrollProgress * 240)}, ${Math.round(255 - scrollProgress * 232)}, ${Math.round(255 - scrollProgress * 213)}), rgb(${Math.round(255 - scrollProgress * 225)}, ${Math.round(255 - scrollProgress * 214)}, ${Math.round(255 - scrollProgress * 196)}))`,
-          color: scrollProgress > 0.3 ? '#fff' : '#1f2937',
-          padding: '60px 60px 100px',
-          textAlign: 'left',
-          marginTop: '0',
-          position: 'relative',
-          minHeight: '280px',
+          width: '40%',
+          background: 'linear-gradient(135deg, #0f172a 0%, #0891b2 100%)',
+          padding: '60px',
           display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
           alignItems: 'flex-start',
-          overflow: 'hidden',
-          transition: 'background 0.1s ease, color 0.1s ease'
-        }}>
-        <div style={{ maxWidth: '100%', margin: '0', paddingLeft: '0', paddingTop: '0', position: 'relative', zIndex: 2 }}>
-          <h1 data-aos="slide-left" data-aos-duration="900" style={{
-            fontSize: '48px',
-            fontWeight: '700',
-            margin: '0 0 15px 0',
-            color: `rgb(${Math.round(15 + scrollProgress * 240)}, ${Math.round(23 + scrollProgress * 232)}, ${Math.round(42 + scrollProgress * 213)})`,
-            animation: isVisible ? 'slideInLeft 0.8s ease-out 0.1s both' : 'none',
-            textAlign: 'left',
-            transition: 'color 0.1s ease',
-            textShadow: scrollProgress > 0.3 ? '0 2px 4px rgba(0,0,0,0.1)' : 'none'
-          }}>
-            Why Choose Symprio?
-          </h1>
-          <p data-aos="slide-left" data-aos-delay="150" data-aos-duration="900" style={{
-            fontSize: '18px',
-            color: `rgb(${Math.round(71 + scrollProgress * 169)}, ${Math.round(85 + scrollProgress * 155)}, ${Math.round(105 + scrollProgress * 135)})`,
-            margin: 0,
-            animation: isVisible ? 'slideInLeft 0.8s ease-out 0.2s both' : 'none',
-            textAlign: 'left',
-            transition: 'color 0.1s ease',
-            textShadow: scrollProgress > 0.3 ? '0 1px 2px rgba(0,0,0,0.1)' : 'none'
-          }}>
-            Our core capabilities that drive your success
-          </p>
-        </div>
-      </div>
-
-      {/* Benefits Container - Overlapping Banner */}
-      <div 
-        id="keybenefits-container"
-        data-aos="fade-up"
-        data-aos-duration="1000"
-        data-aos-offset="100"
-        style={{
-          position: 'relative',
-          marginTop: '-80px',
-          marginBottom: '80px',
-          maxWidth: '1200px',
-          margin: '-80px auto 80px',
-          padding: '0 20px',
-          zIndex: 10
+          minHeight: 'auto',
+          position: 'relative'
         }}>
         <div 
-          style={{
-            background: '#ffffff',
-            borderRadius: '12px',
-            padding: '50px',
-            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
-            border: '2px solid #e5e7eb',
-            animation: containerVisible ? 'slideUp 0.8s ease-out both' : 'none',
-            position: 'relative',
-            zIndex: 10
+          style={{ 
+            width: '100%',
+            position: 'sticky',
+            top: '100px',
+            zIndex: 5
           }}>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '40px'
+          <h2 style={{
+            fontSize: '56px',
+            fontWeight: '800',
+            color: '#ffffff',
+            margin: '0 0 16px 0',
+            lineHeight: '1.2'
           }}>
-        {benefits.map((benefit, idx) => (
-          <div
-            key={idx}
-            data-aos={idx % 2 === 0 ? "fade-left" : "fade-right"}
-            data-aos-delay={idx * 150}
-            data-aos-duration="800"
-            data-aos-once="false"
+            Why Choose Symprio?
+          </h2>
+          <p style={{
+            fontSize: '16px',
+            color: '#e0e7ff',
+            margin: '0',
+            lineHeight: '1.6',
+            maxWidth: '90%'
+          }}>
+            We deliver enterprise transformation through strategic expertise, cutting-edge AI, and deep industry knowledge
+          </p>
+        </div>
+
+        {/* Logo at bottom right */}
+        <div style={{
+          position: 'absolute',
+          bottom: '30px',
+          right: '30px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '200px',
+          height: '200px',
+          opacity: 0.4,
+          overflow: 'hidden'
+        }}>
+          <img 
+            src="/symprio-logo.png" 
+            alt="Symprio Logo" 
             style={{
-              padding: '40px',
-              background: 'linear-gradient(135deg, #19b5fe 0%, #0f8cc8 100%)',
-              borderRadius: '12px',
-              transition: 'all 0.4s ease',
-              position: 'relative',
-              cursor: 'pointer',
-              minHeight: '340px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              overflow: 'hidden',
-              transform: 'scale(1)',
-              boxShadow: '0 5px 15px rgba(0, 0, 0, 0.08)'
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+              padding: '20px',
+              filter: 'brightness(0) invert(1)'
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.15)';
-              e.currentTarget.style.transform = 'translateY(-8px)';
-              const titleElement = e.currentTarget.querySelector('h3');
-              const descElement = e.currentTarget.querySelector('p');
-              if (titleElement) {
-                titleElement.style.transform = 'scale(1.1)';
-              }
-              if (descElement) {
-                descElement.style.transform = 'scale(1.1)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.08)';
-              e.currentTarget.style.transform = 'translateY(0)';
-              const titleElement = e.currentTarget.querySelector('h3');
-              const descElement = e.currentTarget.querySelector('p');
-              if (titleElement) {
-                titleElement.style.transform = 'scale(1)';
-              }
-              if (descElement) {
-                descElement.style.transform = 'scale(1)';
-              }
-            }}
-          >
-            <div style={{
-              position: 'absolute',
-              bottom: '-30px',
-              right: '-30px',
-              width: '220px',
-              height: '220px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              opacity: 0.15,
-              zIndex: 0,
-              pointerEvents: 'none'
-            }}>
-              {idx === 0 ? (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{width: '100%', height: '100%', color: '#ffffff'}}>
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                </svg>
-              ) : idx === 1 ? (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{width: '100%', height: '100%', color: '#ffffff'}}>
-                  <rect x="6" y="8" width="12" height="12" rx="2"/>
-                  <path d="M9 8V6c0-1 .5-2 1-2h4c.5 0 1 1 1 2v2"/>
-                  <circle cx="10" cy="13" r="1" fill="currentColor"/>
-                  <circle cx="14" cy="13" r="1" fill="currentColor"/>
-                  <path d="M9 16h6"/>
-                  <path d="M7 11h1M16 11h1"/>
-                </svg>
-              ) : (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{width: '100%', height: '100%', color: '#ffffff'}}>
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  <path d="M12 12h.01"/>
-                </svg>
-              )}
-            </div>
-            <h3 style={{
-              fontSize: '24px',
-              fontWeight: '700',
-              color: '#ffffff',
-              margin: '0 0 12px 0',
-              transition: 'all 0.4s ease',
-              transformOrigin: 'center'
-            }}>
-              {benefit.title}
-            </h3>
-            <p style={{
-              fontSize: '13px',
-              color: '#ffffff',
-              lineHeight: '1.7',
-              margin: '0',
-              opacity: 0.95,
-              transition: 'all 0.4s ease',
-              transformOrigin: 'center'
-            }}>
-              {benefit.description}
-            </p>
-          </div>
-        ))}
-          </div>
+          />
         </div>
       </div>
 
-      <style>{`
-        @keyframes slideInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-60px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(60px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
-    </div>
+      {/* RIGHT SIDE - Cards */}
+      <div style={{
+        width: '60%',
+        padding: '60px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        gap: '40px',
+        position: 'relative'
+      }}>
+        {/* Cards Grid - 1 Column */}
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '40px'
+        }}>
+          {benefits.map((benefit, idx) => (
+            <div
+              key={benefit.id}
+              className="benefit-card"
+              data-aos="fade-left"
+              data-aos-delay={idx * 200}
+              data-aos-duration="800"
+              onClick={() => setExpandedBenefit(expandedBenefit === benefit.id ? null : benefit.id)}
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                cursor: 'pointer',
+                gap: '24px',
+                alignItems: 'flex-start'
+              }}
+            >
+              {/* Icon and Number Badge */}
+              <div style={{
+                position: 'relative',
+                flexShrink: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '16px'
+              }}>
+                {/* Number badge */}
+                <div style={{
+                  width: '60px',
+                  height: '60px',
+                  background: idx === 0
+                    ? 'linear-gradient(135deg, #0891b2, #3b82f6)'
+                    : idx === 1
+                    ? 'linear-gradient(135deg, #8b5cf6, #3b82f6)'
+                    : 'linear-gradient(135deg, #ec4899, #f59e0b)',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#ffffff',
+                  fontSize: '24px',
+                  fontWeight: '700',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+                }}>
+                  {idx + 1}
+                </div>
+              </div>
+
+              {/* Content */}
+              <div style={{
+                padding: '24px 28px',
+                background: idx === 0 
+                  ? 'linear-gradient(135deg, #f0f9ff 0%, #f0fdf4 100%)'
+                  : idx === 1
+                  ? 'linear-gradient(135deg, #f5f3ff 0%, #fef3c7 100%)'
+                  : 'linear-gradient(135deg, #fef2f2 0%, #fce7f3 100%)',
+                borderRadius: '12px',
+                border: expandedBenefit === benefit.id
+                  ? `2px solid ${idx === 0 ? '#0891b2' : idx === 1 ? '#8b5cf6' : '#ec4899'}`
+                  : '1px solid #e5e7eb',
+                position: 'relative',
+                overflow: 'hidden',
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                boxShadow: expandedBenefit === benefit.id 
+                  ? `0 12px 32px ${idx === 0 ? 'rgba(8, 145, 178, 0.2)' : idx === 1 ? 'rgba(139, 92, 246, 0.2)' : 'rgba(236, 72, 153, 0.2)'}`
+                  : '0 2px 8px rgba(0, 0, 0, 0.08)',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                if (expandedBenefit !== benefit.id) {
+                  e.currentTarget.style.boxShadow = `0 8px 20px rgba(0, 0, 0, 0.1)`;
+                  e.currentTarget.style.transform = 'translateX(8px)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (expandedBenefit !== benefit.id) {
+                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)';
+                  e.currentTarget.style.transform = 'translateX(0)';
+                }
+              }}>
+                <h3 style={{
+                  fontSize: '20px',
+                  fontWeight: '700',
+                  color: '#1f2937',
+                  margin: '0 0 8px 0',
+                  lineHeight: '1.3'
+                }}>
+                  {benefit.title}
+                </h3>
+                <p style={{
+                  fontSize: '13px',
+                  fontWeight: '600',
+                  color: idx === 0 ? '#0891b2' : idx === 1 ? '#8b5cf6' : '#ec4899',
+                  margin: '0 0 12px 0',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px'
+                }}>
+                  {benefit.subtitle}
+                </p>
+                <p style={{
+                  fontSize: '14px',
+                  color: '#4b5563',
+                  lineHeight: '1.6',
+                  margin: '0 0 16px 0',
+                  flex: 1
+                }}>
+                  {benefit.description}
+                </p>
+
+                {/* Highlights - Expandable */}
+                <div style={{
+                  paddingTop: '16px',
+                  borderTop: '1px solid #e5e7eb',
+                  maxHeight: expandedBenefit === benefit.id ? '150px' : '0',
+                  overflow: 'hidden',
+                  opacity: expandedBenefit === benefit.id ? 1 : 0,
+                  transition: 'all 0.3s ease'
+                }}>
+                  <p style={{
+                    fontSize: '11px',
+                    fontWeight: '700',
+                    color: '#6b7280',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                    margin: '0 0 12px 0'
+                  }}>
+                    Key Capabilities
+                  </p>
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gap: '10px'
+                  }}>
+                    {benefit.highlights.map((highlight, hIdx) => (
+                      <div
+                        key={hIdx}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          gap: '8px'
+                        }}
+                      >
+                        <span style={{
+                          display: 'inline-block',
+                          width: '4px',
+                          height: '4px',
+                          background: idx === 0 ? '#0891b2' : idx === 1 ? '#8b5cf6' : '#ec4899',
+                          borderRadius: '50%',
+                          marginTop: '5px',
+                          flexShrink: 0
+                        }} />
+                        <span style={{
+                          fontSize: '12px',
+                          color: '#4b5563',
+                          lineHeight: '1.4'
+                        }}>
+                          {highlight}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Click indicator */}
+                <div style={{
+                  marginTop: '12px',
+                  fontSize: '12px',
+                  fontWeight: '600',
+                  color: idx === 0 ? '#0891b2' : idx === 1 ? '#8b5cf6' : '#ec4899',
+                  opacity: expandedBenefit === benefit.id ? 0 : 0.7,
+                  transition: 'opacity 0.3s ease'
+                }}>
+                  {expandedBenefit !== benefit.id ? 'Click to expand' : ''}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

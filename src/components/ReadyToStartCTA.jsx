@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function ReadyToStartCTA() {
+  const navigate = useNavigate();
   return (
     <section style={{
       background: 'linear-gradient(135deg, #87CEEB 0%, #5B9FBD 100%)',
@@ -78,6 +80,7 @@ export default function ReadyToStartCTA() {
             marginBottom: '20px'
           }}>
           <button 
+            onClick={() => navigate('/enquiry')}
             data-aos="fade-up"
             data-aos-delay="150"
             data-aos-duration="800"
@@ -106,6 +109,7 @@ export default function ReadyToStartCTA() {
           </button>
           
           <button 
+            onClick={() => navigate('/enquiry')}
             data-aos="fade-up"
             data-aos-delay="200"
             data-aos-duration="800"

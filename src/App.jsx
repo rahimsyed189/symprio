@@ -29,6 +29,7 @@ import Clients from './components/Clients';
 import ServicesLanding from './components/ServicesLanding';
 import AgenticAI from './components/AgenticAI';
 import Careers from './components/Careers';
+import Enquiry from './components/Enquiry';
 
 const HomePage = () => {
   return (
@@ -124,6 +125,7 @@ function App() {
       <Route path="/digital-workforce" element={<ServicePage component={DigitalWorkforce} />} />
       <Route path="/clients" element={<Clients />} />
       <Route path="/careers" element={<ServicePage component={Careers} />} />
+      <Route path="/enquiry" element={<ServicePage component={Enquiry} />} />
       <Route 
         path="/admin" 
         element={

@@ -5,6 +5,7 @@ import ReadyToStartCTA from './ReadyToStartCTA';
 
 export default function Careers() {
   const [selectedRole, setSelectedRole] = useState(null);
+  const [openPositions, setOpenPositions] = useState([]);
 
   useEffect(() => {
     AOS.init({
@@ -16,56 +17,87 @@ export default function Careers() {
     return () => AOS.refresh();
   }, []);
 
-  const openPositions = [
-    {
-      id: 1,
-      title: 'Senior AI/ML Engineer',
-      department: 'Engineering',
-      location: 'Remote',
-      type: 'Full-time',
-      description: 'Develop and deploy cutting-edge AI/ML solutions for enterprise clients. Work with agentic AI, RPA, and intelligent automation technologies.'
-    },
-    {
-      id: 2,
-      title: 'Consulting Manager',
-      department: 'Consulting',
-      location: 'Multiple Locations',
-      type: 'Full-time',
-      description: 'Lead digital transformation initiatives for Fortune 500 companies. Guide clients through AI adoption and process optimization.'
-    },
-    {
-      id: 3,
-      title: 'Solutions Architect',
-      department: 'Engineering',
-      location: 'Hybrid',
-      type: 'Full-time',
-      description: 'Design scalable AI and automation solutions. Collaborate with clients to understand requirements and deliver impactful implementations.'
-    },
-    {
-      id: 4,
-      title: 'Business Development Executive',
-      department: 'Sales',
-      location: 'Remote',
-      type: 'Full-time',
-      description: 'Drive growth by identifying and closing enterprise opportunities. Build strong client relationships and expand market presence.'
-    },
-    {
-      id: 5,
-      title: 'Data Analytics Specialist',
-      department: 'Operations',
-      location: 'Hybrid',
-      type: 'Full-time',
-      description: 'Analyze business data to drive strategic decisions. Create dashboards and reports for stakeholders and executives.'
-    },
-    {
-      id: 6,
-      title: 'Marketing Manager',
-      department: 'Marketing',
-      location: 'Remote',
-      type: 'Full-time',
-      description: 'Lead marketing campaigns and build brand presence. Create content and strategies to showcase our AI and automation expertise.'
+  useEffect(() => {
+    fetchJobs();
+  }, []);
+
+  const fetchJobs = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/jobs');
+      if (response.ok) {
+        const data = await response.json();
+        setOpenPositions(data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch jobs:', error);
+      // Fallback to default positions if API fails
+      setOpenPositions([
+        {
+          id: 1,
+          title: 'Senior AI/ML Engineer',
+          department: 'Engineering',
+          location: 'Remote',
+          type: 'Full-time',
+          description: 'Develop and deploy cutting-edge AI/ML solutions for enterprise clients. Work with agentic AI, RPA, and intelligent automation technologies.'
+        },
+        {
+          id: 2,
+          title: 'Consulting Manager',
+          department: 'Consulting',
+          location: 'Multiple Locations',
+          type: 'Full-time',
+          description: 'Lead digital transformation initiatives for Fortune 500 companies. Guide clients through AI adoption and process optimization.'
+        },
+        {
+          id: 3,
+          title: 'Solutions Architect',
+          department: 'Engineering',
+          location: 'Hybrid',
+          type: 'Full-time',
+          description: 'Design scalable AI and automation solutions. Collaborate with clients to understand requirements and deliver impactful implementations.'
+        },
+        {
+          id: 4,
+          title: 'Business Development Executive',
+          department: 'Sales',
+          location: 'Remote',
+          type: 'Full-time',
+          description: 'Drive growth by identifying and closing enterprise opportunities. Build strong client relationships and expand market presence.'
+        },
+        {
+          id: 5,
+          title: 'Data Analytics Specialist',
+          department: 'Operations',
+          location: 'Hybrid',
+          type: 'Full-time',
+          description: 'Analyze business data to drive strategic decisions. Create dashboards and reports for stakeholders and executives.'
+        },
+        {
+          id: 6,
+          title: 'Marketing Manager',
+          department: 'Marketing',
+          location: 'Remote',
+          type: 'Full-time',
+          description: 'Lead marketing campaigns and build brand presence. Create content and strategies to showcase our AI and automation expertise.'
+        }
+      ]);
     }
-  ];
+  };
+
+  const getDepartmentColor = (department) => {
+    const colors = {
+      'Engineering': '#3b82f6',
+      'Sales': '#8b5cf6',
+      'Marketing': '#f59e0b',
+      'Product': '#ec4899',
+      'Design': '#10b981',
+      'Operations': '#06b6d4',
+      'Consulting': '#3b82f6'
+    };
+    return colors[department] || '#3b82f6';
+  };
+
+  const defaultOpenPositions = [];
 
   const benefits = [
     {
@@ -172,154 +204,147 @@ export default function Careers() {
             data-aos-duration="800"
             data-aos-offset="50"
             style={{
-              fontSize: '48px',
+              fontSize: '32px',
               fontWeight: '800',
               color: '#1f2937',
-              margin: '0 0 15px 0',
-              lineHeight: '1.3'
+              margin: '0 0 12px 0',
+              lineHeight: '1.2'
             }}>
             Working at Symprio
           </h2>
-          <div style={{
-            width: '80px',
-            height: '5px',
-            background: 'linear-gradient(90deg, #19b5fe, #0f8cc8)',
-            margin: '20px auto 30px',
-            borderRadius: '3px'
-          }} />
           <p 
             data-aos="fade-up"
             data-aos-delay="100"
             data-aos-duration="800"
             data-aos-offset="50"
             style={{
-              fontSize: '18px',
+              fontSize: '16px',
               color: '#6b7280',
-              maxWidth: '700px',
+              maxWidth: '600px',
               margin: '0 auto',
-              lineHeight: '1.6'
+              lineHeight: '1.5'
             }}>
             Experience a workplace culture that values innovation, collaboration, and continuous growth
           </p>
         </div>
 
-        {/* Benefits Zigzag - Staggered alternating layout */}
-        <div style={{
-          marginBottom: '60px'
-        }}>
-          {benefits.map((benefit, idx) => {
-            const colors = [
-              { primary: '#3b82f6', light: 'rgba(59, 130, 246, 0.08)' },
-              { primary: '#8b5cf6', light: 'rgba(139, 92, 246, 0.08)' },
-              { primary: '#f59e0b', light: 'rgba(245, 158, 11, 0.08)' },
-              { primary: '#ec4899', light: 'rgba(236, 72, 153, 0.08)' },
-              { primary: '#10b981', light: 'rgba(16, 185, 129, 0.08)' },
-              { primary: '#06b6d4', light: 'rgba(6, 182, 212, 0.08)' }
-            ];
-            const color = colors[idx % colors.length];
-            const isEven = idx % 2 === 0;
+        {/* Benefits Timeline - Horizontal one-line layout */}
+        <div 
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-offset="50"
+          style={{
+            position: 'relative',
+            marginBottom: '80px',
+            paddingTop: '20px',
+            paddingBottom: '20px'
+          }}>
+          {/* Timeline items grid */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(6, 1fr)',
+            gap: '20px',
+            position: 'relative',
+            zIndex: 1
+          }}>
+            {benefits.map((benefit, idx) => {
+              const colors = [
+                { primary: '#3b82f6', light: 'rgba(59, 130, 246, 0.08)' },
+                { primary: '#8b5cf6', light: 'rgba(139, 92, 246, 0.08)' },
+                { primary: '#f59e0b', light: 'rgba(245, 158, 11, 0.08)' },
+                { primary: '#ec4899', light: 'rgba(236, 72, 153, 0.08)' },
+                { primary: '#10b981', light: 'rgba(16, 185, 129, 0.08)' },
+                { primary: '#06b6d4', light: 'rgba(6, 182, 212, 0.08)' }
+              ];
+              const color = colors[idx % colors.length];
 
-            return (
-              <div
-                key={idx}
-                data-aos={isEven ? "fade-right" : "fade-left"}
-                data-aos-delay={`${idx * 100}`}
-                data-aos-duration="800"
-                data-aos-offset="50"
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '60px',
-                  alignItems: 'center',
-                  marginBottom: '80px'
-                }}
-              >
-                {/* Left content - Text side */}
-                <div style={isEven ? {} : { order: '2' }}>
+              return (
+                <div
+                  key={idx}
+                  data-aos="zoom-in"
+                  data-aos-delay={`${idx * 100}`}
+                  data-aos-duration="800"
+                  data-aos-offset="50"
+                  style={{
+                    textAlign: 'center'
+                  }}
+                >
+                  {/* Timeline dot/circle */}
+                  <div style={{
+                    width: '80px',
+                    height: '80px',
+                    background: color.light,
+                    border: `4px solid ${color.primary}`,
+                    borderRadius: '50%',
+                    margin: '0 auto 16px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '36px',
+                    transition: 'all 0.3s ease',
+                    cursor: 'pointer',
+                    boxShadow: `0 4px 12px ${color.primary}15`
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.1)';
+                    e.currentTarget.style.boxShadow = `0 12px 24px ${color.primary}30`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.boxShadow = `0 4px 12px ${color.primary}15`;
+                  }}
+                  >
+                    {benefit.icon}
+                  </div>
+
+                  {/* Benefit number badge */}
                   <div style={{
                     display: 'inline-block',
-                    padding: '8px 16px',
-                    background: `${color.primary}15`,
+                    padding: '4px 12px',
+                    background: `${color.primary}20`,
                     color: color.primary,
-                    borderRadius: '6px',
-                    fontSize: '12px',
+                    borderRadius: '4px',
+                    fontSize: '11px',
                     fontWeight: '700',
-                    marginBottom: '16px',
+                    marginBottom: '8px',
                     letterSpacing: '0.5px'
                   }}>
                     BENEFIT {idx + 1}
                   </div>
+
+                  {/* Benefit title */}
                   <h3 style={{
-                    fontSize: '32px',
+                    fontSize: '14px',
                     fontWeight: '800',
                     color: '#1f2937',
-                    margin: '0 0 16px 0',
-                    lineHeight: '1.2'
+                    margin: '8px 0 6px 0',
+                    lineHeight: '1.3'
                   }}>
                     {benefit.title}
                   </h3>
+
+                  {/* Benefit description */}
                   <p style={{
-                    fontSize: '16px',
+                    fontSize: '12px',
                     color: '#6b7280',
                     margin: 0,
-                    lineHeight: '1.8'
+                    lineHeight: '1.5'
                   }}>
                     {benefit.description}
                   </p>
                 </div>
-
-                {/* Right side - Icon card */}
-                <div style={isEven ? {} : { order: '1' }}>
-                  <div
-                    style={{
-                      background: color.light,
-                      border: `3px solid ${color.primary}`,
-                      borderRadius: '16px',
-                      padding: '60px 40px',
-                      textAlign: 'center',
-                      transition: 'all 0.3s ease',
-                      cursor: 'pointer'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-12px) scale(1.02)';
-                      e.currentTarget.style.boxShadow = `0 30px 60px ${color.primary}25`;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                      e.currentTarget.style.boxShadow = 'none';
-                    }}
-                  >
-                    <div style={{
-                      fontSize: '80px',
-                      marginBottom: '20px',
-                      display: 'inline-block',
-                      animation: 'pulse 2s ease-in-out infinite'
-                    }}>
-                      {benefit.icon}
-                    </div>
-                    <p style={{
-                      fontSize: '14px',
-                      color: color.primary,
-                      fontWeight: '600',
-                      margin: 0,
-                      letterSpacing: '0.5px'
-                    }}>
-                      {benefit.title.toUpperCase()}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
-        {/* Culture Highlight Box */}
+        {/* Our Culture Section */}
         <div 
           data-aos="fade-up"
-          data-aos-delay="200"
           data-aos-duration="800"
           data-aos-offset="50"
           style={{
+            marginTop: '80px',
             padding: '40px',
             background: 'linear-gradient(135deg, rgba(8, 145, 178, 0.08) 0%, rgba(25, 181, 254, 0.08) 100%)',
             border: '2px solid #0891b2',
@@ -328,7 +353,7 @@ export default function Careers() {
             textAlign: 'center'
           }}>
           <h3 style={{
-            fontSize: '22px',
+            fontSize: '20px',
             fontWeight: '700',
             margin: '0 0 15px 0',
             color: '#0891b2'
@@ -339,7 +364,10 @@ export default function Careers() {
             fontSize: '15px',
             lineHeight: '1.8',
             margin: 0,
-            color: '#4b5563'
+            color: '#4b5563',
+            maxWidth: '800px',
+            marginLeft: 'auto',
+            marginRight: 'auto'
           }}>
             At Symprio, we promote a culture that values innovation, collaboration, and continuous learning. We believe in empowering our employees to take ownership of their work, share ideas freely, and grow professionally. Our team is diverse, driven, and passionate about transforming enterprises through cutting-edge technology.
           </p>
@@ -399,15 +427,7 @@ export default function Careers() {
           gap: '24px'
         }}>
           {openPositions.map((position, idx) => {
-            const deptColors = {
-              'Engineering': '#3b82f6',
-              'Sales': '#8b5cf6',
-              'Marketing': '#f59e0b',
-              'Product': '#ec4899',
-              'Design': '#10b981',
-              'Operations': '#06b6d4'
-            };
-            const deptColor = deptColors[position.department] || '#6b7280';
+            const deptColor = getDepartmentColor(position.department);
 
             return (
               <div

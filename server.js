@@ -103,6 +103,47 @@ function initializeDatabase() {
       });
     }
   });
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS jobs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      department TEXT NOT NULL,
+      type TEXT NOT NULL,
+      description TEXT NOT NULL,
+      location TEXT DEFAULT 'Remote',
+      status TEXT DEFAULT 'active',
+      created_by INTEGER,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (created_by) REFERENCES users(id)
+    )
+  `, (err) => {
+    if (err) {
+      console.error('Error creating jobs table:', err);
+    } else {
+      console.log('Jobs table ready');
+    }
+  });
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS enquiries (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      email TEXT NOT NULL,
+      phone TEXT NOT NULL,
+      company TEXT NOT NULL,
+      service TEXT NOT NULL,
+      message TEXT NOT NULL,
+      status TEXT DEFAULT 'new',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `, (err) => {
+    if (err) {
+      console.error('Error creating enquiries table:', err);
+    } else {
+      console.log('Enquiries table ready');
+    }
+  });
 }
 
 // Register endpoint
@@ -353,6 +394,156 @@ app.delete('/api/trainings/:id', verifyJWT, (req, res) => {
         return res.status(500).json({ error: 'Failed to delete training' });
       }
       res.json({ success: true, message: 'Training deleted' });
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ========== JOBS ENDPOINTS ==========
+
+// Get all active jobs
+app.get('/api/jobs', (req, res) => {
+  db.all('SELECT * FROM jobs WHERE status = "active" ORDER BY created_at DESC', [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: 'Database error' });
+    }
+    res.json(rows || []);
+  });
+});
+
+// Post new job (admin only)
+app.post('/api/jobs', verifyJWT, (req, res) => {
+  try {
+    const { title, department, type, description, location } = req.body;
+
+    if (!title || !department || !type || !description) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    db.run(
+      'INSERT INTO jobs (title, department, type, description, location, status, created_by) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [title, department, type, description, location || 'Remote', 'active', req.user.id],
+      function(err) {
+        if (err) {
+          return res.status(500).json({ error: 'Failed to post job' });
+        }
+        res.status(201).json({
+          success: true,
+          job: {
+            id: this.lastID,
+            title,
+            department,
+            type,
+            description,
+            location: location || 'Remote',
+            status: 'active'
+          }
+        });
+      }
+    );
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Delete job (admin only)
+app.delete('/api/jobs/:id', verifyJWT, (req, res) => {
+  try {
+    db.run('DELETE FROM jobs WHERE id = ? AND created_by = ?', [req.params.id, req.user.id], function(err) {
+      if (err) {
+        return res.status(500).json({ error: 'Failed to delete job' });
+      }
+      res.json({ success: true, message: 'Job deleted' });
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Post enquiry (public endpoint)
+app.post('/api/enquiries', (req, res) => {
+  try {
+    const { name, email, phone, company, service, message } = req.body;
+
+    if (!name || !email || !phone || !company || !service || !message) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    db.run(
+      'INSERT INTO enquiries (name, email, phone, company, service, message, status) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [name, email, phone, company, service, message, 'new'],
+      function(err) {
+        if (err) {
+          return res.status(500).json({ error: 'Failed to submit enquiry' });
+        }
+        res.status(201).json({
+          success: true,
+          message: 'Enquiry submitted successfully',
+          enquiry: {
+            id: this.lastID,
+            name,
+            email,
+            phone,
+            company,
+            service,
+            message,
+            status: 'new'
+          }
+        });
+      }
+    );
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get all enquiries (admin only)
+app.get('/api/enquiries', verifyJWT, (req, res) => {
+  try {
+    db.all('SELECT * FROM enquiries ORDER BY created_at DESC', (err, rows) => {
+      if (err) {
+        return res.status(500).json({ error: 'Failed to fetch enquiries' });
+      }
+      res.json({ enquiries: rows || [] });
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Update enquiry status (admin only)
+app.patch('/api/enquiries/:id', verifyJWT, (req, res) => {
+  try {
+    const { status } = req.body;
+
+    if (!status) {
+      return res.status(400).json({ error: 'Status is required' });
+    }
+
+    db.run(
+      'UPDATE enquiries SET status = ? WHERE id = ?',
+      [status, req.params.id],
+      function(err) {
+        if (err) {
+          return res.status(500).json({ error: 'Failed to update enquiry' });
+        }
+        res.json({ success: true, message: 'Enquiry status updated' });
+      }
+    );
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Delete enquiry (admin only)
+app.delete('/api/enquiries/:id', verifyJWT, (req, res) => {
+  try {
+    db.run('DELETE FROM enquiries WHERE id = ?', [req.params.id], function(err) {
+      if (err) {
+        return res.status(500).json({ error: 'Failed to delete enquiry' });
+      }
+      res.json({ success: true, message: 'Enquiry deleted' });
     });
   } catch (error) {
     res.status(500).json({ error: error.message });

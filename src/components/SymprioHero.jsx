@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function SymprioHero() {
+  const navigate = useNavigate();
   const titleRef = useRef(null);
   const descRef = useRef(null);
   const [showAnimation, setShowAnimation] = useState(false);
@@ -93,7 +95,9 @@ export default function SymprioHero() {
           alignItems: 'center',
           flexWrap: 'wrap'
         }}>
-          <button style={{
+          <button 
+            onClick={() => navigate('/enquiry')}
+            style={{
             background: '#3b82f6',
             color: '#fff',
             border: 'none',

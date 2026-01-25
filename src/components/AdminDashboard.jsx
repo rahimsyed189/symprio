@@ -6,8 +6,11 @@ const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('events');
   const [events, setEvents] = useState([]);
   const [trainings, setTrainings] = useState([]);
+  const [jobs, setJobs] = useState([]);
+  const [enquiries, setEnquiries] = useState([]);
   const [showEventForm, setShowEventForm] = useState(false);
   const [showTrainingForm, setShowTrainingForm] = useState(false);
+  const [showJobForm, setShowJobForm] = useState(false);
   const navigate = useNavigate();
   const { user, logout, token } = useAuth();
 
@@ -32,10 +35,21 @@ const AdminDashboard = () => {
     link: ''
   });
 
-  // Fetch events and trainings
+  // Job form state
+  const [jobForm, setJobForm] = useState({
+    title: '',
+    department: 'Engineering',
+    type: 'Full-time',
+    description: '',
+    location: 'Remote'
+  });
+
+  // Fetch events, trainings, and jobs
   useEffect(() => {
     fetchEvents();
     fetchTrainings();
+    fetchJobs();
+    fetchEnquiries();
   }, []);
 
   const fetchEvents = async () => {
@@ -59,6 +73,68 @@ const AdminDashboard = () => {
       }
     } catch (error) {
       console.error('Failed to fetch trainings:', error);
+    }
+  };
+
+  const fetchJobs = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/jobs');
+      if (response.ok) {
+        const data = await response.json();
+        setJobs(data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch jobs:', error);
+    }
+  };
+
+  const fetchEnquiries = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/enquiries', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setEnquiries(data.enquiries || []);
+      }
+    } catch (error) {
+      console.error('Failed to fetch enquiries:', error);
+    }
+  };
+
+  const handleDeleteEnquiry = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/enquiries/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (response.ok) {
+        fetchEnquiries();
+      }
+    } catch (error) {
+      console.error('Failed to delete enquiry:', error);
+    }
+  };
+
+  const handleUpdateEnquiryStatus = async (id, status) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/enquiries/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ status })
+      });
+      if (response.ok) {
+        fetchEnquiries();
+      }
+    } catch (error) {
+      console.error('Failed to update enquiry:', error);
     }
   };
 
@@ -110,6 +186,31 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleAddJob = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:5000/api/jobs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(jobForm)
+      });
+
+      if (response.ok) {
+        setJobForm({ title: '', department: 'Engineering', type: 'Full-time', description: '', location: 'Remote' });
+        setShowJobForm(false);
+        fetchJobs();
+        alert('Job posted successfully!');
+      } else {
+        alert('Failed to post job');
+      }
+    } catch (error) {
+      alert('Error posting job: ' + error.message);
+    }
+  };
+
   const handleDeleteEvent = async (eventId) => {
     if (!window.confirm('Are you sure you want to delete this event?')) return;
 
@@ -145,6 +246,25 @@ const AdminDashboard = () => {
       }
     } catch (error) {
       alert('Error deleting training: ' + error.message);
+    }
+  };
+
+  const handleDeleteJob = async (jobId) => {
+    if (!window.confirm('Are you sure you want to delete this job?')) return;
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/jobs/${jobId}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (response.ok) {
+        fetchJobs();
+      } else {
+        alert('Failed to delete job');
+      }
+    } catch (error) {
+      alert('Error deleting job: ' + error.message);
     }
   };
 
@@ -239,6 +359,34 @@ const AdminDashboard = () => {
             }}
           >
             Trainings
+          </button>
+          <button
+            onClick={() => setActiveTab('jobs')}
+            style={{
+              padding: '12px 24px',
+              background: activeTab === 'jobs' ? '#00d4ff' : 'transparent',
+              color: activeTab === 'jobs' ? 'white' : '#6b7280',
+              border: 'none',
+              borderRadius: '6px',
+              fontWeight: '600',
+              cursor: 'pointer'
+            }}
+          >
+            Post Jobs
+          </button>
+          <button
+            onClick={() => setActiveTab('enquiries')}
+            style={{
+              padding: '12px 24px',
+              background: activeTab === 'enquiries' ? '#00d4ff' : 'transparent',
+              color: activeTab === 'enquiries' ? 'white' : '#6b7280',
+              border: 'none',
+              borderRadius: '6px',
+              fontWeight: '600',
+              cursor: 'pointer'
+            }}
+          >
+            Enquiries ({enquiries.length})
           </button>
         </div>
 
@@ -607,6 +755,318 @@ const AdminDashboard = () => {
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* Jobs Tab */}
+        {activeTab === 'jobs' && (
+          <div>
+            <button
+              onClick={() => setShowJobForm(!showJobForm)}
+              style={{
+                background: 'white',
+                color: '#00d4ff',
+                padding: '12px 24px',
+                border: 'none',
+                borderRadius: '8px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                marginBottom: '20px',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
+              }}
+            >
+              {showJobForm ? '✕ Close' : '+ Post New Job'}
+            </button>
+
+            {showJobForm && (
+              <form
+                onSubmit={handleAddJob}
+                style={{
+                  background: 'white',
+                  padding: '30px',
+                  borderRadius: '8px',
+                  marginBottom: '30px',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+                }}
+              >
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#1f2937' }}>Job Title *</label>
+                    <input
+                      type="text"
+                      placeholder="e.g., Senior React Developer"
+                      value={jobForm.title}
+                      onChange={(e) => setJobForm({ ...jobForm, title: e.target.value })}
+                      required
+                      style={{
+                        width: '100%',
+                        padding: '10px',
+                        border: '1px solid #d1d5db',
+                        borderRadius: '6px',
+                        boxSizing: 'border-box'
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#1f2937' }}>Department *</label>
+                    <select
+                      value={jobForm.department}
+                      onChange={(e) => setJobForm({ ...jobForm, department: e.target.value })}
+                      required
+                      style={{
+                        width: '100%',
+                        padding: '10px',
+                        border: '1px solid #d1d5db',
+                        borderRadius: '6px',
+                        boxSizing: 'border-box'
+                      }}
+                    >
+                      <option value="Engineering">Engineering</option>
+                      <option value="Sales">Sales</option>
+                      <option value="Marketing">Marketing</option>
+                      <option value="Product">Product</option>
+                      <option value="Design">Design</option>
+                      <option value="Operations">Operations</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#1f2937' }}>Job Type *</label>
+                    <select
+                      value={jobForm.type}
+                      onChange={(e) => setJobForm({ ...jobForm, type: e.target.value })}
+                      required
+                      style={{
+                        width: '100%',
+                        padding: '10px',
+                        border: '1px solid #d1d5db',
+                        borderRadius: '6px',
+                        boxSizing: 'border-box'
+                      }}
+                    >
+                      <option value="Full-time">Full-time</option>
+                      <option value="Part-time">Part-time</option>
+                      <option value="Contract">Contract</option>
+                      <option value="Internship">Internship</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#1f2937' }}>Location</label>
+                    <input
+                      type="text"
+                      placeholder="e.g., Remote, New York"
+                      value={jobForm.location}
+                      onChange={(e) => setJobForm({ ...jobForm, location: e.target.value })}
+                      style={{
+                        width: '100%',
+                        padding: '10px',
+                        border: '1px solid #d1d5db',
+                        borderRadius: '6px',
+                        boxSizing: 'border-box'
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ marginBottom: '20px' }}>
+                  <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#1f2937' }}>Job Description *</label>
+                  <textarea
+                    placeholder="Enter detailed job description..."
+                    value={jobForm.description}
+                    onChange={(e) => setJobForm({ ...jobForm, description: e.target.value })}
+                    required
+                    rows="6"
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '6px',
+                      boxSizing: 'border-box',
+                      fontFamily: 'inherit'
+                    }}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  style={{
+                    background: '#00d4ff',
+                    color: 'white',
+                    border: 'none',
+                    padding: '12px 24px',
+                    borderRadius: '6px',
+                    fontWeight: '600',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Post Job
+                </button>
+              </form>
+            )}
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+              gap: '20px'
+            }}>
+              {jobs.map((job) => (
+                <div
+                  key={job.id}
+                  style={{
+                    background: 'white',
+                    padding: '20px',
+                    borderRadius: '8px',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                    borderTop: `4px solid #${['3b82f6', '8b5cf6', 'f59e0b', 'ec4899', '10b981', '06b6d4'][['Engineering', 'Sales', 'Marketing', 'Product', 'Design', 'Operations'].indexOf(job.department)] || '3b82f6'}`
+                  }}
+                >
+                  <h3 style={{ margin: '0 0 8px 0' }}>{job.title}</h3>
+                  <p style={{ color: '#6b7280', margin: '0 0 8px 0', fontWeight: '600' }}>{job.department}</p>
+                  <p style={{ color: '#6b7280', margin: '0 0 8px 0' }}>📋 {job.type}</p>
+                  <p style={{ color: '#6b7280', margin: '0 0 16px 0' }}>📍 {job.location}</p>
+                  <p style={{ color: '#4b5563', margin: '0 0 16px 0', fontSize: '14px' }}>{job.description}</p>
+                  <button
+                    onClick={() => handleDeleteJob(job.id)}
+                    style={{
+                      background: '#dc2626',
+                      color: 'white',
+                      border: 'none',
+                      padding: '8px 16px',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      fontWeight: '600'
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Enquiries Tab */}
+        {activeTab === 'enquiries' && (
+          <div style={{
+            background: 'white',
+            padding: '24px',
+            borderRadius: '8px',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
+          }}>
+            <h2 style={{ marginTop: 0, marginBottom: '24px', color: '#1f2937' }}>
+              Customer Enquiries ({enquiries.length})
+            </h2>
+            {enquiries.length === 0 ? (
+              <p style={{ color: '#6b7280' }}>No enquiries received yet.</p>
+            ) : (
+              <div style={{
+                display: 'grid',
+                gap: '16px'
+              }}>
+                {enquiries.map((enquiry) => (
+                  <div
+                    key={enquiry.id}
+                    style={{
+                      background: '#f9fafb',
+                      padding: '16px',
+                      borderRadius: '8px',
+                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                      borderLeft: `4px solid ${enquiry.status === 'new' ? '#f59e0b' : enquiry.status === 'replied' ? '#10b981' : '#6b7280'}`
+                    }}
+                  >
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                      gap: '16px',
+                      marginBottom: '12px'
+                    }}>
+                      <div>
+                        <p style={{ margin: '0 0 4px 0', color: '#6b7280', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase' }}>Name</p>
+                        <p style={{ margin: 0, fontSize: '16px', fontWeight: '600' }}>{enquiry.name}</p>
+                      </div>
+                      <div>
+                        <p style={{ margin: '0 0 4px 0', color: '#6b7280', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase' }}>Email</p>
+                        <p style={{ margin: 0, fontSize: '14px', color: '#00d4ff' }}>{enquiry.email}</p>
+                      </div>
+                      <div>
+                        <p style={{ margin: '0 0 4px 0', color: '#6b7280', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase' }}>Phone</p>
+                        <p style={{ margin: 0, fontSize: '14px' }}>{enquiry.phone}</p>
+                      </div>
+                    </div>
+
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                      gap: '16px',
+                      marginBottom: '12px'
+                    }}>
+                      <div>
+                        <p style={{ margin: '0 0 4px 0', color: '#6b7280', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase' }}>Company</p>
+                        <p style={{ margin: 0, fontSize: '14px' }}>{enquiry.company}</p>
+                      </div>
+                      <div>
+                        <p style={{ margin: '0 0 4px 0', color: '#6b7280', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase' }}>Service</p>
+                        <p style={{ margin: 0, fontSize: '14px' }}>{enquiry.service}</p>
+                      </div>
+                      <div>
+                        <p style={{ margin: '0 0 4px 0', color: '#6b7280', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase' }}>Submitted</p>
+                        <p style={{ margin: 0, fontSize: '14px' }}>{new Date(enquiry.created_at).toLocaleDateString()}</p>
+                      </div>
+                    </div>
+
+                    <div style={{
+                      background: 'white',
+                      padding: '12px',
+                      borderRadius: '6px',
+                      marginBottom: '12px'
+                    }}>
+                      <p style={{ margin: '0 0 4px 0', color: '#6b7280', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase' }}>Message</p>
+                      <p style={{ margin: 0, fontSize: '14px', color: '#4b5563', lineHeight: '1.6' }}>{enquiry.message}</p>
+                    </div>
+
+                    <div style={{
+                      display: 'flex',
+                      gap: '8px',
+                      alignItems: 'center'
+                    }}>
+                      <select
+                        value={enquiry.status}
+                        onChange={(e) => handleUpdateEnquiryStatus(enquiry.id, e.target.value)}
+                        style={{
+                          padding: '8px 12px',
+                          borderRadius: '6px',
+                          border: '1px solid #d1d5db',
+                          background: 'white',
+                          cursor: 'pointer',
+                          fontSize: '14px',
+                          fontWeight: '600'
+                        }}
+                      >
+                        <option value="new">New</option>
+                        <option value="replied">Replied</option>
+                        <option value="resolved">Resolved</option>
+                      </select>
+                      <button
+                        onClick={() => handleDeleteEnquiry(enquiry.id)}
+                        style={{
+                          background: '#dc2626',
+                          color: 'white',
+                          border: 'none',
+                          padding: '8px 16px',
+                          borderRadius: '6px',
+                          cursor: 'pointer',
+                          fontWeight: '600'
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
