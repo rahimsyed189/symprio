@@ -22,8 +22,8 @@ export default function SymprioStats() {
   return (
     <section style={{
       padding: '35px 20px',
-      background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-      borderRadius: '0px',
+      background: 'linear-gradient(135deg, #0f172a 0%, #0891b2 100%)',
+      borderRadius: '12px',
       margin: '30px 20px',
       borderTop: '3px solid #ffffff'
     }}>

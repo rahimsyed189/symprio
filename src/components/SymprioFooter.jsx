@@ -5,7 +5,7 @@ export default function SymprioFooter() {
     <>
       {/* Footer */}
       <footer style={{
-        background: '#1f2937',
+        background: 'linear-gradient(135deg, #1f2937 0%, #0891b2 100%)',
         color: '#e5e7eb',
         padding: '60px 20px 30px'
       }}>
@@ -49,11 +49,11 @@ export default function SymprioFooter() {
               <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                 {[
                   { name: 'Latest Blogs', url: 'https://symprioideas.medium.com/' },
-                  { name: 'Careers', url: 'https://www.symprio.com/careers/' },
+                  { name: 'Careers', url: '/careers' },
                   { name: 'Privacy Policy', url: 'https://www.symprio.com/privacy-policy/' }
                 ].map((link, idx) => (
                   <li key={idx} style={{ marginBottom: '10px' }}>
-                    <a href={link.url} target="_blank" rel="noopener noreferrer" style={{
+                    <a href={link.url} {...(link.url.startsWith('http') && { target: '_blank', rel: 'noopener noreferrer' })} style={{
                       color: '#d1d5db',
                       textDecoration: 'none',
                       fontSize: '14px',

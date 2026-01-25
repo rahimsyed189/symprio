@@ -51,12 +51,6 @@ const Services = () => {
       link: '/erp'
     },
     {
-      number: '05',
-      title: 'Process Optimization & Consulting',
-      description: 'Business process analysis and optimization to streamline operations. Identify inefficiencies and implement solutions that drive cost savings and productivity gains.',
-      link: '#'
-    },
-    {
       number: '06',
       title: 'Digital Workforce Services',
       description: 'Skilled IT and non‑IT professionals with flexible engagement models. Staff augmentation, managed teams and full outsourcing solutions tailored to your needs.',
@@ -76,7 +70,7 @@ const Services = () => {
         maxWidth: '100%', 
         margin: '0', 
         padding: '50px 20px',
-        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+        background: 'linear-gradient(135deg, #0f172a 0%, #0891b2 100%)',
         borderRadius: '0px',
         borderTop: '3px solid #ffffff'
       }}>
@@ -100,9 +94,11 @@ const Services = () => {
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
+            gridTemplateColumns: 'repeat(3, 1fr)',
             gap: '25px',
-            justifyItems: 'center'
+            justifyItems: 'center',
+            maxWidth: '1100px',
+            margin: '0 auto'
           }}>
             {services.map((service, idx) => (
               <div

@@ -32,7 +32,7 @@ export default function SymprioNavbar() {
         top: 0,
         left: 0,
         right: 0,
-        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+        background: 'linear-gradient(135deg, #0f172a 0%, #0891b2 100%)',
         padding: '20px 60px',
         display: 'flex',
         justifyContent: 'space-between',

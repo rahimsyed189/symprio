@@ -28,6 +28,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Clients from './components/Clients';
 import ServicesLanding from './components/ServicesLanding';
 import AgenticAI from './components/AgenticAI';
+import Careers from './components/Careers';
 
 const HomePage = () => {
   return (
@@ -122,6 +123,7 @@ function App() {
       <Route path="/custom-development" element={<ServicePage component={CustomDevelopment} />} />
       <Route path="/digital-workforce" element={<ServicePage component={DigitalWorkforce} />} />
       <Route path="/clients" element={<Clients />} />
+      <Route path="/careers" element={<ServicePage component={Careers} />} />
       <Route 
         path="/admin" 
         element={

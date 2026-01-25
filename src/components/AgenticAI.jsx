@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import ReadyToStartCTA from './ReadyToStartCTA';
 
 export default function AgenticAI() {
   const [expandedUseCase, setExpandedUseCase] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [pageScroll, setPageScroll] = useState(0);
-  const [containerVisible, setContainerVisible] = useState(false);
-  const [flowerScroll, setFlowerScroll] = useState(0);
-  const [comparisonScroll, setComparisonScroll] = useState(0);
-  const [whyMattersScroll, setWhyMattersScroll] = useState(0);
 
   useEffect(() => {
     setIsVisible(true);
@@ -20,45 +16,6 @@ export default function AgenticAI() {
       offset: 100
     });
     return () => AOS.refresh();
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setPageScroll(window.scrollY);
-      const element = document.getElementById('agentic-container');
-      const flowerElement = document.querySelector('[data-aos="zoom-in"]');
-      const comparisonElement = document.getElementById('comparison-section');
-      const whyMattersElement = document.getElementById('why-matters-section');
-      
-      if (element) {
-        const rect = element.getBoundingClientRect();
-        const isInView = rect.top < window.innerHeight * 0.75;
-        if (isInView) {
-          setContainerVisible(true);
-        }
-      }
-      
-      if (flowerElement) {
-        const rect = flowerElement.getBoundingClientRect();
-        const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height * 0.5)));
-        setFlowerScroll(progress);
-      }
-
-      if (comparisonElement) {
-        const rect = comparisonElement.getBoundingClientRect();
-        const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height * 0.5)));
-        setComparisonScroll(progress);
-      }
-
-      if (whyMattersElement) {
-        const rect = whyMattersElement.getBoundingClientRect();
-        const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height * 0.5)));
-        setWhyMattersScroll(progress);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const whyMatters = [
@@ -168,90 +125,110 @@ export default function AgenticAI() {
       position: 'relative',
       overflow: 'hidden'
     }}>
-      {/* Animated Background Elements */}
-      <div style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: 0,
-        pointerEvents: 'none',
-        overflow: 'hidden'
-      }}>
-        {/* Floating Orb 1 */}
-        <div style={{
-          position: 'absolute',
-          width: '400px',
-          height: '400px',
-          background: 'radial-gradient(circle, rgba(12, 74, 110, 0.15) 0%, transparent 70%)',
-          borderRadius: '50%',
-          top: `${-100 + (pageScroll * 0.1) % 300}px`,
-          left: `${-150 + (pageScroll * 0.05) % 200}px`,
-          filter: 'blur(60px)'
-        }}/>
-        
-        {/* Floating Orb 2 */}
-        <div style={{
-          position: 'absolute',
-          width: '500px',
-          height: '500px',
-          background: 'radial-gradient(circle, rgba(8, 145, 178, 0.1) 0%, transparent 70%)',
-          borderRadius: '50%',
-          bottom: `${-200 + (pageScroll * 0.08) % 300}px`,
-          right: `${-250 + (pageScroll * 0.06) % 250}px`,
-          filter: 'blur(80px)'
-        }}/>
-        
-        {/* Floating Orb 3 */}
-        <div style={{
-          position: 'absolute',
-          width: '350px',
-          height: '350px',
-          background: 'radial-gradient(circle, rgba(102, 217, 255, 0.08) 0%, transparent 70%)',
-          borderRadius: '50%',
-          top: `${50 + (pageScroll * 0.12) % 200}px`,
-          right: `${100 + (pageScroll * 0.04) % 150}px`,
-          filter: 'blur(70px)'
-        }}/>
-      </div>
+      {/* Animated Background Elements - REMOVED for performance */}
 
       {/* Content Wrapper */}
       <div style={{ position: 'relative', zIndex: 1 }}>
       {/* Hero Section */}
       <section style={{
-        background: 'url("/agentic-ai-banner.png") center/cover no-repeat',
+        backgroundImage: `linear-gradient(135deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.15) 100%), url('/agentic-ai-banner.png')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
         color: '#fff',
-        padding: '80px 20px',
-        textAlign: 'left'
+        padding: '100px 20px 140px',
+        textAlign: 'center',
+        position: 'relative',
+        minHeight: '500px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
       }}>
-        <div style={{ maxWidth: '100%', margin: '0', paddingLeft: '40px', paddingTop: '10px' }}>
+        <div style={{ position: 'relative', zIndex: 2, maxWidth: '800px' }}>
           <h1 style={{
-            fontSize: '56px',
-            fontWeight: '700',
-            margin: '-20px 0 20px 0',
+            fontSize: '64px',
+            fontWeight: '800',
+            margin: '0 0 20px 0',
             lineHeight: '1.2',
-            color: '#ffffff'
+            color: '#ffffff',
+            letterSpacing: '-2px'
           }}
-          data-aos="fade-left"
-          data-aos-duration="800"
-          data-aos-once="false">
+          data-aos="fade-up"
+          data-aos-duration="800">
             Agentic AI Solutions
           </h1>
           <p style={{
-            fontSize: '20px',
-            color: '#e5e7eb',
+            fontSize: '22px',
+            color: '#e0e0e0',
             lineHeight: '1.8',
-            margin: '0'
+            margin: '0',
+            fontWeight: '300'
           }}
-          data-aos="fade-left"
+          data-aos="fade-up"
           data-aos-delay="100"
-          data-aos-duration="800"
-          data-aos-once="false">
+          data-aos-duration="800">
             The next evolution of AI: autonomous digital agents that reason, decide and execute
           </p>
         </div>
       </section>
+
+      {/* Main content container */}
+      <div style={{
+        maxWidth: '1200px',
+        margin: '-80px auto 0',
+        padding: '0 20px',
+        position: 'relative',
+        zIndex: 10
+      }}>
+
+        {/* Introduction Section */}
+        <section style={{ 
+          marginBottom: '80px',
+          background: '#ffffff',
+          borderRadius: '12px',
+          padding: '60px 50px',
+          boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
+          border: '2px solid #0891b2'
+        }} data-aos="fade-up">
+          <div style={{
+            maxWidth: '900px',
+            margin: '0 auto',
+            textAlign: 'center'
+          }}>
+            <h2
+              style={{
+                fontSize: '48px',
+                fontWeight: '800',
+                background: 'linear-gradient(135deg, #0f172a 0%, #0891b2 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                margin: '0 0 20px 0',
+                lineHeight: '1.3'
+              }}
+            >
+              Agentic AI Solutions
+            </h2>
+            <div
+              style={{
+                width: '100px',
+                height: '6px',
+                background: 'linear-gradient(90deg, #0f172a 0%, #0891b2 100%)',
+                margin: '20px auto 30px',
+                borderRadius: '3px'
+              }}
+            />
+            <p style={{
+              fontSize: '16px',
+              lineHeight: '1.8',
+              color: '#4b5563',
+              margin: '0'
+            }}>
+              The next evolution of AI: autonomous digital agents that reason, decide and execute. Our agentic AI solutions enable organizations to automate complex workflows, improve decision-making, and drive intelligent business outcomes.
+            </p>
+          </div>
+        </section>
+      </div>
 
       <style>{`
         @keyframes slideInLeft {
@@ -280,6 +257,7 @@ export default function AgenticAI() {
       <div 
         id="agentic-container"
         style={{
+          display: 'none',
           position: 'relative',
           marginTop: '-60px',
           marginBottom: '80px',
@@ -416,160 +394,25 @@ export default function AgenticAI() {
               </div>
             </div>
 
-            {/* Right Side - Visual */}
+            {/* Right Side - Visual - Hidden due to performance */}
             <div style={{
               position: 'relative',
               height: '400px',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              background: 'linear-gradient(135deg, #0c4a6e 0%, #0891b2 100%)',
+              borderRadius: '12px'
             }}
             data-aos="zoom-in"
             data-aos-delay="100">
-              <svg width="100%" height="100%" viewBox="0 0 400 400" style={{ maxWidth: '100%' }}>
-                {/* Animated Rotating Rings Design */}
-                
-                {/* Outer Ring - Rotating */}
-                <circle 
-                  cx="200" 
-                  cy="200" 
-                  r="190" 
-                  fill="none" 
-                  stroke="#0c4a6e" 
-                  strokeWidth="3"
-                  opacity={Math.min(flowerScroll * 2, 1)}
-                  style={{
-                    strokeDasharray: '502',
-                    strokeDashoffset: Math.min(flowerScroll * 200, 502),
-                    transition: 'all 0.3s ease-out'
-                  }}
-                />
-
-                {/* Middle Ring - Rotating Opposite */}
-                <circle 
-                  cx="200" 
-                  cy="200" 
-                  r="145" 
-                  fill="none" 
-                  stroke="#0891b2" 
-                  strokeWidth="2"
-                  opacity={Math.min((flowerScroll - 0.1) * 2.5, 1)}
-                  style={{
-                    strokeDasharray: '377',
-                    strokeDashoffset: Math.min((flowerScroll - 0.1) * -150, 0),
-                    transition: 'all 0.3s ease-out'
-                  }}
-                />
-
-                {/* Inner Ring - Pulsing */}
-                <circle 
-                  cx="200" 
-                  cy="200" 
-                  r="100" 
-                  fill="none" 
-                  stroke="#66d9ff" 
-                  strokeWidth="2"
-                  opacity={Math.min((flowerScroll - 0.2) * 3, 1)}
-                  style={{
-                    transition: 'all 0.3s ease-out'
-                  }}
-                />
-
-                {/* Central Glowing Circle */}
-                <circle 
-                  cx="200" 
-                  cy="200" 
-                  r="55" 
-                  fill="url(#gradientCenter)"
-                  stroke="none"
-                  opacity={Math.min(flowerScroll * 2, 1)}
-                  style={{
-                    transform: `scale(${0.6 + flowerScroll * 0.4})`,
-                    transformOrigin: '200px 200px',
-                    transition: 'all 0.3s ease-out'
-                  }}
-                />
-
-                {/* Center Icon with Pulse */}
-                <text 
-                  x="200" 
-                  y="210" 
-                  textAnchor="middle" 
-                  fontSize="32" 
-                  fontWeight="bold" 
-                  fill="#ffffff"
-                  style={{
-                    opacity: Math.min(flowerScroll * 2, 1),
-                    transform: `scale(${0.6 + flowerScroll * 0.4})`,
-                    transformOrigin: '200px 200px',
-                    transition: 'all 0.3s ease-out',
-                    filter: 'grayscale(100%)'
-                  }}
-                >
-                  🧠
-                </text>
-
-                {/* Decorative Dots around center - appearing one by one with labels */}
-                {[
-                  {angle: 0, label: 'Decision Making', icon: '🎯'},
-                  {angle: 90, label: 'Reasoning', icon: '🧠'},
-                  {angle: 180, label: 'Autonomy', icon: '⚡'},
-                  {angle: 270, label: 'Execution', icon: '✓'}
-                ].map((item, idx) => {
-                  const dotTrigger = 0.15 + idx * 0.1;
-                  const dotProgress = Math.max(0, Math.min(1, (flowerScroll - dotTrigger) * 3));
-                  const rad = (item.angle * Math.PI) / 180;
-                  const x = 200 + 110 * Math.cos(rad);
-                  const y = 200 + 110 * Math.sin(rad);
-                  const labelX = 200 + 155 * Math.cos(rad);
-                  const labelY = 200 + 155 * Math.sin(rad);
-                  
-                  return (
-                    <g key={idx} style={{
-                      opacity: dotProgress,
-                      transform: `scale(${0.5 + dotProgress * 0.5})`,
-                      transformOrigin: `${x}px ${y}px`,
-                      transition: 'all 0.4s ease-out'
-                    }}>
-                      <circle cx={x} cy={y} r="16" fill="#0c4a6e" opacity="0.8" />
-                      <circle cx={x} cy={y} r="16" fill="none" stroke="#ffffff" strokeWidth="2" />
-                      <text 
-                        x={x} 
-                        y={y + 4} 
-                        textAnchor="middle" 
-                        fontSize="12" 
-                        fontWeight="600" 
-                        fill="#ffffff"
-                        style={{
-                          letterSpacing: '0.5px'
-                        }}
-                      >
-                        {item.icon}
-                      </text>
-                      <text 
-                        x={labelX} 
-                        y={labelY + 4} 
-                        textAnchor="middle" 
-                        fontSize="11" 
-                        fontWeight="600" 
-                        fill="#0891b2"
-                        style={{
-                          letterSpacing: '0.5px'
-                        }}
-                      >
-                        {item.label}
-                      </text>
-                    </g>
-                  );
-                })}
-
-                <defs>
-                  <linearGradient id="gradientCenter" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style={{stopColor: '#0c4a6e', stopOpacity: 1}} />
-                    <stop offset="100%" style={{stopColor: '#0891b2', stopOpacity: 1}} />
-                  </linearGradient>
-                </defs>
-              </svg>
+              <div style={{
+                textAlign: 'center',
+                color: '#ffffff',
+                fontSize: '48px'
+              }}>
+                🧠
+              </div>
             </div>
           </div>
         </div>
@@ -721,8 +564,8 @@ export default function AgenticAI() {
               margin: '30px auto 0',
               padding: '20px',
               textAlign: 'center',
-              opacity: 0.4 + comparisonScroll * 0.6,
-              transform: `translateY(${-15 + comparisonScroll * 15}px)`,
+              opacity: 1,
+              transform: 'translateY(0px)',
               transition: 'all 0.4s ease-out'
             }}>
               <p style={{
@@ -747,69 +590,160 @@ export default function AgenticAI() {
       }}>
       </section>
 
-      {/* Why It Matters Section */}
+      {/* Why Agentic AI Matters - Value Pillars */}
       <section id="why-matters-section" style={{
         width: '100%',
         margin: '0',
-        padding: '0 20px',
+        padding: '80px 20px',
         position: 'relative',
-        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-        borderRadius: '0px',
+        background: '#f8fafc',
         overflow: 'hidden'
       }}>
-        {/* Overlay */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'transparent',
-          zIndex: 1
-        }}></div>
-
         <div style={{
           position: 'relative',
           zIndex: 2,
-          padding: '80px 20px'
+          maxWidth: '1200px',
+          margin: '0 auto'
         }}>
           <h2 style={{
-            fontSize: '42px',
-            fontWeight: '700',
-            color: '#ffffff',
-            margin: '0 0 60px 0',
-            textAlign: 'center',
-            opacity: 1,
-            transform: `translateY(${Math.max(0, (1 - Math.min(whyMattersScroll * 2, 1)) * 10)}px)`,
-            transition: 'all 0.4s ease-out'
+            fontSize: '44px',
+            fontWeight: '800',
+            color: '#1f2937',
+            margin: '0 0 15px 0',
+            textAlign: 'center'
           }}>
             Why Agentic AI Matters
           </h2>
+          <p style={{
+            fontSize: '16px',
+            color: '#6b7280',
+            textAlign: 'center',
+            maxWidth: '700px',
+            margin: '0 auto 60px',
+            lineHeight: '1.6'
+          }} data-aos="fade-up">
+            Three fundamental reasons why autonomous AI agents are reshaping enterprise automation.
+          </p>
 
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '30px'
+            gap: '40px'
           }}>
-            {whyMatters.map((item, idx) => {
-              return (
-                <div
-                  key={idx}
-                  style={{
-                    padding: '40px',
-                    background: '#ffffff',
-                    backdropFilter: 'none',
-                    borderRadius: '16px',
-                    border: '1px solid #e5e7eb',
-                    textAlign: 'center',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    boxShadow: 'none'
-                  }}
+            {whyMatters.map((item, idx) => (
+              <div
+                key={idx}
                 data-aos="fade-up"
                 data-aos-delay={idx * 100}
+                style={{
+                  padding: '40px',
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(219, 234, 254, 0.3) 100%)',
+                  border: '2px solid #dbeafe',
+                  borderRadius: '12px',
+                  transition: 'all 0.4s ease',
+                  cursor: 'pointer',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
+                  e.currentTarget.style.transform = 'translateY(-12px)';
+                  e.currentTarget.style.boxShadow = '0 20px 50px rgba(8, 145, 178, 0.2)';
+                  e.currentTarget.style.borderColor = '#0891b2';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.08)';
+                  e.currentTarget.style.borderColor = '#dbeafe';
+                }}
+              >
+                <div style={{
+                  fontSize: '48px',
+                  marginBottom: '20px'
+                }}>
+                  {item.icon}
+                </div>
+                <h3 style={{
+                  fontSize: '22px',
+                  fontWeight: '800',
+                  color: '#0c4a6e',
+                  margin: '0 0 15px 0'
+                }}>
+                  {item.title}
+                </h3>
+                <p style={{
+                  fontSize: '14px',
+                  color: '#4b5563',
+                  lineHeight: '1.7',
+                  margin: '0'
+                }}>
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Enterprise Use Cases - Detailed Scenarios */}
+      <section style={{
+        width: '100%',
+        padding: '80px 20px',
+        backgroundColor: '#ffffff'
+      }}>
+        <h2 style={{
+          fontSize: '44px',
+          fontWeight: '800',
+          color: '#1f2937',
+          margin: '0 0 15px 0',
+          textAlign: 'center'
+        }} data-aos="fade-up">
+          Enterprise Use Cases
+        </h2>
+        <p style={{
+          fontSize: '16px',
+          color: '#6b7280',
+          textAlign: 'center',
+          maxWidth: '700px',
+          margin: '0 auto 60px',
+          lineHeight: '1.6'
+        }} data-aos="fade-up">
+          Five transformative scenarios where agentic AI delivers measurable business impact.
+        </p>
+
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          display: 'grid',
+          gap: '30px'
+        }}>
+          {useCases.map((useCase, idx) => {
+            const colors = [
+              { color: '#0891b2', bgColor: '#dbeafe', icon: '📞' },
+              { color: '#10b981', bgColor: '#dcfce7', icon: '💼' },
+              { color: '#f59e0b', bgColor: '#fef3c7', icon: '📦' },
+              { color: '#8b5cf6', bgColor: '#f3e8ff', icon: '💰' },
+              { color: '#ec4899', bgColor: '#ffe4e6', icon: '👥' }
+            ];
+            const colorScheme = colors[idx];
+            
+            return (
+              <div
+                key={idx}
+                data-aos={idx % 2 === 0 ? 'fade-right' : 'fade-left'}
+                data-aos-delay={idx * 100}
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '40px',
+                  alignItems: 'center',
+                  padding: '40px',
+                  background: colorScheme.bgColor,
+                  border: `3px solid ${colorScheme.color}`,
+                  borderRadius: '12px',
+                  transition: 'all 0.4s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = `0 20px 50px ${colorScheme.color}33`;
                   e.currentTarget.style.transform = 'translateY(-8px)';
                 }}
                 onMouseLeave={(e) => {
@@ -817,282 +751,182 @@ export default function AgenticAI() {
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
-                {/* Watermark Number */}
-                <div style={{
-                  position: 'absolute',
-                  top: '15px',
-                  right: '20px',
-                  fontSize: '48px',
-                  fontWeight: '700',
-                  color: '#0f172a',
-                  opacity: 0.05,
-                  zIndex: 0
-                }}>
-                  {String(idx + 1).padStart(2, '0')}
-                </div>
-
-                {/* Icon Container */}
-                <div style={{
-                  fontSize: '70px',
-                  marginBottom: '25px',
-                  position: 'relative',
-                  zIndex: 1,
-                  color: '#1f2937',
-                  filter: 'grayscale(0%) brightness(1)',
-                  opacity: 1
-                }}>
-                  {item.icon}
-                </div>
-
-                <h3 style={{
-                  fontSize: '24px',
-                  fontWeight: '700',
-                  color: '#1f2937',
-                  margin: '0 0 15px 0',
-                  position: 'relative',
-                  zIndex: 1
-                }}>
-                  {item.title}
-                </h3>
-
-                <p style={{
-                  fontSize: '15px',
-                  color: '#666666',
-                  lineHeight: '1.7',
-                  margin: '0',
-                  position: 'relative',
-                  zIndex: 1,
-                  opacity: 0.9
-                }}>
-                  {item.description}
-                </p>
-
-                {/* Bottom Accent - Clean line */}
-                <div style={{
-                  height: '2px',
-                  background: 'rgba(255, 255, 255, 0.2)',
-                  marginTop: '25px',
-                  position: 'relative',
-                  zIndex: 1
-                }} />
-              </div>
-            );
-          })}
-        </div>
-        </div>
-      </section>
-
-      {/* Enterprise Use Cases Section */}
-      <section style={{
-        width: '100%',
-        padding: '80px 20px',
-        backgroundColor: '#f8fafc'
-      }}>
-        <h2 style={{
-          fontSize: '42px',
-          fontWeight: '700',
-          color: '#1f2937',
-          margin: '0 0 60px 0',
-          textAlign: 'center'
-        }}>
-          Enterprise Use Cases
-        </h2>
-
-        {/* Horizontal Flow Container */}
-        <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          position: 'relative',
-          paddingBottom: '20px'
-        }}>
-          {/* Cards Container - Grid Layout */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(5, 1fr)',
-            gap: '15px',
-            paddingTop: '20px',
-            paddingBottom: '10px',
-            position: 'relative',
-            zIndex: 1
-          }}>
-            {useCases.map((useCase, idx) => {
-              const colors = [
-                { bg: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(219, 234, 254, 0.6) 100%)', icon: '📞', accent: '#0c4a6e', border: '#dbeafe' },
-                { bg: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(219, 234, 254, 0.6) 100%)', icon: '💼', accent: '#0c4a6e', border: '#dbeafe' },
-                { bg: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(219, 234, 254, 0.6) 100%)', icon: '📦', accent: '#0c4a6e', border: '#dbeafe' },
-                { bg: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(219, 234, 254, 0.6) 100%)', icon: '💰', accent: '#0c4a6e', border: '#dbeafe' },
-                { bg: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(219, 234, 254, 0.6) 100%)', icon: '👥', accent: '#0c4a6e', border: '#dbeafe' }
-              ];
-              const color = colors[idx];
-              
-              return (
-                <div
-                  key={idx}
-                  style={{
-                    padding: '18px',
-                    background: color.bg,
-                    borderRadius: '12px',
-                    border: `2px solid ${color.border}`,
-                    cursor: 'pointer',
-                    transition: 'all 0.4s ease',
-                    boxShadow: '0 8px 20px rgba(12, 74, 110, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8)',
-                    overflow: 'hidden',
-                    position: 'relative',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    minHeight: 'auto'
-                  }}
-                  data-aos="fade-left"
-                  data-aos-duration="700"
-                  data-aos-delay={idx * 120}
-                  data-aos-once="false"
-                  onClick={() => setExpandedUseCase(expandedUseCase === idx ? null : idx)}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '0 15px 35px rgba(12, 74, 110, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.9)';
-                    e.currentTarget.style.transform = 'translateY(-8px)';
-                    e.currentTarget.style.borderColor = color.accent;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = '0 8px 20px rgba(12, 74, 110, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8)';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.borderColor = color.border;
-                  }}
-                >
-                  {/* Shiny Overlay */}
-                  <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: '40%',
-                    background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, transparent 100%)',
-                    pointerEvents: 'none',
-                    borderRadius: '14px 14px 0 0'
-                  }}/>
-
-                  {/* Corner Number Watermark */}
-                  <div style={{
-                    position: 'absolute',
-                    top: '12px',
-                    right: '16px',
-                    fontSize: '40px',
-                    fontWeight: '700',
-                    color: color.accent,
-                    opacity: 0.1,
-                    zIndex: 0
-                  }}>
-                    {useCase.number}
-                  </div>
-
-                  {/* Content */}
-                  <div style={{ position: 'relative', zIndex: 1 }}>
-                    {/* Icon and Header */}
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '12px',
-                      marginBottom: '15px'
-                    }}>
-                      <div style={{ fontSize: '36px' }}>
-                        {color.icon}
+                {idx % 2 === 0 ? (
+                  <>
+                    <div>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '15px',
+                        marginBottom: '20px'
+                      }}>
+                        <div style={{
+                          fontSize: '40px',
+                          fontWeight: '800',
+                          color: colorScheme.color
+                        }}>
+                          {useCase.number}
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '24px' }}>{colorScheme.icon}</div>
+                        </div>
                       </div>
                       <h3 style={{
-                        fontSize: '16px',
-                        fontWeight: '700',
+                        fontSize: '24px',
+                        fontWeight: '800',
                         color: '#1f2937',
-                        margin: 0,
-                        lineHeight: '1.3'
+                        margin: '0 0 12px 0'
                       }}>
                         {useCase.title}
                       </h3>
+                      <p style={{
+                        fontSize: '15px',
+                        color: '#6b7280',
+                        margin: '0 0 20px 0',
+                        lineHeight: '1.6',
+                        fontWeight: '600'
+                      }}>
+                        {useCase.overview}
+                      </p>
+                      <div>
+                        <p style={{
+                          fontSize: '12px',
+                          fontWeight: '700',
+                          color: colorScheme.color,
+                          margin: '0 0 12px 0',
+                          textTransform: 'uppercase',
+                          letterSpacing: '1px'
+                        }}>
+                          Key Benefits
+                        </p>
+                        <ul style={{
+                          margin: 0,
+                          paddingLeft: '20px',
+                          fontSize: '13px',
+                          color: '#4b5563',
+                          lineHeight: '1.8'
+                        }}>
+                          {useCase.benefits.map((benefit, i) => (
+                            <li key={i}>{benefit}</li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-
-                    {/* Overview */}
-                    <p style={{
-                      fontSize: '13px',
-                      color: '#4b5563',
-                      margin: '0 0 18px 0',
-                      lineHeight: '1.5',
-                      flex: 1
-                    }}>
-                      {useCase.overview}
-                    </p>
-
-                    {/* View Details Button */}
                     <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      color: color.accent,
-                      fontSize: '12px',
-                      fontWeight: '700',
-                      cursor: 'pointer',
-                      marginTop: 'auto'
+                      padding: '30px',
+                      background: 'rgba(255, 255, 255, 0.7)',
+                      borderRadius: '8px',
+                      border: `2px solid ${colorScheme.color}33`,
+                      textAlign: 'center'
                     }}>
-                      <span style={{
-                        display: 'inline-block',
-                        transition: 'transform 0.3s ease',
-                        transform: expandedUseCase === idx ? 'rotate(90deg)' : 'rotate(0deg)',
-                        fontSize: '28px',
-                        letterSpacing: '2px'
+                      <div style={{
+                        fontSize: '56px',
+                        fontWeight: '800',
+                        color: colorScheme.color,
+                        marginBottom: '10px'
                       }}>
-                        →
-                      </span>
-                      <span>{expandedUseCase === idx ? 'Hide Details' : 'View Details'}</span>
+                        {colorScheme.icon}
+                      </div>
+                      <p style={{
+                        fontSize: '13px',
+                        color: '#6b7280',
+                        fontWeight: '600',
+                        margin: 0
+                      }}>
+                        {useCase.overview}
+                      </p>
                     </div>
-                  </div>
-
-                  {/* Expanded Details */}
-                  {expandedUseCase === idx && (
+                  </>
+                ) : (
+                  <>
                     <div style={{
-                      marginTop: '15px',
-                      paddingTop: '15px',
-                      borderTop: `2px solid ${color.border}`,
-                      position: 'relative',
-                      zIndex: 1
+                      padding: '30px',
+                      background: 'rgba(255, 255, 255, 0.7)',
+                      borderRadius: '8px',
+                      border: `2px solid ${colorScheme.color}33`,
+                      textAlign: 'center'
                     }}>
-                      <h4 style={{
-                        fontSize: '11px',
-                        fontWeight: '700',
-                        color: color.accent,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.5px',
-                        margin: '0 0 10px 0'
+                      <div style={{
+                        fontSize: '56px',
+                        fontWeight: '800',
+                        color: colorScheme.color,
+                        marginBottom: '10px'
                       }}>
-                        Key Benefits:
-                      </h4>
-                      <ul style={{
-                        margin: '0',
-                        padding: '0',
-                        listStyle: 'none'
+                        {colorScheme.icon}
+                      </div>
+                      <p style={{
+                        fontSize: '13px',
+                        color: '#6b7280',
+                        fontWeight: '600',
+                        margin: 0
                       }}>
-                        {useCase.benefits.map((benefit, bIdx) => (
-                          <li key={bIdx} style={{
-                            fontSize: '11px',
-                            color: '#4b5563',
-                            marginBottom: '8px',
-                            paddingLeft: '16px',
-                            position: 'relative',
-                            lineHeight: '1.4'
-                          }}>
-                            <span style={{
-                              position: 'absolute',
-                              left: '0',
-                              color: color.accent,
-                              fontWeight: '700'
-                            }}>
-                              •
-                            </span>
-                            {benefit}
-                          </li>
-                        ))}
-                      </ul>
+                        {useCase.overview}
+                      </p>
                     </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+                    <div>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '15px',
+                        marginBottom: '20px'
+                      }}>
+                        <div style={{
+                          fontSize: '40px',
+                          fontWeight: '800',
+                          color: colorScheme.color
+                        }}>
+                          {useCase.number}
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '24px' }}>{colorScheme.icon}</div>
+                        </div>
+                      </div>
+                      <h3 style={{
+                        fontSize: '24px',
+                        fontWeight: '800',
+                        color: '#1f2937',
+                        margin: '0 0 12px 0'
+                      }}>
+                        {useCase.title}
+                      </h3>
+                      <p style={{
+                        fontSize: '15px',
+                        color: '#6b7280',
+                        margin: '0 0 20px 0',
+                        lineHeight: '1.6',
+                        fontWeight: '600'
+                      }}>
+                        {useCase.overview}
+                      </p>
+                      <div>
+                        <p style={{
+                          fontSize: '12px',
+                          fontWeight: '700',
+                          color: colorScheme.color,
+                          margin: '0 0 12px 0',
+                          textTransform: 'uppercase',
+                          letterSpacing: '1px'
+                        }}>
+                          Key Benefits
+                        </p>
+                        <ul style={{
+                          margin: 0,
+                          paddingLeft: '20px',
+                          fontSize: '13px',
+                          color: '#4b5563',
+                          lineHeight: '1.8'
+                        }}>
+                          {useCase.benefits.map((benefit, i) => (
+                            <li key={i}>{benefit}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -1372,102 +1206,8 @@ export default function AgenticAI() {
         </div>
       </section>
 
-      {/* Getting Started CTA Section */}
-      <section style={{
-        background: 'linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)',
-        padding: '100px 20px',
-        textAlign: 'center',
-        color: '#fff'
-      }}>
-        <div style={{
-          maxWidth: '800px',
-          margin: '0 auto'
-        }}>
-          <h2 style={{
-            fontSize: '44px',
-            fontWeight: '700',
-            margin: '0 0 20px 0',
-            lineHeight: '1.3'
-          }}
-          data-aos="fade-up">
-            Ready to Transform with Agentic AI?
-          </h2>
-
-          <p style={{
-            fontSize: '18px',
-            color: '#e5e7eb',
-            lineHeight: '1.8',
-            margin: '0 0 40px 0'
-          }}
-          data-aos="fade-up"
-          data-aos-delay="100">
-            Schedule an Agentic AI Strategy Session with our experts to explore how autonomous agents can revolutionize your operations.
-          </p>
-
-          <div style={{
-            display: 'flex',
-            gap: '20px',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexWrap: 'wrap'
-          }}
-          data-aos="zoom-in"
-          data-aos-delay="200">
-            <button style={{
-              background: '#fff',
-              color: '#3b82f6',
-              border: 'none',
-              padding: '16px 48px',
-              fontSize: '16px',
-              fontWeight: '600',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = 'translateY(-3px)';
-              e.target.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.2)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = 'translateY(0)';
-              e.target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-            }}
-            >
-              Schedule Strategy Session
-            </button>
-            
-            <button style={{
-              background: 'transparent',
-              color: '#fff',
-              border: '2px solid #fff',
-              padding: '14px 46px',
-              fontSize: '16px',
-              fontWeight: '600',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.background = '#fff';
-              e.target.style.color = '#3b82f6';
-              e.target.style.transform = 'translateY(-3px)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.background = 'transparent';
-              e.target.style.color = '#fff';
-              e.target.style.transform = 'translateY(0)';
-            }}
-            >
-              Contact an AI Consultant
-            </button>
-          </div>
-        </div>
-      </section>
+      {/* CTA Section */}
+      <ReadyToStartCTA />
     </div>
   );
 }

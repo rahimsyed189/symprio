@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import ReadyToStartCTA from './ReadyToStartCTA';
 
 export default function RPA() {
   const navigate = useNavigate();
@@ -38,172 +39,104 @@ export default function RPA() {
     <div>
       {/* Hero Banner */}
       <section style={{
-        backgroundImage: 'url(/rpa-banner.jpg)',
+        backgroundImage: `linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.3) 100%), url(/rpa/banner.jpg)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
         position: 'relative',
-        padding: '80px 20px',
+        padding: '100px 20px 140px',
         textAlign: 'center',
-        marginTop: '0',
-        color: '#fff'
+        color: '#fff',
+        minHeight: '500px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
       }}>
-        {/* Dark overlay */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.3)',
-          zIndex: 1
-        }}></div>
-
         {/* Banner content */}
-        <div style={{ position: 'relative', zIndex: 2, maxWidth: '100%', margin: '0', paddingTop: '10px', paddingLeft: '40px', textAlign: 'left' }}>
+        <div style={{ position: 'relative', zIndex: 2, maxWidth: '800px' }}>
           <h1 style={{
-            fontSize: '56px',
-            fontWeight: '700',
-            color: '#fff',
-            margin: '-20px 0 20px 0',
-            animation: isVisible ? 'slideInLeft 0.8s ease-out 0.1s both' : 'none',
-            textAlign: 'left'
-          }}>
+            fontSize: '64px',
+            fontWeight: '800',
+            color: '#ffffff',
+            margin: '0 0 20px 0',
+            lineHeight: '1.2',
+            letterSpacing: '-2px'
+          }} data-aos="fade-up">
             Robotic Process Automation
           </h1>
           <p style={{
-            fontSize: '18px',
+            fontSize: '22px',
             color: '#e0e0e0',
             margin: 0,
-            animation: isVisible ? 'slideInLeft 0.8s ease-out 0.2s both' : 'none',
-            textAlign: 'left'
-          }}>
+            fontWeight: '300'
+          }} data-aos="fade-up" data-aos-delay="100">
             Automate Repetitive Tasks, Boost Accuracy & Compliance
           </p>
         </div>
       </section>
 
-      <style>{`
-        @keyframes slideInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-60px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(60px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
+      {/* Main content container */}
+      <div style={{
+        maxWidth: '1200px',
+        margin: '-80px auto 0',
+        padding: '0 20px',
+        position: 'relative',
+        zIndex: 10
+      }}>
 
-      {/* RPA Info Container - Overlapping Banner */}
-      <div 
-        id="rpa-container"
-        style={{
-          position: 'relative',
-          marginTop: '-60px',
+        {/* Introduction Section */}
+        <section style={{ 
           marginBottom: '80px',
-          maxWidth: '1200px',
-          margin: '-60px auto 80px',
-          padding: '0 20px',
-          zIndex: 10
-        }}>
-        <div style={{
           background: '#ffffff',
           borderRadius: '12px',
-          padding: '50px',
-          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
-          border: '2px solid #e5e7eb',
-          animation: containerVisible ? 'slideUp 0.8s ease-out both' : 'none',
-          position: 'relative',
-          zIndex: 10
-        }}>
+          padding: '60px 50px',
+          boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
+          border: '2px solid #0891b2'
+        }} data-aos="fade-up">
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '50px',
-            alignItems: 'center'
+            maxWidth: '900px',
+            margin: '0 auto',
+            textAlign: 'center'
           }}>
-            {/* Left - Description */}
-            <div>
-              <h3 style={{
-                fontSize: '24px',
-                fontWeight: '700',
-                color: '#0c4a6e',
-                margin: '0 0 20px 0'
-              }}>
-                About RPA
-              </h3>
-              <p style={{
-                fontSize: '15px',
-                lineHeight: '1.8',
-                color: '#374151',
-                margin: '0 0 20px 0'
-              }}>
-                Robotic Process Automation (RPA) is the automation of repetitive, rules-based tasks across departments to boost accuracy, speed and compliance. By deploying intelligent software robots, organizations can eliminate manual work, reduce errors, and free up employees to focus on high-value strategic activities.
-              </p>
-              <p style={{
-                fontSize: '15px',
-                lineHeight: '1.8',
-                color: '#374151',
-                margin: '0'
-              }}>
-                Symprio provides end-to-end RPA services from assessment through delivery, including ongoing support, training, and establishment of an RPA Center of Excellence.
-              </p>
-            </div>
-
-            {/* Right - Key Stats */}
-            <div>
-              <h2 style={{
-                fontSize: '32px',
-                fontWeight: '700',
-                color: '#0c4a6e',
-                margin: '0 0 30px 0'
-              }}>
-                Why RPA?
-              </h2>
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '20px'
-              }}>
-                {[
-                  { icon: '⚡', title: 'Faster Execution', desc: '5-10x speed improvement in automated processes' },
-                  { icon: '✅', title: '99.9% Accuracy', desc: 'Eliminate human errors in repetitive tasks' },
-                  { icon: '💰', title: '40-60% Cost Savings', desc: 'Reduce operational costs significantly' },
-                  { icon: '📈', title: 'Scalability', desc: 'Deploy bots across multiple departments effortlessly' }
-                ].map((item, idx) => (
-                  <div key={idx} style={{ display: 'flex', gap: '15px' }}>
-                    <div style={{ fontSize: '28px', minWidth: '40px' }}>{item.icon}</div>
-                    <div>
-                      <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#0c4a6e', margin: '0 0 5px 0' }}>
-                        {item.title}
-                      </h3>
-                      <p style={{ fontSize: '14px', color: '#374151', margin: 0, lineHeight: '1.5' }}>
-                        {item.desc}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <h2
+              style={{
+                fontSize: '48px',
+                fontWeight: '800',
+                background: 'linear-gradient(135deg, #0f172a 0%, #0891b2 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                margin: '0 0 20px 0',
+                lineHeight: '1.3'
+              }}
+            >
+              Robotic Process Automation Services
+            </h2>
+            <div
+              style={{
+                width: '100px',
+                height: '6px',
+                background: 'linear-gradient(90deg, #0f172a 0%, #0891b2 100%)',
+                margin: '20px auto 30px',
+                borderRadius: '3px'
+              }}
+            />
+            <p style={{
+              fontSize: '16px',
+              lineHeight: '1.8',
+              color: '#4b5563',
+              margin: '0'
+            }}>
+              Symprio provides end-to-end RPA services from assessment through delivery, including ongoing support, training, and establishment of an RPA Center of Excellence. Our experienced architects and developers leverage leading platforms like UiPath and Microsoft Power Automate to deliver enterprise-grade automation solutions.
+            </p>
           </div>
-        </div>
+        </section>
       </div>
 
       {/* Main content container */}
       <div style={{
         maxWidth: '1200px',
-        margin: '0 auto',
+        margin: '80px auto 0',
         padding: '0 20px'
       }}>
 
@@ -244,12 +177,12 @@ export default function RPA() {
           </div>
         </section>
 
-        {/* Services & Capabilities Section - Dark Background */}
-        <section style={{ width: '100vw', position: 'relative', left: '50%', right: '50%', marginLeft: 'calc(-50vw)', marginRight: 'calc(-50vw)', padding: '80px 20px', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', marginBottom: '80px' }}>
+        {/* Services & Capabilities Section - Implementation Journey */}
+        <section style={{ width: '100vw', position: 'relative', left: '50%', right: '50%', marginLeft: 'calc(-50vw)', marginRight: 'calc(-50vw)', padding: '80px 20px', background: '#ffffff', marginBottom: '80px' }}>
           <h2 style={{
             fontSize: '42px',
             fontWeight: '700',
-            color: '#ffffff',
+            color: '#1f2937',
             marginBottom: '60px',
             textAlign: 'center',
             maxWidth: '1200px',
@@ -258,327 +191,528 @@ export default function RPA() {
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-once="false">
-            Services & Capabilities
+            Your RPA Implementation Journey
           </h2>
 
-          {/* Two Column Layout with Icons and Content */}
+          {/* Connected Journey Timeline */}
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))',
-            gap: '50px',
-            alignItems: 'start',
+            position: 'relative',
             maxWidth: '1200px',
-            margin: '0 auto'
+            margin: '0 auto',
+            paddingBottom: '30px'
           }}>
-            {[
-              {
-                icon: '🔍',
-                title: 'RPA Assessment',
-                description: 'Evaluate current processes and identify automation opportunities. Conduct detailed opportunity analysis to prioritize high-impact processes for automation.'
-              },
-              {
-                icon: '🤖',
-                title: 'RPA Development & Deployment',
-                description: 'Build intelligent bots using UiPath, Microsoft Power Automate and other leading platforms. Ensure robust error handling, security controls and scalability.'
-              },
-              {
-                icon: '🏢',
-                title: 'Center of Excellence',
-                description: 'Establish governance frameworks, templates, best practices and change management processes. Build internal capability for sustainable automation.'
-              },
-              {
-                icon: '📊',
-                title: 'Bot Monitoring & Support',
-                description: 'Provide ongoing 24/7 monitoring, performance tuning and incident management. Ensure optimal bot performance and quick resolution of issues.'
-              },
-              {
-                icon: '📚',
-                title: 'Training & Enablement',
-                description: 'Offer comprehensive training programs for citizen developers and power users. Build internal expertise for long-term automation success.'
-              },
-              {
-                icon: '⚙️',
-                title: 'Integrated Solutions',
-                description: 'Combine RPA with AI/ML, chatbots and custom development. Create intelligent automation workflows that adapt and improve over time.'
-              }
-            ].map((service, idx) => (
+            {/* Connecting Line */}
+            <div style={{
+              position: 'absolute',
+              top: '80px',
+              left: '0',
+              right: '0',
+              height: '4px',
+              background: 'linear-gradient(90deg, transparent 0%, #19b5fe 15%, #19b5fe 85%, transparent 100%)',
+              zIndex: 0
+            }}/>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(6, 1fr)',
+              gap: '15px',
+              position: 'relative',
+              zIndex: 1
+            }}>
+              {[
+                {
+                  phase: '01',
+                  title: 'Assessment',
+                  icon: '🔍',
+                  description: 'Evaluate current processes and identify high-impact automation opportunities',
+                  duration: '2-4 weeks'
+                },
+                {
+                  phase: '02',
+                  title: 'Planning',
+                  icon: '📋',
+                  description: 'Develop roadmap, set priorities and establish governance framework',
+                  duration: '2-3 weeks'
+                },
+                {
+                  phase: '03',
+                  title: 'Build',
+                  icon: '🤖',
+                  description: 'Design and develop bots with UiPath or Power Automate',
+                  duration: 'Variable'
+                },
+                {
+                  phase: '04',
+                  title: 'Deploy',
+                  icon: '🚀',
+                  description: 'Test, validate and deploy bots to production environment',
+                  duration: '1-2 weeks'
+                },
+                {
+                  phase: '05',
+                  title: 'Train',
+                  icon: '📚',
+                  description: 'Establish CoE, train teams and build internal capability',
+                  duration: 'Ongoing'
+                },
+                {
+                  phase: '06',
+                  title: 'Optimize',
+                  icon: '📊',
+                  description: '24/7 monitoring, optimization and continuous improvement',
+                  duration: 'Ongoing'
+                }
+              ].map((stage, idx) => (
               <div
                 key={idx}
                 style={{
-                  display: 'flex',
-                  gap: '25px',
-                  padding: '30px',
-                  background: 'rgba(255, 255, 255, 0.08)',
-                  backdropFilter: 'blur(10px)',
-                  borderRadius: '12px',
-                  borderLeft: '5px solid #19b5fe',
-                  transition: 'all 0.4s ease',
-                  cursor: 'pointer',
-                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
-                  animation: isVisible ? `slideUp 0.8s ease-out ${idx * 0.1}s both` : 'none'
+                  textAlign: 'center'
                 }}
                 data-aos="fade-up"
                 data-aos-delay={idx * 100}
                 data-aos-duration="1000"
                 data-aos-once="false"
+              >
+                {/* Phase Dot */}
+                <div style={{
+                  width: '70px',
+                  height: '70px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #19b5fe 0%, #0891b2 100%)',
+                  margin: '0 auto 20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'white',
+                  fontWeight: '800',
+                  fontSize: '16px',
+                  boxShadow: '0 10px 30px rgba(25, 181, 254, 0.3)',
+                  border: '3px solid rgba(255,255,255,0.3)'
+                }}>
+                  {stage.phase}
+                </div>
+                
+                {/* Content Box */}
+                <div style={{
+                  padding: '20px',
+                  background: 'rgba(8, 145, 178, 0.08)',
+                  borderRadius: '12px',
+                  border: '2px solid #0891b2',
+                  minHeight: '160px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
+                }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 12px 40px rgba(25, 181, 254, 0.25)';
-                  e.currentTarget.style.transform = 'translateX(10px)';
-                  e.currentTarget.style.borderLeftColor = '#66d9ff';
-                  e.currentTarget.style.background = 'rgba(25, 181, 254, 0.15)';
+                  e.currentTarget.style.borderColor = '#0891b2';
+                  e.currentTarget.style.boxShadow = '0 15px 40px rgba(8, 145, 178, 0.25)';
+                  e.currentTarget.style.background = 'rgba(8, 145, 178, 0.12)';
+                  e.currentTarget.style.transform = 'translateY(-8px)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.2)';
-                  e.currentTarget.style.transform = 'translateX(0)';
-                  e.currentTarget.style.borderLeftColor = '#19b5fe';
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                }}
-              >
-                {/* Icon */}
-                <div style={{
-                  fontSize: '48px',
-                  minWidth: '60px',
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  marginTop: '5px'
+                  e.currentTarget.style.borderColor = '#0891b2';
+                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.background = 'rgba(8, 145, 178, 0.08)';
+                  e.currentTarget.style.transform = 'translateY(0)';
                 }}>
-                  {service.icon}
-                </div>
-
-                {/* Content */}
-                <div style={{ flex: 1 }}>
-                  <h3 style={{
-                    fontSize: '20px',
+                  <div style={{ fontSize: '36px', marginBottom: '10px' }}>{stage.icon}</div>
+                  <h4 style={{
+                    fontSize: '16px',
                     fontWeight: '700',
-                    color: '#19b5fe',
-                    margin: '0 0 12px 0'
+                    color: '#0891b2',
+                    margin: '0 0 10px 0'
                   }}>
-                    {service.title}
-                  </h3>
+                    {stage.title}
+                  </h4>
                   <p style={{
-                    fontSize: '15px',
-                    color: '#e0e7ff',
-                    lineHeight: '1.7',
-                    margin: 0
+                    fontSize: '12px',
+                    color: '#4b5563',
+                    margin: '0 0 12px 0',
+                    lineHeight: '1.5'
                   }}>
-                    {service.description}
+                    {stage.description}
                   </p>
+                  <div style={{
+                    fontSize: '11px',
+                    fontWeight: '700',
+                    color: '#6b7280',
+                    paddingTop: '10px',
+                    borderTop: '1px solid rgba(8, 145, 178, 0.2)'
+                  }}>
+                    {stage.duration}
+                  </div>
                 </div>
               </div>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* Benefits Section - White Background */}
+        {/* Benefits Section - Before/After Comparison */}
         <section style={{ marginBottom: '0', width: '100%', padding: '80px 20px', background: '#ffffff', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <h2 style={{
-            fontSize: '36px',
+            fontSize: '42px',
             fontWeight: '700',
             color: '#1f2937',
-            marginBottom: '50px',
+            marginBottom: '80px',
             textAlign: 'center'
           }}
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-once="false">
-            Key Benefits
+            Business Impact: Manual vs Automated
           </h2>
+          
+          {/* Before/After Comparison - Side by Side */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '40px',
-            maxWidth: '1200px',
-            margin: '0 auto',
-            width: '100%',
-            justifyItems: 'center',
-            paddingLeft: '20px',
-            paddingRight: '20px'
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '50px',
+            maxWidth: '1100px',
+            margin: '0 auto 0 auto',
+            marginLeft: 'calc(50% - 550px + 60px)',
+            alignItems: 'stretch'
           }}
           data-aos="fade-up"
           data-aos-delay="100"
           data-aos-duration="800"
           data-aos-once="false">
-            {[
-              {
-                title: '24/7 Execution & Accuracy',
-                description: 'RPA bots work around the clock without fatigue or errors. Achieve unprecedented accuracy, faster throughput, and consistent compliance with regulations.',
-                stats: ['99.9% Accuracy', '24/7 Operation', 'Faster Processing']
-              },
-              {
-                title: 'Employee Empowerment & ROI',
-                description: 'Free up employees from repetitive tasks to focus on strategic, high-value work. Accelerate return on investment through improved productivity and quality.',
-                stats: ['45% Cost Reduction', 'Fast ROI', 'Higher Satisfaction']
-              }
-            ].map((benefit, idx) => (
-              <div
-                key={idx}
-                style={{
-                  padding: '35px',
-                  background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',
-                  borderRadius: '12px',
-                  boxShadow: '0 5px 15px rgba(0, 0, 0, 0.08)',
-                  transition: 'all 0.4s ease',
-                  animation: isVisible ? `slideUp 0.8s ease-out ${idx * 0.15}s both` : 'none',
-                  maxWidth: '400px',
-                  width: '100%'
-                }}
-                data-aos="fade-up"
-                data-aos-delay={idx * 150}
-                data-aos-duration="1000"
-                data-aos-once="false"
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.15)';
-                  e.currentTarget.style.transform = 'translateY(-8px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.08)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                <h3 style={{
-                  fontSize: '22px',
-                  fontWeight: '700',
-                  color: '#000000',
-                  margin: '0 0 15px 0'
-                }}>
-                  {benefit.title}
-                </h3>
-                <p style={{
-                  fontSize: '14px',
-                  color: '#374151',
-                  lineHeight: '1.7',
-                  margin: '0 0 20px 0'
-                }}>
-                  {benefit.description}
-                </p>
-                <div style={{
-                  display: 'flex',
-                  gap: '12px',
-                  flexWrap: 'wrap'
-                }}>
-                  {benefit.stats.map((stat, i) => (
-                    <span
-                      key={i}
-                      style={{
+            
+            {/* BEFORE - Manual Processes */}
+            <div style={{
+              padding: '40px',
+              background: 'linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)',
+              borderRadius: '16px',
+              border: '3px solid #fca5a5',
+              position: 'relative',
+              display: 'flex',
+              flexDirection: 'column'
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: '20px',
+                right: '20px',
+                fontSize: '48px'
+              }}>
+                ❌
+              </div>
+              <h3 style={{
+                fontSize: '28px',
+                fontWeight: '800',
+                color: '#7f1d1d',
+                marginBottom: '30px',
+                marginTop: '0'
+              }}>
+                Before: Manual Processes
+              </h3>
+              <div style={{
+                display: 'grid',
+                gap: '20px',
+                flex: 1
+              }}>
+                {[
+                  { metric: 'Processing Time', value: '8-10 hours/day', icon: '⏱️' },
+                  { metric: 'Error Rate', value: '5-10% manual errors', icon: '🔴' },
+                  { metric: 'Availability', value: '9-5 business hours', icon: '📅' },
+                  { metric: 'Cost/Month', value: '$15,000-20,000', icon: '💸' },
+                  { metric: 'Scalability', value: 'Limited by headcount', icon: '📉' },
+                  { metric: 'Employee Satisfaction', value: 'Repetitive, low morale', icon: '😕' }
+                ].map((item, idx) => (
+                  <div key={idx} style={{
+                    display: 'flex',
+                    gap: '15px',
+                    alignItems: 'flex-start'
+                  }}>
+                    <div style={{ fontSize: '24px' }}>{item.icon}</div>
+                    <div>
+                      <div style={{
+                        fontSize: '13px',
+                        fontWeight: '700',
+                        color: '#7f1d1d'
+                      }}>
+                        {item.metric}
+                      </div>
+                      <div style={{
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        color: '#991b1b'
+                      }}>
+                        {item.value}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* AFTER - RPA Automation */}
+            <div style={{
+              padding: '40px',
+              background: 'linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%)',
+              borderRadius: '16px',
+              border: '3px solid #86efac',
+              position: 'relative',
+              display: 'flex',
+              flexDirection: 'column',
+              transition: 'all 0.4s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = '0 20px 50px rgba(34, 197, 94, 0.25)';
+              e.currentTarget.style.transform = 'translateY(-4px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: '20px',
+                right: '20px',
+                fontSize: '48px'
+              }}>
+                ✅
+              </div>
+              <h3 style={{
+                fontSize: '28px',
+                fontWeight: '800',
+                color: '#166534',
+                marginBottom: '30px',
+                marginTop: '0'
+              }}>
+                After: RPA Automation
+              </h3>
+              <div style={{
+                display: 'grid',
+                gap: '20px',
+                flex: 1
+              }}>
+                {[
+                  { metric: 'Processing Time', value: '5 minutes (24/7)', icon: '⚡', improvement: '96% faster' },
+                  { metric: 'Error Rate', value: '< 0.1% errors', icon: '✓', improvement: '99% reduction' },
+                  { metric: 'Availability', value: '24/7 without breaks', icon: '🌍', improvement: '100% uptime' },
+                  { metric: 'Cost/Month', value: '$2,000-3,000', icon: '💰', improvement: '85% savings' },
+                  { metric: 'Scalability', value: 'Unlimited, add bots', icon: '📈', improvement: 'Linear scale' },
+                  { metric: 'Employee Satisfaction', value: 'Strategic, high-value work', icon: '😊', improvement: 'Empowered' }
+                ].map((item, idx) => (
+                  <div key={idx} style={{
+                    display: 'flex',
+                    gap: '15px',
+                    alignItems: 'flex-start'
+                  }}>
+                    <div style={{ fontSize: '24px' }}>{item.icon}</div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{
+                        fontSize: '13px',
+                        fontWeight: '700',
+                        color: '#166534'
+                      }}>
+                        {item.metric}
+                      </div>
+                      <div style={{
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        color: '#15803d'
+                      }}>
+                        {item.value}
+                      </div>
+                      <div style={{
                         fontSize: '12px',
                         fontWeight: '700',
-                        color: '#0c4a6e',
-                        background: 'rgba(12, 74, 110, 0.1)',
-                        padding: '6px 12px',
-                        borderRadius: '20px'
-                      }}
-                    >
-                      {stat}
-                    </span>
-                  ))}
-                </div>
+                        color: '#22c55e',
+                        marginTop: '4px'
+                      }}>
+                        {item.improvement}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
           </div>
         </section>
 
-        {/* Industry Use Cases Section - Dark Background */}
-        <section style={{ width: '100vw', position: 'relative', left: '50%', right: '50%', marginLeft: 'calc(-50vw)', marginRight: 'calc(-50vw)', padding: '80px 20px', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', marginBottom: '80px' }}>
+        {/* Industry Use Cases Section - Process-Based Scenarios */}
+        <section style={{ width: '100vw', position: 'relative', left: '50%', right: '50%', marginLeft: 'calc(-50vw)', marginRight: 'calc(-50vw)', padding: '80px 20px', background: '#ffffff', marginBottom: '80px' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <h2 style={{
-              fontSize: '36px',
+              fontSize: '42px',
               fontWeight: '700',
-              color: '#ffffff',
-              marginBottom: '50px',
+              color: '#1f2937',
+              marginBottom: '80px',
               textAlign: 'center'
             }}
             data-aos="fade-up"
             data-aos-duration="800"
             data-aos-once="false">
-              Industry Use Cases
+              Real-World Automation Scenarios
             </h2>
+            
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '25px',
+              gridTemplateColumns: '1fr',
+              gap: '40px',
               maxWidth: '1100px',
               margin: '0 auto'
-            }}
-            data-aos="fade-up"
-            data-aos-delay="100"
-            data-aos-duration="800"
-            data-aos-once="false">
-            {[
-              {
-                industry: 'Finance & Accounting',
-                examples: ['Invoice processing & reconciliation', 'Accounts payable automation', 'Financial statement generation'],
-                icon: '💰'
-              },
-              {
-                industry: 'Human Resources',
-                examples: ['Employee onboarding workflows', 'Payroll processing', 'Benefits administration'],
-                icon: '👥'
-              },
-              {
-                industry: 'Supply Chain',
-                examples: ['Order processing automation', 'Inventory management', 'Vendor management'],
-                icon: '📦'
-              },
-              {
-                industry: 'Regulatory & Compliance',
-                examples: ['Audit report generation', 'Compliance monitoring', 'Regulatory data collection'],
-                icon: '⚖️'
-              }
-            ].map((useCase, idx) => (
-              <div
-                key={idx}
-                style={{
-                  padding: '28px',
-                  border: '2px solid #19b5fe',
-                  borderRadius: '8px',
-                  background: 'rgba(25, 181, 254, 0.1)',
-                  transition: 'all 0.3s ease',
-                  animation: isVisible ? `slideUp 0.8s ease-out ${idx * 0.1}s both` : 'none'
-                }}
-                data-aos="fade-up"
-                data-aos-delay={idx * 100}
-                data-aos-duration="1000"
-                data-aos-once="false"
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = '#66d9ff';
-                  e.currentTarget.style.background = 'rgba(25, 181, 254, 0.2)';
-                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(25, 181, 254, 0.25)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = '#19b5fe';
-                  e.currentTarget.style.background = 'rgba(25, 181, 254, 0.1)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-              >
-                <div style={{
-                  fontSize: '32px',
-                  marginBottom: '12px'
-                }}>
-                  {useCase.icon}
+            }}>
+              {[
+                {
+                  industry: 'Finance & Accounting',
+                  icon: '💰',
+                  color: '#fbbf24',
+                  scenario: 'Invoice Processing',
+                  process: [
+                    { step: 'Receive', desc: 'Bot captures invoices from email/portal' },
+                    { step: 'Extract', desc: 'OCR extracts data: amount, vendor, PO' },
+                    { step: 'Validate', desc: 'Cross-check with POs and receipts' },
+                    { step: 'Post', desc: 'Auto-post to accounting system' }
+                  ],
+                  impact: 'Process 500+ invoices/month | 95% time saved | 99.8% accuracy'
+                },
+                {
+                  industry: 'Human Resources',
+                  icon: '👥',
+                  color: '#60a5fa',
+                  scenario: 'Employee Onboarding',
+                  process: [
+                    { step: 'Collect', desc: 'Bot gathers employee data & documents' },
+                    { step: 'Create', desc: 'Creates accounts (email, systems, tools)' },
+                    { step: 'Register', desc: 'Registers for benefits & training' },
+                    { step: 'Notify', desc: 'Sends welcome emails & resources' }
+                  ],
+                  impact: 'Onboard employees 5x faster | 100% consistency | Day-1 productivity'
+                },
+                {
+                  industry: 'Supply Chain',
+                  icon: '📦',
+                  color: '#10b981',
+                  scenario: 'Order-to-Cash Process',
+                  process: [
+                    { step: 'Receive', desc: 'Bot retrieves orders from portals/APIs' },
+                    { step: 'Process', desc: 'Validates inventory & customer data' },
+                    { step: 'Fulfill', desc: 'Updates warehouse & shipping systems' },
+                    { step: 'Invoice', desc: 'Auto-generates & sends invoice' }
+                  ],
+                  impact: '24/7 order processing | 2-hour cycle time | 40% cost reduction'
+                },
+                {
+                  industry: 'Compliance & Audit',
+                  icon: '⚖️',
+                  color: '#8b5cf6',
+                  scenario: 'Regulatory Reporting',
+                  process: [
+                    { step: 'Extract', desc: 'Bot pulls data from multiple systems' },
+                    { step: 'Validate', desc: 'Checks data against compliance rules' },
+                    { step: 'Format', desc: 'Creates regulatory-compliant reports' },
+                    { step: 'File', desc: 'Submits to regulatory bodies' }
+                  ],
+                  impact: 'Reports generated 80% faster | Zero manual errors | Full audit trail'
+                }
+              ].map((useCase, idx) => (
+                <div
+                  key={idx}
+                  data-aos="fade-up"
+                  data-aos-delay={idx * 150}
+                  data-aos-duration="1000"
+                  data-aos-once="false"
+                  style={{
+                    padding: '40px',
+                    background: 'rgba(8, 145, 178, 0.05)',
+                    backdropFilter: 'blur(0px)',
+                    border: `3px solid ${useCase.color}`,
+                    borderRadius: '16px',
+                    transition: 'all 0.4s ease',
+                    cursor: 'pointer'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = `rgba(${useCase.color === '#fbbf24' ? '251,191,36' : useCase.color === '#60a5fa' ? '96,165,250' : useCase.color === '#10b981' ? '16,185,129' : '139,92,246'},0.15)`;
+                    e.currentTarget.style.boxShadow = `0 20px 50px ${useCase.color}40`;
+                    e.currentTarget.style.transform = 'translateY(-8px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(8, 145, 178, 0.05)';
+                    e.currentTarget.style.boxShadow = 'none';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    gap: '40px',
+                    alignItems: 'start'
+                  }}>
+                    {/* Left: Header & Info */}
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '20px' }}>
+                        <div style={{ fontSize: '40px' }}>{useCase.icon}</div>
+                        <div>
+                          <div style={{ fontSize: '13px', fontWeight: '700', color: useCase.color, textTransform: 'uppercase', letterSpacing: '1px' }}>
+                            {useCase.industry}
+                          </div>
+                          <div style={{ fontSize: '24px', fontWeight: '800', color: '#ffffff', marginTop: '4px' }}>
+                            {useCase.scenario}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Impact Highlight */}
+                      <div style={{
+                        padding: '15px',
+                        background: `linear-gradient(135deg, ${useCase.color}20 0%, ${useCase.color}05 100%)`,
+                        borderRadius: '8px',
+                        border: `1px solid ${useCase.color}40`,
+                        marginTop: '20px'
+                      }}>
+                        <div style={{ fontSize: '11px', fontWeight: '700', color: useCase.color, textTransform: 'uppercase', marginBottom: '8px' }}>
+                          Business Impact
+                        </div>
+                        <div style={{ fontSize: '13px', color: '#4b5563', lineHeight: '1.6' }}>
+                          {useCase.impact}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Right: Process Flow */}
+                    <div>
+                      <div style={{ fontSize: '11px', fontWeight: '700', color: '#6b7280', textTransform: 'uppercase', marginBottom: '15px' }}>
+                        Automation Workflow
+                      </div>
+                      <div style={{ display: 'grid', gap: '12px' }}>
+                        {useCase.process.map((step, sidx) => (
+                          <div key={sidx} style={{ display: 'grid', gridTemplateColumns: '50px 1fr', gap: '12px', alignItems: 'flex-start' }}>
+                            <div style={{
+                              width: '40px',
+                              height: '40px',
+                              borderRadius: '50%',
+                              background: `${useCase.color}22`,
+                              border: `2px solid ${useCase.color}`,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontWeight: '700',
+                              color: useCase.color,
+                              fontSize: '12px'
+                            }}>
+                              {sidx + 1}
+                            </div>
+                            <div>
+                              <div style={{ fontSize: '13px', fontWeight: '700', color: useCase.color }}>
+                                {step.step}
+                              </div>
+                              <div style={{ fontSize: '12px', color: '#6b7280', marginTop: '2px' }}>
+                                {step.desc}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <h4 style={{
-                  fontSize: '18px',
-                  fontWeight: '700',
-                  color: '#ffffff',
-                  margin: '0 0 15px 0'
-                }}>
-                  {useCase.industry}
-                </h4>
-                <ul style={{
-                  fontSize: '14px',
-                  color: '#cbd5e1',
-                  lineHeight: '1.8',
-                  margin: 0,
-                  paddingLeft: '20px'
-                }}>
-                  {useCase.examples.map((example, i) => (
-                    <li key={i}>{example}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              ))}
             </div>
           </div>
         </section>
@@ -669,7 +803,30 @@ export default function RPA() {
 
       </div>
 
+      {/* CTA Section */}
+      <ReadyToStartCTA />
+
       <style>{`
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
         @keyframes slideDown {
           from {
             opacity: 0;
@@ -680,18 +837,6 @@ export default function RPA() {
             transform: translateY(0);
           }
         }
-
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
         @keyframes fadeIn {
           from {
             opacity: 0;

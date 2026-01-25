@@ -1,364 +1,715 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import ReadyToStartCTA from './ReadyToStartCTA';
 
 export default function ERP() {
   const navigate = useNavigate();
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true);
+    AOS.init({
+      duration: 800,
+      easing: 'ease-out',
+      once: false,
+      offset: 100
+    });
+    return () => AOS.refresh();
   }, []);
 
   return (
-    <div>
+    <div style={{ backgroundColor: '#f8fafc' }}>
       {/* Hero Banner */}
       <section style={{
-        backgroundImage: 'url(/digitaltransformation/banner.jpg)',
+        backgroundImage: `linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.3) 100%), url(/digitaltransformation/banner.jpg)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
         position: 'relative',
-        padding: '40px 20px 40px',
+        padding: '100px 20px 140px',
         textAlign: 'center',
-        marginTop: '0',
-        color: '#fff'
+        color: '#fff',
+        minHeight: '500px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
       }}>
-        {/* Dark overlay */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.4)',
-          zIndex: 1
-        }}></div>
-
-        {/* Banner content */}
-        <div style={{ position: 'relative', zIndex: 2, maxWidth: '600px' }}>
-          <div style={{
-            fontSize: '14px',
-            color: '#e0e0e0',
-            marginBottom: '20px',
-            animation: isVisible ? 'fadeIn 0.8s ease-out 0.1s both' : 'none'
-          }}>
-            <span style={{ cursor: 'pointer' }} onClick={() => navigate('/')}>Home</span>
-            <span style={{ margin: '0 10px' }}>/</span>
-            <span>ERP & Enterprise Platforms</span>
-          </div>
+        <div style={{ position: 'relative', zIndex: 2, maxWidth: '800px' }}>
           <h1 style={{
-            fontSize: '48px',
-            fontWeight: '700',
-            color: '#fff',
+            fontSize: '64px',
+            fontWeight: '800',
+            color: '#ffffff',
             margin: '0 0 20px 0',
-            animation: isVisible ? 'slideDown 0.8s ease-out both' : 'none'
-          }}>
-            ERP & Enterprise Platforms
+            lineHeight: '1.2',
+            letterSpacing: '-2px'
+          }} data-aos="fade-up">
+            Enterprise Resource Planning
           </h1>
           <p style={{
-            fontSize: '18px',
+            fontSize: '22px',
             color: '#e0e0e0',
             margin: 0,
-            animation: isVisible ? 'fadeIn 0.8s ease-out 0.2s both' : 'none'
-          }}>
-            Oracle Partner for Business Transformation
+            fontWeight: '300'
+          }} data-aos="fade-up" data-aos-delay="100">
+            Transforming Business Operations with Oracle Expertise
           </p>
         </div>
       </section>
 
-      {/* Main content container */}
+      {/* Overlapping Container */}
       <div style={{
         maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '0 20px'
+        margin: '-80px auto 0',
+        padding: '0 20px',
+        position: 'relative',
+        zIndex: 10
       }}>
-
-        {/* Introduction Section */}
-        <section style={{ marginTop: '60px', marginBottom: '80px' }}>
+        <section style={{ 
+          marginBottom: '80px',
+          background: '#ffffff',
+          borderRadius: '12px',
+          padding: '60px 50px',
+          boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
+          border: '2px solid #0891b2'
+        }} data-aos="fade-up">
           <div style={{
             maxWidth: '900px',
-            margin: '0 auto'
-          }}>
-            <div style={{
-              animation: isVisible ? 'slideUp 0.8s ease-out 0.1s both' : 'none'
-            }}>
-              <h2 style={{
-                fontSize: '32px',
-                fontWeight: '700',
-                color: '#1f2937',
-                marginBottom: '20px'
-              }}>
-                About Our ERP Services
-              </h2>
-              <p style={{
-                fontSize: '16px',
-                lineHeight: '1.8',
-                color: '#4b5563',
-                marginBottom: '20px'
-              }}>
-                Symprio is a trusted Oracle partner providing business transformation rollouts and implementations for Oracle R12 and Oracle Fusion Cloud. Our certified teams bring global experience in deploying enterprise systems that drive operational excellence and digital transformation.
-              </p>
-              <p style={{
-                fontSize: '16px',
-                lineHeight: '1.8',
-                color: '#4b5563',
-                marginBottom: '30px'
-              }}>
-                With deep expertise across all Oracle modules, APAC localization knowledge, and proven implementation methodologies, we ensure smooth deployments that maximize ROI and minimize business disruption.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Service Areas Section */}
-        <section style={{ marginBottom: '80px' }}>
-          <h2 style={{
-            fontSize: '36px',
-            fontWeight: '700',
-            color: '#1f2937',
-            marginBottom: '50px',
-            textAlign: 'center'
-          }}>
-            Service Areas
-          </h2>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '30px'
-          }}>
-            {[
-              {
-                title: 'Implementations & Rollouts',
-                description: 'Certified teams with extensive global rollout experience. We manage end-to-end implementations ensuring timely delivery and quality outcomes across multiple regions.'
-              },
-              {
-                title: 'Functional Expertise',
-                description: 'Deep knowledge across all Oracle modules including Finance, Supply Chain, HR, Manufacturing and more. APAC localization templates and BR100/MD050 documentation included.'
-              },
-              {
-                title: 'Technical Expertise',
-                description: 'Specialists in integrations, extensibility, PL/SQL development, workflows and database administration. We ensure robust, scalable and maintainable solutions.'
-              },
-              {
-                title: 'Program & Change Management',
-                description: 'Comprehensive tools, templates, cutover strategies and training programs. We ensure smooth transitions and organizational adoption of new systems.'
-              },
-              {
-                title: 'Automation & Analytics',
-                description: 'Integrate UiPath RPA and advanced analytics to enhance ERP capabilities. Automate manual processes and gain real-time insights into business operations.'
-              },
-              {
-                title: 'Support & Enhancements',
-                description: 'Ongoing Oracle Cloud or R12 application support, custom development services and DBA services. We ensure optimal system performance and continuous improvement.'
-              }
-            ].map((service, idx) => (
-              <div
-                key={idx}
-                style={{
-                  padding: '30px',
-                  background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',
-                  borderRadius: '12px',
-                  transition: 'all 0.4s ease',
-                  cursor: 'pointer',
-                  boxShadow: '0 5px 15px rgba(0, 0, 0, 0.08)',
-                  animation: isVisible ? `slideUp 0.8s ease-out ${idx * 0.1}s both` : 'none',
-                  position: 'relative',
-                  overflow: 'hidden'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.15)';
-                  e.currentTarget.style.transform = 'translateY(-8px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.08)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                <h3 style={{
-                  fontSize: '20px',
-                  fontWeight: '700',
-                  color: '#000000',
-                  margin: '0 0 12px 0'
-                }}>
-                  {service.title}
-                </h3>
-                <p style={{
-                  fontSize: '14px',
-                  color: '#374151',
-                  lineHeight: '1.7',
-                  margin: 0
-                }}>
-                  {service.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Benefits Section */}
-        <section style={{ marginBottom: '80px' }}>
-          <h2 style={{
-            fontSize: '36px',
-            fontWeight: '700',
-            color: '#1f2937',
-            marginBottom: '50px',
-            textAlign: 'center'
-          }}>
-            Key Benefits
-          </h2>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '30px',
-            maxWidth: '1000px',
-            margin: '0 auto'
-          }}>
-            {[
-              {
-                title: 'Improved Financial Planning & Decision Making',
-                description: 'Real-time visibility into financial data enabling better strategic planning and faster, more informed business decisions.'
-              },
-              {
-                title: 'Faster Budgeting Cycles & Automated Reconciliations',
-                description: 'Streamlined financial processes reducing close time from weeks to days, with automated reconciliation eliminating manual errors.'
-              },
-              {
-                title: 'Regulatory Compliance & Multi-Currency Support',
-                description: 'Built-in compliance with multi-currency transactions, IFRS reporting standards and localized regulatory requirements across regions.'
-              }
-            ].map((benefit, idx) => (
-              <div
-                key={idx}
-                style={{
-                  padding: '30px',
-                  background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',
-                  borderRadius: '12px',
-                  boxShadow: '0 5px 15px rgba(0, 0, 0, 0.08)',
-                  transition: 'all 0.4s ease',
-                  animation: isVisible ? `slideUp 0.8s ease-out ${idx * 0.15}s both` : 'none'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.15)';
-                  e.currentTarget.style.transform = 'translateY(-8px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.08)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                <h3 style={{
-                  fontSize: '22px',
-                  fontWeight: '700',
-                  color: '#000000',
-                  margin: '0 0 15px 0'
-                }}>
-                  {benefit.title}
-                </h3>
-                <p style={{
-                  fontSize: '14px',
-                  color: '#374151',
-                  lineHeight: '1.7',
-                  margin: 0
-                }}>
-                  {benefit.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Client Success Section */}
-        <section style={{ marginBottom: '80px' }}>
-          <h2 style={{
-            fontSize: '36px',
-            fontWeight: '700',
-            color: '#1f2937',
-            marginBottom: '50px',
-            textAlign: 'center'
-          }}>
-            Client Success Story
-          </h2>
-          <div style={{
-            maxWidth: '800px',
             margin: '0 auto',
-            padding: '40px',
-            background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',
-            borderRadius: '12px',
-            boxShadow: '0 5px 15px rgba(0, 0, 0, 0.08)',
-            animation: isVisible ? 'slideUp 0.8s ease-out 0.1s both' : 'none'
+            textAlign: 'center'
           }}>
-            <h3 style={{
-              fontSize: '24px',
-              fontWeight: '700',
-              color: '#0c4a6e',
-              margin: '0 0 20px 0'
+            <h2 style={{
+              fontSize: '48px',
+              fontWeight: '800',
+              background: 'linear-gradient(135deg, #0f172a 0%, #0891b2 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              margin: '0 0 20px 0',
+              lineHeight: '1.3'
             }}>
-              Financial Close Time Optimization
-            </h3>
+              Enterprise ERP Solutions
+            </h2>
+            <div style={{
+              width: '100px',
+              height: '6px',
+              background: 'linear-gradient(90deg, #0f172a 0%, #0891b2 100%)',
+              margin: '20px auto 30px',
+              borderRadius: '3px'
+            }}/>
             <p style={{
               fontSize: '16px',
               lineHeight: '1.8',
-              color: '#374151',
-              margin: '0 0 20px 0'
-            }}>
-              A multinational manufacturing company struggled with a 15-day financial close cycle across multiple legal entities. Our Oracle ERP implementation delivered transformative results:
-            </p>
-            <ul style={{
-              fontSize: '15px',
-              lineHeight: '2',
-              color: '#374151',
-              margin: '0 0 20px 0',
-              paddingLeft: '20px'
-            }}>
-              <li><strong>60% reduction</strong> in closing time from 15 days to 6 days</li>
-              <li><strong>99.8% accuracy</strong> in automated reconciliations</li>
-              <li><strong>Real-time reporting</strong> eliminating manual consolidation</li>
-              <li><strong>$2.3M annual savings</strong> in operational efficiency gains</li>
-            </ul>
-            <p style={{
-              fontSize: '14px',
               color: '#4b5563',
-              fontStyle: 'italic',
-              margin: 0
+              margin: '0'
             }}>
-              "Symprio's implementation not only reduced our close time but transformed our financial operations. The APAC localization support was invaluable for our multi-country rollout." - Global Finance Controller
+              As an Oracle partner, Symprio delivers end-to-end ERP implementations and cloud transformations. We combine certified expertise with deep industry knowledge to maximize ROI and minimize disruption across your enterprise systems.
             </p>
           </div>
         </section>
-
       </div>
 
-      <style>{`
-        @keyframes slideDown {
-          from {
-            opacity: 0;
-            transform: translateY(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
+      {/* ERP Modules Hierarchy - Layered Architecture */}
+      <section style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '80px 20px'
+      }}>
+        <h2 style={{
+          fontSize: '44px',
+          fontWeight: '800',
+          color: '#1f2937',
+          margin: '0 0 15px 0',
+          textAlign: 'center'
+        }} data-aos="fade-up">
+          Oracle ERP Module Stack
+        </h2>
+        <p style={{
+          fontSize: '16px',
+          color: '#6b7280',
+          textAlign: 'center',
+          maxWidth: '700px',
+          margin: '0 auto 60px',
+          lineHeight: '1.6'
+        }} data-aos="fade-up">
+          Complete integration across core business processes, from financial management to supply chain optimization.
+        </p>
 
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
+        <div style={{
+          display: 'grid',
+          gap: '20px',
+          maxWidth: '1000px',
+          margin: '0 auto'
+        }}>
+          {[
+            {
+              layer: 'Core Platform',
+              icon: '⚙️',
+              modules: ['Oracle Cloud Infrastructure', 'Multi-Entity Consolidation', 'Global Consolidation System'],
+              color: '#0891b2',
+              bgColor: '#dbeafe'
+            },
+            {
+              layer: 'Financial Management',
+              icon: '💰',
+              modules: ['General Ledger', 'Accounts Payable', 'Accounts Receivable', 'Cash Management'],
+              color: '#10b981',
+              bgColor: '#dcfce7'
+            },
+            {
+              layer: 'Supply Chain',
+              icon: '📦',
+              modules: ['Inventory', 'Procurement', 'Logistics', 'Demand Planning'],
+              color: '#f59e0b',
+              bgColor: '#fef3c7'
+            },
+            {
+              layer: 'Human Capital',
+              icon: '👥',
+              modules: ['Payroll', 'Talent Management', 'HR Analytics', 'Workforce Planning'],
+              color: '#8b5cf6',
+              bgColor: '#f3e8ff'
+            },
+            {
+              layer: 'Manufacturing & Analytics',
+              icon: '🏭',
+              modules: ['Manufacturing Cloud', 'Business Analytics', 'Advanced Reporting', 'BI Integration'],
+              color: '#ec4899',
+              bgColor: '#ffe4e6'
+            }
+          ].map((layer, idx) => (
+            <div
+              key={idx}
+              data-aos="fade-up"
+              data-aos-delay={idx * 100}
+              style={{
+                padding: '30px 40px',
+                background: layer.bgColor,
+                border: `3px solid ${layer.color}`,
+                borderRadius: '12px',
+                transition: 'all 0.4s ease',
+                cursor: 'pointer',
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateX(20px)';
+                e.currentTarget.style.boxShadow = `0 20px 50px ${layer.color}33`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateX(0)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '25px'
+              }}>
+                <div style={{
+                  fontSize: '48px',
+                  flexShrink: 0
+                }}>
+                  {layer.icon}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <h3 style={{
+                    fontSize: '20px',
+                    fontWeight: '800',
+                    color: layer.color,
+                    margin: '0 0 12px 0'
+                  }}>
+                    {layer.layer}
+                  </h3>
+                  <div style={{
+                    display: 'flex',
+                    gap: '12px',
+                    flexWrap: 'wrap'
+                  }}>
+                    {layer.modules.map((module, i) => (
+                      <span
+                        key={i}
+                        style={{
+                          fontSize: '12px',
+                          fontWeight: '700',
+                          color: '#ffffff',
+                          background: layer.color,
+                          padding: '6px 14px',
+                          borderRadius: '12px',
+                          transition: 'all 0.3s ease'
+                        }}
+                      >
+                        {module}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-      `}</style>
+      {/* Before/After Transformation */}
+      <section style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '80px 20px',
+        marginBottom: '80px'
+      }}>
+        <h2 style={{
+          fontSize: '44px',
+          fontWeight: '800',
+          color: '#1f2937',
+          margin: '0 0 15px 0',
+          textAlign: 'center'
+        }} data-aos="fade-up">
+          Legacy vs. Oracle ERP
+        </h2>
+        <p style={{
+          fontSize: '16px',
+          color: '#6b7280',
+          textAlign: 'center',
+          maxWidth: '700px',
+          margin: '0 auto 60px',
+          lineHeight: '1.6'
+        }} data-aos="fade-up">
+          See the dramatic improvements when you modernize to Oracle Cloud ERP.
+        </p>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '60px',
+          maxWidth: '1200px',
+          margin: '0 auto'
+        }}>
+          {/* Legacy Systems - Left */}
+          <div>
+            <h3 style={{
+              fontSize: '24px',
+              fontWeight: '800',
+              color: '#ef4444',
+              marginBottom: '40px',
+              paddingBottom: '20px',
+              borderBottom: '3px solid #fee2e2'
+            }} data-aos="fade-right">
+              Legacy ERP Systems
+            </h3>
+            <div style={{ display: 'grid', gap: '20px' }}>
+              {[
+                { metric: '15-20 days', label: 'Financial Close Cycle', icon: '⏱️' },
+                { metric: '30-40% Manual', label: 'Reconciliation Work', icon: '📝' },
+                { metric: 'Siloed Data', label: 'No Real-time Visibility', icon: '🔒' },
+                { metric: 'High Cost', label: 'Maintenance & Support', icon: '💸' },
+                { metric: 'Limited Scale', label: 'Multi-entity Challenges', icon: '📊' },
+                { metric: 'Slow Updates', label: 'Delayed Business Insights', icon: '⚠️' }
+              ].map((item, idx) => (
+                <div
+                  key={idx}
+                  data-aos="fade-right"
+                  data-aos-delay={idx * 80}
+                  style={{
+                    padding: '20px',
+                    background: '#fef2f2',
+                    border: '2px solid #fee2e2',
+                    borderRadius: '8px'
+                  }}
+                >
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '15px'
+                  }}>
+                    <div style={{ fontSize: '28px' }}>{item.icon}</div>
+                    <div>
+                      <div style={{
+                        fontSize: '16px',
+                        fontWeight: '800',
+                        color: '#dc2626'
+                      }}>
+                        {item.metric}
+                      </div>
+                      <div style={{
+                        fontSize: '12px',
+                        color: '#991b1b'
+                      }}>
+                        {item.label}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Oracle ERP - Right */}
+          <div>
+            <h3 style={{
+              fontSize: '24px',
+              fontWeight: '800',
+              color: '#10b981',
+              marginBottom: '40px',
+              paddingBottom: '20px',
+              borderBottom: '3px solid #dcfce7'
+            }} data-aos="fade-left">
+              Oracle Cloud ERP
+            </h3>
+            <div style={{ display: 'grid', gap: '20px' }}>
+              {[
+                { metric: '3-5 days', label: 'Financial Close Cycle', icon: '⚡', improvement: '-75%' },
+                { metric: '98%+ Automated', label: 'Reconciliation Accuracy', icon: '✓', improvement: '+98%' },
+                { metric: 'Real-time Data', label: 'Live Business Visibility', icon: '👁️', improvement: '24/7' },
+                { metric: 'Optimized Cost', label: 'Cloud-based Efficiency', icon: '💰', improvement: '-40%' },
+                { metric: 'Global Scale', label: 'Multi-entity Consolidation', icon: '🌍', improvement: 'Yes' },
+                { metric: 'Instant Updates', label: 'Predictive Analytics', icon: '📈', improvement: 'Live' }
+              ].map((item, idx) => (
+                <div
+                  key={idx}
+                  data-aos="fade-left"
+                  data-aos-delay={idx * 80}
+                  style={{
+                    padding: '20px',
+                    background: '#f0fdf4',
+                    border: '2px solid #dcfce7',
+                    borderRadius: '8px'
+                  }}
+                >
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '15px'
+                  }}>
+                    <div style={{ fontSize: '28px' }}>{item.icon}</div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{
+                        fontSize: '16px',
+                        fontWeight: '800',
+                        color: '#059669'
+                      }}>
+                        {item.metric}
+                      </div>
+                      <div style={{
+                        fontSize: '12px',
+                        color: '#047857'
+                      }}>
+                        {item.label}
+                      </div>
+                    </div>
+                    <div style={{
+                      fontSize: '13px',
+                      fontWeight: '700',
+                      color: '#10b981',
+                      background: '#dcfce7',
+                      padding: '4px 10px',
+                      borderRadius: '6px',
+                      whiteSpace: 'nowrap'
+                    }}>
+                      {item.improvement}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Industry-Specific Use Cases */}
+      <section style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '80px 20px'
+      }}>
+        <h2 style={{
+          fontSize: '44px',
+          fontWeight: '800',
+          color: '#1f2937',
+          margin: '0 0 60px 0',
+          textAlign: 'center'
+        }} data-aos="fade-up">
+          Industry Solutions
+        </h2>
+
+        <div style={{
+          display: 'grid',
+          gap: '30px'
+        }}>
+          {[
+            {
+              industry: 'Manufacturing',
+              icon: '🏭',
+              color: '#f59e0b',
+              bgColor: '#fef3c7',
+              challenges: ['Multi-site Operations', 'Complex BOM Management', 'Production Planning'],
+              solution: 'Oracle Manufacturing Cloud with integrated planning, costing, and supply chain optimization across global facilities.'
+            },
+            {
+              industry: 'Distribution & Logistics',
+              icon: '📦',
+              color: '#3b82f6',
+              bgColor: '#dbeafe',
+              challenges: ['Inventory Across Locations', 'Order Fulfillment', 'Demand Forecasting'],
+              solution: 'SCM modules with real-time inventory visibility, automated replenishment, and demand-driven planning.'
+            },
+            {
+              industry: 'Financial Services',
+              icon: '🏦',
+              color: '#10b981',
+              bgColor: '#dcfce7',
+              challenges: ['Regulatory Compliance', 'Multi-entity Consolidation', 'Real-time Reporting'],
+              solution: 'Oracle ERP with GCS, multi-dimensional accounting, and integrated compliance/audit workflows.'
+            },
+            {
+              industry: 'Healthcare',
+              icon: '🏥',
+              color: '#8b5cf6',
+              bgColor: '#f3e8ff',
+              challenges: ['Patient Billing', 'Supply Chain', 'Budget Management'],
+              solution: 'Healthcare-specific ERP with patient accounting, materials management, and outcome-based analytics.'
+            }
+          ].map((useCase, idx) => (
+            <div
+              key={idx}
+              data-aos={idx % 2 === 0 ? 'fade-right' : 'fade-left'}
+              data-aos-delay={idx * 100}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: '40px',
+                alignItems: 'center',
+                padding: '40px',
+                background: useCase.bgColor,
+                border: `3px solid ${useCase.color}`,
+                borderRadius: '12px',
+                transition: 'all 0.4s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = `0 20px 50px ${useCase.color}33`;
+                e.currentTarget.style.transform = 'translateY(-8px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              {idx % 2 === 0 ? (
+                <>
+                  <div>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '15px',
+                      marginBottom: '25px'
+                    }}>
+                      <div style={{ fontSize: '44px' }}>{useCase.icon}</div>
+                      <h3 style={{
+                        fontSize: '26px',
+                        fontWeight: '800',
+                        color: useCase.color,
+                        margin: 0
+                      }}>
+                        {useCase.industry}
+                      </h3>
+                    </div>
+                    <div style={{ marginBottom: '20px' }}>
+                      <p style={{
+                        fontSize: '12px',
+                        fontWeight: '700',
+                        color: useCase.color,
+                        margin: '0 0 8px 0',
+                        textTransform: 'uppercase',
+                        letterSpacing: '1px'
+                      }}>
+                        Key Challenges
+                      </p>
+                      <ul style={{
+                        margin: 0,
+                        paddingLeft: '20px',
+                        fontSize: '14px',
+                        color: '#4b5563',
+                        lineHeight: '1.8'
+                      }}>
+                        {useCase.challenges.map((challenge, i) => (
+                          <li key={i}>{challenge}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                  <div style={{
+                    padding: '25px',
+                    background: 'rgba(255, 255, 255, 0.7)',
+                    borderRadius: '8px',
+                    border: `2px solid ${useCase.color}33`
+                  }}>
+                    <p style={{
+                      fontSize: '14px',
+                      color: '#1f2937',
+                      lineHeight: '1.8',
+                      margin: 0,
+                      fontWeight: '600'
+                    }}>
+                      <span style={{ color: useCase.color, fontWeight: '800' }}>Our Solution:</span> {useCase.solution}
+                    </p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div style={{
+                    padding: '25px',
+                    background: 'rgba(255, 255, 255, 0.7)',
+                    borderRadius: '8px',
+                    border: `2px solid ${useCase.color}33`
+                  }}>
+                    <p style={{
+                      fontSize: '14px',
+                      color: '#1f2937',
+                      lineHeight: '1.8',
+                      margin: 0,
+                      fontWeight: '600'
+                    }}>
+                      <span style={{ color: useCase.color, fontWeight: '800' }}>Our Solution:</span> {useCase.solution}
+                    </p>
+                  </div>
+                  <div>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '15px',
+                      marginBottom: '25px'
+                    }}>
+                      <div style={{ fontSize: '44px' }}>{useCase.icon}</div>
+                      <h3 style={{
+                        fontSize: '26px',
+                        fontWeight: '800',
+                        color: useCase.color,
+                        margin: 0
+                      }}>
+                        {useCase.industry}
+                      </h3>
+                    </div>
+                    <div>
+                      <p style={{
+                        fontSize: '12px',
+                        fontWeight: '700',
+                        color: useCase.color,
+                        margin: '0 0 8px 0',
+                        textTransform: 'uppercase',
+                        letterSpacing: '1px'
+                      }}>
+                        Key Challenges
+                      </p>
+                      <ul style={{
+                        margin: 0,
+                        paddingLeft: '20px',
+                        fontSize: '14px',
+                        color: '#4b5563',
+                        lineHeight: '1.8'
+                      }}>
+                        {useCase.challenges.map((challenge, i) => (
+                          <li key={i}>{challenge}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Success Story */}
+      <section style={{
+        maxWidth: '1000px',
+        margin: '0 auto',
+        padding: '80px 20px'
+      }}>
+        <div
+          data-aos="fade-up"
+          style={{
+            padding: '50px 40px',
+            background: 'linear-gradient(135deg, rgba(219, 234, 254, 0.5) 0%, rgba(191, 219, 254, 0.3) 100%)',
+            borderRadius: '16px',
+            border: '2px solid #0891b2',
+            boxShadow: '0 10px 30px rgba(8, 145, 178, 0.1)'
+          }}
+        >
+          <h3 style={{
+            fontSize: '28px',
+            fontWeight: '800',
+            color: '#0c4a6e',
+            margin: '0 0 20px 0'
+          }}>
+            ✨ Case Study: Digital Finance Transformation
+          </h3>
+          <p style={{
+            fontSize: '15px',
+            lineHeight: '1.8',
+            color: '#374151',
+            margin: '0 0 20px 0'
+          }}>
+            A global manufacturing company with operations across 8 countries faced challenges with legacy ERP systems causing:
+          </p>
+          <ul style={{
+            fontSize: '14px',
+            lineHeight: '2',
+            color: '#374151',
+            margin: '0 0 25px 0',
+            paddingLeft: '20px'
+          }}>
+            <li>15-day financial close cycle across multiple entities</li>
+            <li>Manual reconciliation processes prone to errors</li>
+            <li>Limited real-time visibility into cash flow</li>
+            <li>Compliance challenges across regions</li>
+          </ul>
+          
+          <p style={{
+            fontSize: '15px',
+            fontWeight: '700',
+            color: '#0891b2',
+            margin: '0 0 15px 0'
+          }}>
+            Results After Oracle ERP Implementation:
+          </p>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '20px'
+          }}>
+            {[
+              { value: '6 days', label: 'Financial Close (from 15 days)' },
+              { value: '99.8%', label: 'Automated Reconciliation Accuracy' },
+              { value: 'Real-time', label: 'Financial Reporting & Visibility' },
+              { value: '$2.3M', label: 'Annual Operational Savings' }
+            ].map((result, idx) => (
+              <div key={idx} style={{
+                padding: '15px',
+                backgroundColor: 'rgba(8, 145, 178, 0.1)',
+                borderRadius: '8px',
+                borderLeft: '4px solid #0891b2'
+              }}>
+                <div style={{
+                  fontSize: '20px',
+                  fontWeight: '800',
+                  color: '#0891b2'
+                }}>
+                  {result.value}
+                </div>
+                <div style={{
+                  fontSize: '13px',
+                  color: '#4b5563',
+                  marginTop: '5px'
+                }}>
+                  {result.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <ReadyToStartCTA />
     </div>
   );
 }

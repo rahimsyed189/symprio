@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function AboutUs() {
+  const navigate = useNavigate();
   const [visibleOffices, setVisibleOffices] = useState({});
   const officeRefs = useRef({});
 
@@ -585,7 +587,7 @@ export default function AboutUs() {
         <div style={{
           textAlign: 'center'
         }}>
-          <button style={{
+          <button onClick={() => navigate('/careers')} style={{
             background: '#3b82f6',
             color: '#fff',
             border: 'none',

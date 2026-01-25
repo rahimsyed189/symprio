@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ReadyToStartCTA from './ReadyToStartCTA';
 
 export default function ServicesLanding() {
   const navigate = useNavigate();
@@ -83,16 +84,6 @@ export default function ServicesLanding() {
     },
     {
       number: '05',
-      title: 'Consulting & Strategy',
-      description: 'Process & technology advisory for digital strategies and innovation.',
-      points: [
-        'Process & Technology Advisory: Evaluate operational processes, identify automation opportunities and recommend technology solutions.',
-        'Change Management & Training: Develop communication plans, training materials and adoption strategies.',
-        'Innovation Workshops: Facilitate workshops to co-create digital strategies, prototypes and roadmaps.'
-      ]
-    },
-    {
-      number: '06',
       title: 'Digital Workforce Services',
       description: 'Skilled IT and non‑IT professionals with flexible engagement models.',
       points: [
@@ -103,7 +94,7 @@ export default function ServicesLanding() {
       link: '/digital-workforce'
     },
     {
-      number: '07',
+      number: '06',
       title: 'Custom Software Development',
       description: 'Full‑stack development, mobile apps and cloud‑native solutions.',
       points: [
@@ -201,9 +192,11 @@ export default function ServicesLanding() {
       }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
+          gridTemplateColumns: 'repeat(3, 1fr)',
           gap: '30px',
-          justifyItems: 'center'
+          justifyItems: 'center',
+          maxWidth: '1100px',
+          margin: '0 auto'
         }}>
           {services.map((service, idx) => (
             <div
@@ -473,96 +466,7 @@ export default function ServicesLanding() {
       </section>
 
       {/* CTA Section */}
-      <section style={{
-        background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
-        padding: '80px 20px',
-        textAlign: 'center',
-        color: '#fff'
-      }}>
-        <div style={{
-          maxWidth: '800px',
-          margin: '0 auto'
-        }}>
-          <h2 style={{
-            fontSize: '40px',
-            fontWeight: '700',
-            margin: '0 0 20px 0',
-            lineHeight: '1.3'
-          }}>
-            Ready to Get Started?
-          </h2>
-
-          <p style={{
-            fontSize: '18px',
-            color: '#e5e7eb',
-            lineHeight: '1.8',
-            margin: '0 0 40px 0'
-          }}>
-            Let our experts help you choose the right solution for your organization.
-          </p>
-
-          <div style={{
-            display: 'flex',
-            gap: '20px',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexWrap: 'wrap'
-          }}>
-            <button style={{
-              background: '#fff',
-              color: '#3b82f6',
-              border: 'none',
-              padding: '14px 40px',
-              fontSize: '16px',
-              fontWeight: '600',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = 'translateY(-3px)';
-              e.target.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.2)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = 'translateY(0)';
-              e.target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-            }}
-            >
-              Schedule a Strategy Session
-            </button>
-            
-            <button style={{
-              background: 'transparent',
-              color: '#fff',
-              border: '2px solid #fff',
-              padding: '12px 38px',
-              fontSize: '16px',
-              fontWeight: '600',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.background = '#fff';
-              e.target.style.color = '#3b82f6';
-              e.target.style.transform = 'translateY(-3px)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.background = 'transparent';
-              e.target.style.color = '#fff';
-              e.target.style.transform = 'translateY(0)';
-            }}
-            >
-              Get a Service Proposal
-            </button>
-          </div>
-        </div>
-      </section>
+      <ReadyToStartCTA />
 
       <style>{`
         @keyframes slideUp {

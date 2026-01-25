@@ -47,7 +47,7 @@ const TeamMembers = () => {
       width: '100%',
       margin: '0',
       padding: '100px 20px',
-      background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+      background: 'linear-gradient(135deg, #0f172a 0%, #0891b2 100%)',
       borderRadius: '0px',
       borderTop: '3px solid #ffffff'
     }}>

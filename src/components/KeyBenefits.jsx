@@ -1,19 +1,36 @@
 import React, { useState, useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default function KeyBenefits() {
   const [isVisible, setIsVisible] = useState(false);
   const [containerVisible, setContainerVisible] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: false,
+      mirror: true
+    });
     setIsVisible(true);
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      const element = document.getElementById('keybenefits-container');
+      const element = document.getElementById('keybenefits-banner');
       if (element) {
         const rect = element.getBoundingClientRect();
-        const isInView = rect.top < window.innerHeight * 0.75;
+        const elementHeight = element.offsetHeight;
+        const windowHeight = window.innerHeight;
+        
+        // Calculate scroll progress from banner
+        const progress = Math.max(0, Math.min(1, (windowHeight - rect.top) / (windowHeight + elementHeight)));
+        setScrollProgress(progress);
+        
+        const container = document.getElementById('keybenefits-container');
+        const containerRect = container?.getBoundingClientRect();
+        const isInView = containerRect?.top < window.innerHeight * 0.75;
         if (isInView) {
           setContainerVisible(true);
         }
@@ -40,36 +57,43 @@ export default function KeyBenefits() {
 
   return (
     <div style={{ background: '#fff' }}>
-      {/* Banner with Dark Gradient */}
-      <div style={{
-        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-        color: '#fff',
-        padding: '60px 60px 100px',
-        textAlign: 'left',
-        marginTop: '0',
-        position: 'relative',
-        minHeight: '280px',
-        display: 'flex',
-        alignItems: 'flex-start',
-        overflow: 'hidden'
-      }}>
+      {/* Banner with Scroll Color Animation */}
+      <div 
+        id="keybenefits-banner"
+        style={{
+          background: `linear-gradient(135deg, rgb(${Math.round(255 - scrollProgress * 240)}, ${Math.round(255 - scrollProgress * 232)}, ${Math.round(255 - scrollProgress * 213)}), rgb(${Math.round(255 - scrollProgress * 225)}, ${Math.round(255 - scrollProgress * 214)}, ${Math.round(255 - scrollProgress * 196)}))`,
+          color: scrollProgress > 0.3 ? '#fff' : '#1f2937',
+          padding: '60px 60px 100px',
+          textAlign: 'left',
+          marginTop: '0',
+          position: 'relative',
+          minHeight: '280px',
+          display: 'flex',
+          alignItems: 'flex-start',
+          overflow: 'hidden',
+          transition: 'background 0.1s ease, color 0.1s ease'
+        }}>
         <div style={{ maxWidth: '100%', margin: '0', paddingLeft: '0', paddingTop: '0', position: 'relative', zIndex: 2 }}>
           <h1 data-aos="slide-left" data-aos-duration="900" style={{
             fontSize: '48px',
             fontWeight: '700',
             margin: '0 0 15px 0',
-            color: '#fff',
+            color: `rgb(${Math.round(15 + scrollProgress * 240)}, ${Math.round(23 + scrollProgress * 232)}, ${Math.round(42 + scrollProgress * 213)})`,
             animation: isVisible ? 'slideInLeft 0.8s ease-out 0.1s both' : 'none',
-            textAlign: 'left'
+            textAlign: 'left',
+            transition: 'color 0.1s ease',
+            textShadow: scrollProgress > 0.3 ? '0 2px 4px rgba(0,0,0,0.1)' : 'none'
           }}>
             Why Choose Symprio?
           </h1>
           <p data-aos="slide-left" data-aos-delay="150" data-aos-duration="900" style={{
             fontSize: '18px',
-            color: '#e0e0e0',
+            color: `rgb(${Math.round(71 + scrollProgress * 169)}, ${Math.round(85 + scrollProgress * 155)}, ${Math.round(105 + scrollProgress * 135)})`,
             margin: 0,
             animation: isVisible ? 'slideInLeft 0.8s ease-out 0.2s both' : 'none',
-            textAlign: 'left'
+            textAlign: 'left',
+            transition: 'color 0.1s ease',
+            textShadow: scrollProgress > 0.3 ? '0 1px 2px rgba(0,0,0,0.1)' : 'none'
           }}>
             Our core capabilities that drive your success
           </p>
@@ -91,16 +115,17 @@ export default function KeyBenefits() {
           padding: '0 20px',
           zIndex: 10
         }}>
-        <div style={{
-          background: '#ffffff',
-          borderRadius: '12px',
-          padding: '50px',
-          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
-          border: '2px solid #e5e7eb',
-          animation: containerVisible ? 'slideUp 0.8s ease-out both' : 'none',
-          position: 'relative',
-          zIndex: 10
-        }}>
+        <div 
+          style={{
+            background: '#ffffff',
+            borderRadius: '12px',
+            padding: '50px',
+            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
+            border: '2px solid #e5e7eb',
+            animation: containerVisible ? 'slideUp 0.8s ease-out both' : 'none',
+            position: 'relative',
+            zIndex: 10
+          }}>
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ReadyToStartCTA from './ReadyToStartCTA';
 
 // Zigzag Features Component
 const ZigzagFeatures = () => {
@@ -401,95 +402,91 @@ const DigitalTransformation = () => {
   return (
     <div style={{ background: '#fff', minHeight: '100vh' }}>
       {/* Hero Banner */}
-      <div style={{
-        backgroundImage: 'url(/digitaltransformation/banner.jpg)',
+      <section style={{
+        backgroundImage: `url('/digitaltransformation/banner.jpg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
         color: '#fff',
-        padding: '60px 60px 140px',
-        textAlign: 'left',
-        marginTop: '0',
+        padding: '100px 20px 140px',
+        textAlign: 'center',
         position: 'relative',
-        minHeight: '300px',
+        minHeight: '500px',
         display: 'flex',
-        alignItems: 'flex-start'
+        alignItems: 'center',
+        justifyContent: 'center'
       }}>
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(0, 0, 0, 0.4)',
-          zIndex: 1
-        }}></div>
-        <div style={{ maxWidth: '100%', margin: '0', paddingLeft: '0', paddingTop: '0', position: 'relative', zIndex: 2 }}>
+        <div style={{ position: 'relative', zIndex: 2, maxWidth: '800px' }}>
           <h1 style={{
-            fontSize: '56px',
-            fontWeight: '700',
-            margin: '0 0 15px 0',
-            color: '#fff',
-            animation: isVisible ? 'slideInLeft 0.8s ease-out 0.1s both' : 'none',
-            textAlign: 'left'
-          }}>
+            fontSize: '64px',
+            fontWeight: '800',
+            margin: '0 0 20px 0',
+            color: '#ffffff',
+            lineHeight: '1.2',
+            letterSpacing: '-2px'
+          }} data-aos="fade-up">
             Digital Transformation
           </h1>
           <p style={{
-            fontSize: '18px',
+            fontSize: '22px',
             color: '#e0e0e0',
             margin: 0,
-            animation: isVisible ? 'slideInLeft 0.8s ease-out 0.2s both' : 'none',
-            textAlign: 'left'
-          }}>
+            fontWeight: '300'
+          }} data-aos="fade-up" data-aos-delay="100">
             Your Partners to Digital Transformation
           </p>
         </div>
-      </div>
+      </section>
 
-      {/* Intro Container - Half on Banner */}
-      <div 
-        id="dt-container"
-        style={{
-          position: 'relative',
-          marginTop: '-120px',
+      {/* Main content container */}
+      <div style={{
+        maxWidth: '1200px',
+        margin: '-80px auto 0',
+        padding: '0 20px',
+        position: 'relative',
+        zIndex: 10
+      }}>
+
+        {/* Introduction Section - Overlapping Container */}
+        <section style={{ 
           marginBottom: '80px',
-          maxWidth: '1200px',
-          margin: '-120px auto 80px',
-          padding: '0 20px',
-          zIndex: 10
-        }}>
-        <div style={{
           background: '#ffffff',
-          borderRadius: '0',
-          padding: '50px',
-          boxShadow: 'none',
-          border: 'none',
-          animation: containerVisible ? 'slideUp 0.8s ease-out both' : 'none',
-          position: 'relative',
-          zIndex: 10
-        }}>
-          <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          {/* Two Column Section with Text and Image */}
-          <section>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: '60px',
-              alignItems: 'center'
-            }}>
-              {/* Left Column - Information */}
-              <div style={{
-                animation: isVisible ? 'slideUp 0.8s ease-out 0.1s both' : 'none'
+          borderRadius: '16px',
+          padding: '60px 50px',
+          boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
+          border: '2px solid #0891b2'
+        }} data-aos="fade-up">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '60px',
+            alignItems: 'center',
+            marginBottom: '60px'
+          }}>
+            {/* Left Column - Information */}
+            <div>
+              <h2 style={{ 
+                fontSize: '44px',
+                fontWeight: '800',
+                background: 'linear-gradient(135deg, #0f172a 0%, #0891b2 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                marginTop: 0,
+                marginBottom: '15px',
+                lineHeight: '1.3'
               }}>
-                <h2 style={{ 
-                  fontSize: '32px',
-                  fontWeight: '700',
-                  color: '#1e5eb8',
-                  marginTop: 0,
-                  marginBottom: '25px'
-                }}>
-                  Digital Transformation
-                </h2>
+                Your Digital Transformation Partner
+              </h2>
+              <div
+                style={{
+                  width: '100px',
+                  height: '6px',
+                  background: 'linear-gradient(90deg, #0f172a 0%, #0891b2 100%)',
+                  margin: '20px 0 30px',
+                  borderRadius: '3px'
+                }}
+              />
                 
                 <p style={{ 
                   color: '#4b5563',
@@ -503,12 +500,12 @@ const DigitalTransformation = () => {
                 <div>
                   <h3 style={{ 
                     fontSize: '18px',
-                    fontWeight: '600',
-                    color: 'rgba(25, 181, 254, 1)',
+                    fontWeight: '700',
+                    color: '#0891b2',
                     marginTop: 0,
-                    marginBottom: '12px'
+                    marginBottom: '16px'
                   }}>
-                    Assessment
+                    Our Assessment Approach
                   </h3>
                   <ul style={{
                     listStyle: 'none',
@@ -519,49 +516,73 @@ const DigitalTransformation = () => {
                       color: '#4b5563',
                       lineHeight: '1.8',
                       fontSize: '15px',
-                      marginBottom: '12px',
-                      paddingLeft: '24px',
+                      marginBottom: '14px',
+                      paddingLeft: '32px',
                       position: 'relative'
                     }}>
                       <span style={{
                         position: 'absolute',
                         left: 0,
-                        color: '#3b82f6',
-                        fontWeight: 'bold'
-                      }}>•</span>
-                      Assessment of the entire organization to identify the current state of digital journey
+                        width: '24px',
+                        height: '24px',
+                        background: 'linear-gradient(135deg, #19b5fe, #0f8cc8)',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#fff',
+                        fontSize: '12px',
+                        fontWeight: '700'
+                      }}>1</span>
+                      Comprehensive assessment of your organization's current digital maturity
                     </li>
                     <li style={{
                       color: '#4b5563',
                       lineHeight: '1.8',
                       fontSize: '15px',
-                      marginBottom: '12px',
-                      paddingLeft: '24px',
+                      marginBottom: '14px',
+                      paddingLeft: '32px',
                       position: 'relative'
                     }}>
                       <span style={{
                         position: 'absolute',
                         left: 0,
-                        color: '#3b82f6',
-                        fontWeight: 'bold'
-                      }}>•</span>
-                      Assessment of awareness and willingness to adopt new technologies
+                        width: '24px',
+                        height: '24px',
+                        background: 'linear-gradient(135deg, #19b5fe, #0f8cc8)',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#fff',
+                        fontSize: '12px',
+                        fontWeight: '700'
+                      }}>2</span>
+                      Evaluate organizational readiness and technology adoption capabilities
                     </li>
                     <li style={{
                       color: '#4b5563',
                       lineHeight: '1.8',
                       fontSize: '15px',
                       marginBottom: 0,
-                      paddingLeft: '24px',
+                      paddingLeft: '32px',
                       position: 'relative'
                     }}>
                       <span style={{
                         position: 'absolute',
                         left: 0,
-                        color: '#3b82f6',
-                        fontWeight: 'bold'
-                      }}>•</span>
-                      Recommendation on technology adoption and provide digital roadmap to the organization
+                        width: '24px',
+                        height: '24px',
+                        background: 'linear-gradient(135deg, #19b5fe, #0f8cc8)',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#fff',
+                        fontSize: '12px',
+                        fontWeight: '700'
+                      }}>3</span>
+                      Develop strategic digital roadmap with actionable recommendations
                     </li>
                   </ul>
                 </div>
@@ -572,21 +593,114 @@ const DigitalTransformation = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                animation: isVisible ? 'slideUp 0.8s ease-out 0.2s both' : 'none'
+                padding: '30px',
+                backgroundColor: 'rgba(219, 234, 254, 0.3)',
+                borderRadius: '12px'
               }}>
                 <img 
                   src="/digitaltransformation/CircleDiagram.jpg"
                   alt="Digital Transformation Circle Diagram"
                   style={{
-                    maxWidth: '70%',
-                    height: 'auto'
+                    maxWidth: '80%',
+                    height: 'auto',
+                    borderRadius: '8px'
                   }}
                 />
               </div>
             </div>
-          </section>
-        </div>
-        </div>
+
+          {/* Transformation Journey - 3 Cards Below */}
+          <div style={{
+            gridColumn: '1 / -1',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '30px'
+          }}>
+            {[
+              {
+                phase: 'Assess',
+                description: 'Evaluate current state, capabilities, and digital maturity across organization',
+                icon: '🔍'
+              },
+              {
+                phase: 'Plan',
+                description: 'Develop comprehensive strategy with clear milestones and technology roadmap',
+                icon: '📋'
+              },
+              {
+                phase: 'Transform',
+                description: 'Execute transformation with continuous optimization and stakeholder alignment',
+                icon: '🚀'
+              }
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                data-aos="fade-up"
+                data-aos-delay={`${idx * 80}`}
+                data-aos-duration="800"
+                data-aos-offset="50"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(8, 145, 178, 0.05) 0%, rgba(25, 181, 254, 0.05) 100%)',
+                  border: '2px solid #19b5fe',
+                  borderRadius: '12px',
+                  padding: '32px 24px',
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  position: 'relative'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-12px)';
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(8, 145, 178, 0.15)';
+                  e.currentTarget.style.borderColor = '#0891b2';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.borderColor = '#19b5fe';
+                }}
+              >
+                <div style={{
+                  fontSize: '48px',
+                  marginBottom: '16px'
+                }}>
+                  {item.icon}
+                </div>
+                <h3 style={{
+                  fontSize: '22px',
+                  fontWeight: '700',
+                  color: '#0891b2',
+                  margin: '0 0 12px 0'
+                }}>
+                  {item.phase}
+                </h3>
+                <p style={{
+                  fontSize: '14px',
+                  color: '#6b7280',
+                  margin: 0,
+                  lineHeight: '1.6'
+                }}>
+                  {item.description}
+                </p>
+
+                {/* Arrow indicator between cards */}
+                {idx < 2 && (
+                  <div style={{
+                    position: 'absolute',
+                    right: '-45px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    fontSize: '24px',
+                    color: '#19b5fe',
+                    fontWeight: '300'
+                  }}>
+                    →
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
 
       {/* Zigzag Features Section */}
@@ -594,174 +708,183 @@ const DigitalTransformation = () => {
 
       {/* Rest of Content */}
       <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 20px 80px 20px' }}>
-        {/* Areas of Coverage Section - Simple Layout */}
+        {/* Areas of Coverage Section - Enhanced Design */}
         <section id="coverage-section" style={{ marginBottom: '80px' }}>
-          <h2 style={{
-            fontSize: '36px',
-            fontWeight: '700',
-            color: '#1f2937',
-            marginBottom: '80px',
-            textAlign: 'center',
-            animation: 'fadeIn 0.8s ease-out both'
-          }}>
-            Areas of Coverage
-          </h2>
+          <div
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-offset="50"
+            style={{
+              textAlign: 'center',
+              marginBottom: '80px'
+            }}
+          >
+            <h2 style={{
+              fontSize: '48px',
+              fontWeight: '800',
+              color: '#1f2937',
+              margin: '0 0 15px 0',
+              lineHeight: '1.3'
+            }}>
+              Comprehensive Coverage Areas
+            </h2>
+            <div style={{
+              width: '80px',
+              height: '5px',
+              background: 'linear-gradient(90deg, #19b5fe, #0f8cc8)',
+              margin: '20px auto 30px',
+              borderRadius: '3px'
+            }} />
+            <p style={{
+              fontSize: '18px',
+              color: '#6b7280',
+              maxWidth: '700px',
+              margin: '0 auto',
+              lineHeight: '1.6'
+            }}>
+              We address every dimension of your digital transformation journey with holistic solutions
+            </p>
+          </div>
 
-          {/* Simple 2-Column Layout */}
+          {/* 4x2 Grid of Coverage Areas */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: '200px 1fr',
-            gap: '120px',
-            alignItems: 'flex-start',
-            maxWidth: '1000px',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '24px',
+            maxWidth: '1200px',
             margin: '0 auto'
           }}>
-            {/* Left: Smaller Hub Image */}
-            <div style={{
-              position: 'relative',
-              width: '200px',
-              height: '200px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              animation: 'fadeIn 0.8s ease-out 0.1s both'
-            }}>
-              <img
-                src="/digitaltransformation/coverage-hub.png"
-                alt="Areas of Coverage Hub"
+            {[
+              {
+                title: 'Ecosystem',
+                description: 'Build integrated systems and strategic partnerships to create a connected digital ecosystem',
+                color: '#3b82f6',
+                lightBg: 'rgba(59, 130, 246, 0.05)'
+              },
+              {
+                title: 'Organization Culture',
+                description: 'Foster innovation-driven culture and organizational readiness for digital initiatives',
+                color: '#8b5cf6',
+                lightBg: 'rgba(139, 92, 246, 0.05)'
+              },
+              {
+                title: 'Change Management',
+                description: 'Navigate organizational transformation with structured change management frameworks',
+                color: '#f59e0b',
+                lightBg: 'rgba(245, 158, 11, 0.05)'
+              },
+              {
+                title: 'Data & Insights',
+                description: 'Leverage data-driven decision making and advanced analytics for business intelligence',
+                color: '#ec4899',
+                lightBg: 'rgba(236, 72, 153, 0.05)'
+              },
+              {
+                title: 'Customer Experience',
+                description: 'Deliver exceptional omnichannel experiences and personalized customer journeys',
+                color: '#10b981',
+                lightBg: 'rgba(16, 185, 129, 0.05)'
+              },
+              {
+                title: 'Innovation',
+                description: 'Drive continuous innovation and explore emerging technologies for competitive advantage',
+                color: '#06b6d4',
+                lightBg: 'rgba(6, 182, 212, 0.05)'
+              },
+              {
+                title: 'Technology',
+                description: 'Implement scalable technology platforms and modern infrastructure solutions',
+                color: '#ef4444',
+                lightBg: 'rgba(239, 68, 68, 0.05)'
+              },
+              {
+                title: 'People & Skillset',
+                description: 'Develop workforce capabilities and build digital-first talent strategies',
+                color: '#14b8a6',
+                lightBg: 'rgba(20, 184, 166, 0.05)'
+              }
+            ].map((area, idx) => (
+              <div
+                key={idx}
+                data-aos="fade-up"
+                data-aos-delay={`${(idx % 4) * 80}`}
+                data-aos-duration="800"
+                data-aos-offset="50"
                 style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'contain'
+                  background: area.lightBg,
+                  border: `2px solid ${area.color}`,
+                  borderRadius: '12px',
+                  padding: '32px 24px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  position: 'relative',
+                  overflow: 'hidden'
                 }}
-              />
-            </div>
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-12px)';
+                  e.currentTarget.style.boxShadow = `0 20px 40px ${area.color}20`;
+                  e.currentTarget.style.borderColor = area.color;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.borderColor = area.color;
+                }}
+              >
+                {/* Number Badge */}
+                <div style={{
+                  position: 'absolute',
+                  top: '16px',
+                  right: '16px',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                  background: area.color,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#fff',
+                  fontWeight: '800',
+                  fontSize: '18px',
+                  opacity: 0.15
+                }}>
+                  {String(idx + 1).padStart(2, '0')}
+                </div>
 
-            {/* Right: Scroll-Animated List */}
-            <div style={{
-              paddingTop: '20px'
-            }}>
-              <ul style={{
-                listStyle: 'none',
-                padding: 0,
-                margin: 0,
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '24px 40px'
-              }}>
-                {[
-                  'Ecosystem',
-                  'Organization Culture',
-                  'Change Management',
-                  'Data & Insights',
-                  'Customer Experience',
-                  'Innovation',
-                  'Technology',
-                  'People & Skillset'
-                ].map((item, idx) => {
-                  // Calculate when this item should appear during scroll (staggered)
-                  const itemTrigger = idx * 0.08; // Each item appears at 8% progress intervals
-                  const itemVisible = coverageItemsScroll > itemTrigger;
-                  const itemProgress = Math.max(0, Math.min(1, (coverageItemsScroll - itemTrigger) * 10));
-                  
-                  return (
-                    <li
-                      key={idx}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '12px',
-                        opacity: itemProgress,
-                        transform: `translateX(${(1 - itemProgress) * 40}px) translateY(${(1 - itemProgress) * 20}px)`,
-                        transition: 'all 0.4s ease-out'
-                      }}
-                    >
-                      <div style={{
-                        width: '20px',
-                        height: '20px',
-                        borderRadius: '4px',
-                        border: '2px solid #19b5fe',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        backgroundColor: '#f0f9ff',
-                        flexShrink: 0,
-                        position: 'relative'
-                      }}>
-                        {itemVisible && (
-                          <svg
-                            width="14"
-                            height="14"
-                            viewBox="0 0 14 14"
-                            fill="none"
-                            style={{
-                              stroke: '#19b5fe',
-                              strokeWidth: '2',
-                              strokeLinecap: 'round',
-                              strokeLinejoin: 'round',
-                              animation: 'drawCheckmark 0.6s ease-out'
-                            }}
-                          >
-                            <polyline points="2 7 6 10 12 3" />
-                          </svg>
-                        )}
-                      </div>
-                      <span style={{
-                        color: '#4b5563',
-                        fontSize: '15px',
-                        fontWeight: '500',
-                        lineHeight: '1.5'
-                      }}>
-                        {item}
-                      </span>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+                {/* Color Accent Line */}
+                <div style={{
+                  width: '4px',
+                  height: '40px',
+                  background: area.color,
+                  borderRadius: '2px',
+                  marginBottom: '20px'
+                }} />
+
+                <h3 style={{
+                  fontSize: '20px',
+                  fontWeight: '700',
+                  color: '#1f2937',
+                  margin: '0 0 12px 0',
+                  lineHeight: '1.3'
+                }}>
+                  {area.title}
+                </h3>
+                <p style={{
+                  fontSize: '14px',
+                  color: '#6b7280',
+                  margin: 0,
+                  lineHeight: '1.6'
+                }}>
+                  {area.description}
+                </p>
+              </div>
+            ))}
           </div>
         </section>
       </div>
 
       {/* CTA Section */}
-      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 20px 80px 20px' }}>
-        <section style={{
-          background: 'linear-gradient(135deg, rgba(25, 181, 254, 0.8) 0%, rgba(25, 181, 254, 1) 100%)',
-          color: '#fff',
-          padding: '60px 40px',
-          borderRadius: '12px',
-          textAlign: 'center'
-        }}>
-          <h2 style={{ fontSize: '32px', margin: '0 0 20px 0' }}>
-            Ready to Transform Your Business?
-          </h2>
-          <p style={{ fontSize: '16px', marginBottom: '30px', opacity: 0.95 }}>
-            Let us help you identify the root cause and deliver efficient digital solutions.
-          </p>
-          <button style={{
-            padding: '14px 40px',
-            background: '#fff',
-            color: '#3b82f6',
-            border: 'none',
-            borderRadius: '6px',
-            fontSize: '16px',
-            fontWeight: '600',
-            cursor: 'pointer',
-            transition: 'all 0.3s ease'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#f0f9ff';
-            e.currentTarget.style.transform = 'translateY(-2px)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = '#fff';
-            e.currentTarget.style.transform = 'translateY(0)';
-          }}
-          >
-            Contact Us Today
-          </button>
-        </section>
-      </div>
+      <ReadyToStartCTA />
 
       <style>{`
         @keyframes slideDown {

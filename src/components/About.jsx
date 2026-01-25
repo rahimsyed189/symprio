@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 export default function About() {
   const [isVisible, setIsVisible] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -13,6 +14,24 @@ export default function About() {
     const element = document.getElementById('about-section');
     if (element) observer.observe(element);
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const element = document.getElementById('about-section');
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        const elementHeight = element.offsetHeight;
+        const windowHeight = window.innerHeight;
+        
+        // Calculate progress: 0 when section enters viewport, 1 when it leaves
+        const progress = Math.max(0, Math.min(1, (windowHeight - rect.top) / (windowHeight + elementHeight)));
+        setScrollProgress(progress);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const features = [
@@ -46,7 +65,10 @@ export default function About() {
       zIndex: 1,
       maxWidth: '1200px',
       margin: '60px auto 0',
-      padding: '80px 20px'
+      padding: '80px 20px',
+      backgroundColor: `rgb(${Math.round(255 - scrollProgress * 15)}, ${Math.round(255 - scrollProgress * 30)}, ${Math.round(255 - scrollProgress * 40)})`,
+      transition: 'background-color 0.05s linear',
+      borderRadius: '8px'
     }}>
       {/* Header */}
       <div style={{
@@ -56,18 +78,20 @@ export default function About() {
         <h2 style={{
           fontSize: '44px',
           fontWeight: '800',
-          color: '#0f172a',
+          color: `rgb(${Math.round(15 + scrollProgress * 240)}, ${Math.round(23 + scrollProgress * 232)}, ${Math.round(42 + scrollProgress * 213)})`,
           margin: '0 0 16px 0',
-          lineHeight: '1.2'
+          lineHeight: '1.2',
+          transition: 'color 0.05s linear'
         }}>
           Why Choose Symprio
         </h2>
         <p style={{
           fontSize: '16px',
-          color: '#475569',
+          color: `rgb(${Math.round(71 + scrollProgress * 168)}, ${Math.round(85 + scrollProgress * 154)}, ${Math.round(105 + scrollProgress * 135)})`,
           maxWidth: '600px',
           margin: '0 auto',
-          lineHeight: '1.6'
+          lineHeight: '1.6',
+          transition: 'color 0.05s linear'
         }}>
           We combine deep RPA expertise with proven delivery frameworks to drive measurable business outcomes.
         </p>
@@ -87,7 +111,8 @@ export default function About() {
             fontSize: '24px',
             fontWeight: '700',
             marginBottom: '24px',
-            color: '#0f172a'
+            color: `rgb(${Math.round(15 + scrollProgress * 240)}, ${Math.round(23 + scrollProgress * 232)}, ${Math.round(42 + scrollProgress * 213)})`,
+            transition: 'color 0.05s linear'
           }}>
             Trusted by Industry Leaders
           </h3>
@@ -180,13 +205,14 @@ export default function About() {
 
       {/* Stats Section */}
       <div style={{
-        background: 'linear-gradient(135deg, rgba(0, 212, 255, 0.06), rgba(0, 212, 255, 0.02))',
+        background: `linear-gradient(135deg, rgba(0, 212, 255, ${0.06 - scrollProgress * 0.04}), rgba(0, 212, 255, ${0.02 - scrollProgress * 0.02}))`,
         padding: '60px 40px',
         borderRadius: '16px',
         border: '1.5px solid rgba(0, 212, 255, 0.15)',
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-        gap: '40px'
+        gap: '40px',
+        transition: 'background 0.05s linear'
       }}>
         {[
           { label: '100+', value: 'Successful Implementations' },
@@ -198,14 +224,16 @@ export default function About() {
             <div style={{
               fontSize: '40px',
               fontWeight: '800',
-              color: '#00d4ff',
-              marginBottom: '8px'
+              color: `rgb(${Math.round(0 + scrollProgress * 100)}, ${Math.round(212 - scrollProgress * 100)}, ${Math.round(255 - scrollProgress * 150)})`,
+              marginBottom: '8px',
+              transition: 'color 0.05s linear'
             }}>
               {stat.label}
             </div>
             <div style={{
               fontSize: '14px',
-              color: '#475569'
+              color: `rgb(${Math.round(71 + scrollProgress * 168)}, ${Math.round(85 + scrollProgress * 154)}, ${Math.round(105 + scrollProgress * 135)})`,
+              transition: 'color 0.05s linear'
             }}>
               {stat.value}
             </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function TransformCTA() {
+export default function ReadyToStartCTA() {
   return (
     <section style={{
       background: 'linear-gradient(135deg, #87CEEB 0%, #5B9FBD 100%)',
