@@ -48,10 +48,68 @@ const TeamMembers = () => {
       margin: '0',
       padding: '100px 20px',
       background: 'linear-gradient(135deg, #0f172a 0%, #0891b2 100%)',
-      borderRadius: '0px',
-      borderTop: '3px solid #ffffff'
+      borderRadius: '24px',
+      borderTop: '3px solid #ffffff',
+      position: 'relative',
+      overflow: 'hidden'
     }}>
-      <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
+    {/* Bubbles */}
+    <div style={{
+      position: 'absolute',
+      width: '200px',
+      height: '200px',
+      background: 'rgba(255, 255, 255, 0.05)',
+      borderRadius: '50%',
+      top: '-50px',
+      left: '10%',
+      zIndex: 1,
+      pointerEvents: 'none'
+    }} />
+    <div style={{
+      position: 'absolute',
+      width: '150px',
+      height: '150px',
+      background: 'rgba(59, 130, 246, 0.1)',
+      borderRadius: '50%',
+      bottom: '50px',
+      right: '10%',
+      zIndex: 1,
+      pointerEvents: 'none'
+    }} />
+    <div style={{
+      position: 'absolute',
+      width: '100px',
+      height: '100px',
+      background: 'rgba(139, 92, 246, 0.08)',
+      borderRadius: '50%',
+      top: '50%',
+      left: '5%',
+      zIndex: 1,
+      pointerEvents: 'none'
+    }} />
+    <div style={{
+      position: 'absolute',
+      width: '130px',
+      height: '130px',
+      background: 'rgba(59, 130, 246, 0.08)',
+      borderRadius: '50%',
+      bottom: '15%',
+      right: '5%',
+      zIndex: 1,
+      pointerEvents: 'none'
+    }} />
+    <div style={{
+      position: 'absolute',
+      width: '85px',
+      height: '85px',
+      background: 'rgba(139, 92, 246, 0.1)',
+      borderRadius: '50%',
+      top: '30%',
+      right: '15%',
+      zIndex: 1,
+      pointerEvents: 'none'
+    }} />
+      <div style={{ maxWidth: '1300px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
       {/* Header */}
       <div style={{
         textAlign: 'center',

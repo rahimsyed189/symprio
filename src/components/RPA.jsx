@@ -201,16 +201,6 @@ export default function RPA() {
             margin: '0 auto',
             paddingBottom: '30px'
           }}>
-            {/* Connecting Line */}
-            <div style={{
-              position: 'absolute',
-              top: '80px',
-              left: '0',
-              right: '0',
-              height: '4px',
-              background: 'linear-gradient(90deg, transparent 0%, #19b5fe 15%, #19b5fe 85%, transparent 100%)',
-              zIndex: 0
-            }}/>
 
             <div style={{
               display: 'grid',
@@ -652,7 +642,7 @@ export default function RPA() {
                           <div style={{ fontSize: '13px', fontWeight: '700', color: useCase.color, textTransform: 'uppercase', letterSpacing: '1px' }}>
                             {useCase.industry}
                           </div>
-                          <div style={{ fontSize: '24px', fontWeight: '800', color: '#ffffff', marginTop: '4px' }}>
+                          <div style={{ fontSize: '24px', fontWeight: '800', color: '#1f2937', marginTop: '4px' }}>
                             {useCase.scenario}
                           </div>
                         </div>

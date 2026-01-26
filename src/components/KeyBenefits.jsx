@@ -50,8 +50,65 @@ export default function KeyBenefits() {
         overflow: 'visible',
         minHeight: '100vh',
         display: 'flex',
-        alignItems: 'stretch'
+        alignItems: 'stretch',
+        marginTop: '0px'
       }}>
+      {/* Bubbles */}
+      <div style={{
+        position: 'absolute',
+        width: '200px',
+        height: '200px',
+        background: 'rgba(8, 145, 178, 0.1)',
+        borderRadius: '50%',
+        top: '10%',
+        left: '5%',
+        zIndex: 1,
+        pointerEvents: 'none'
+      }} />
+      <div style={{
+        position: 'absolute',
+        width: '150px',
+        height: '150px',
+        background: 'rgba(139, 92, 246, 0.1)',
+        borderRadius: '50%',
+        bottom: '15%',
+        right: '10%',
+        zIndex: 1,
+        pointerEvents: 'none'
+      }} />
+      <div style={{
+        position: 'absolute',
+        width: '100px',
+        height: '100px',
+        background: 'rgba(236, 72, 153, 0.1)',
+        borderRadius: '50%',
+        top: '50%',
+        right: '5%',
+        zIndex: 1,
+        pointerEvents: 'none'
+      }} />
+      <div style={{
+        position: 'absolute',
+        width: '120px',
+        height: '120px',
+        background: 'rgba(8, 145, 178, 0.08)',
+        borderRadius: '50%',
+        bottom: '30%',
+        left: '15%',
+        zIndex: 1,
+        pointerEvents: 'none'
+      }} />
+      <div style={{
+        position: 'absolute',
+        width: '80px',
+        height: '80px',
+        background: 'rgba(139, 92, 246, 0.12)',
+        borderRadius: '50%',
+        top: '20%',
+        right: '20%',
+        zIndex: 1,
+        pointerEvents: 'none'
+      }} />
       {/* Content starts here */}
       {/* LEFT SIDE - Title with Logo */}
       <div 
@@ -64,15 +121,45 @@ export default function KeyBenefits() {
           justifyContent: 'flex-start',
           alignItems: 'flex-start',
           minHeight: 'auto',
-          position: 'relative'
+          position: 'relative',
+          overflow: 'visible'
         }}>
         <div 
           style={{ 
             width: '100%',
             position: 'sticky',
             top: '100px',
-            zIndex: 5
+            zIndex: 5,
+            paddingBottom: '40px',
+            borderBottom: '3px solid rgba(255, 255, 255, 0.2)',
+            marginBottom: '40px'
           }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            marginBottom: '16px'
+          }}>
+            <div style={{
+              width: '40px',
+              height: '4px',
+              background: 'linear-gradient(90deg, #00d4ff, #3b82f6)',
+              borderRadius: '2px'
+            }}></div>
+            <span style={{
+              fontSize: '12px',
+              fontWeight: '700',
+              color: '#00d4ff',
+              textTransform: 'uppercase',
+              letterSpacing: '2px'
+            }}>Why Choose Us</span>
+            <div style={{
+              width: '40px',
+              height: '4px',
+              background: 'linear-gradient(90deg, #3b82f6, #00d4ff)',
+              borderRadius: '2px'
+            }}></div>
+          </div>
           <h2 style={{
             fontSize: '56px',
             fontWeight: '800',

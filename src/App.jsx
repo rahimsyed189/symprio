@@ -30,6 +30,7 @@ import ServicesLanding from './components/ServicesLanding';
 import AgenticAI from './components/AgenticAI';
 import Careers from './components/Careers';
 import Enquiry from './components/Enquiry';
+import CurvedDivider from './components/CurvedDivider';
 
 const HomePage = () => {
   return (
@@ -42,13 +43,32 @@ const HomePage = () => {
     }}>
       <SymprioNavbar />
       <SymprioHero />
+      <div style={{
+        width: '100%',
+        height: '600px',
+        backgroundImage: 'url(/boder.png)',
+        backgroundSize: '100% 150px',
+        backgroundPosition: 'center bottom',
+        backgroundRepeat: 'no-repeat',
+        marginTop: '-600px',
+        position: 'relative',
+        zIndex: 10,
+        transform: 'scaleX(-1)'
+      }} />
       <KeyBenefits />
+      <CurvedDivider topColor="#ffffff" bottomColor="#f3f4f6" height={150} curve="smooth" />
       <SymprioStats />
+      <CurvedDivider topColor="#f3f4f6" bottomColor="#ffffff" height={150} curve="smooth" />
       <EventsAndTrainings />
+      <CurvedDivider topColor="#ffffff" bottomColor="#f9fafb" height={150} curve="smooth" />
       <Services />
+      <CurvedDivider topColor="#f9fafb" bottomColor="#ffffff" height={150} curve="smooth" />
       <FeaturedCaseStudy />
+      <CurvedDivider topColor="#ffffff" bottomColor="#f3f4f6" height={150} curve="smooth" />
       <Testimonials />
+      <CurvedDivider topColor="#f3f4f6" bottomColor="#ffffff" height={150} curve="smooth" />
       <TeamMembers />
+      <CurvedDivider topColor="#ffffff" bottomColor="#87CEEB" height={150} curve="smooth" />
       <TransformCTA />
       <SymprioFooter />
     </div>
