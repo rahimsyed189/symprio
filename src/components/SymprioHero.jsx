@@ -87,43 +87,6 @@ export default function SymprioHero() {
         ref={descRef}>
           {heroContent.description}
         </p>
-        
-        <div style={{
-          display: 'flex',
-          gap: '20px',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexWrap: 'wrap'
-        }}>
-          <button 
-            onClick={() => navigate('/enquiry')}
-            style={{
-            background: '#3b82f6',
-            color: '#fff',
-            border: 'none',
-            padding: '12px 30px',
-            fontSize: '14px',
-            fontWeight: '600',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            transition: 'all 0.3s ease',
-            textTransform: 'uppercase',
-            letterSpacing: '0.5px'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.background = '#2563eb';
-            e.target.style.transform = 'translateY(-3px)';
-            e.target.style.boxShadow = '0 10px 20px rgba(59, 130, 246, 0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.background = '#3b82f6';
-            e.target.style.transform = 'translateY(0)';
-            e.target.style.boxShadow = 'none';
-          }}
-          >
-            Talk to an Expert
-          </button>
-        </div>
       </div>
 
       <style>{`
