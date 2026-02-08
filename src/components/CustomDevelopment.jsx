@@ -158,7 +158,7 @@ export default function CustomDevelopment() {
               zIndex: 1
             }}>
               {[
-                { step: '01', title: 'Discovery & Design', icon: '🎨', description: 'Requirements, prototypes, roadmap' },
+                { step: '01', title: 'Discovery & Design', icon: '🎨', description: 'Requirements & roadmap' },
                 { step: '02', title: 'Development', icon: '💻', description: 'Full-stack implementation' },
                 { step: '03', title: 'Quality Assurance', icon: '✓', description: 'Testing & optimization' },
                 { step: '04', title: 'DevOps Deploy', icon: '🚀', description: 'CI/CD & release' },
@@ -198,7 +198,8 @@ export default function CustomDevelopment() {
                     background: 'white',
                     borderRadius: '12px',
                     border: '2px solid #dbeafe',
-                    minHeight: '140px',
+                    minHeight: '180px',
+                    height: '180px',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',

@@ -214,7 +214,7 @@ export default function RPA() {
                   phase: '01',
                   title: 'Assessment',
                   icon: '🔍',
-                  description: 'Evaluate current processes and identify high-impact automation opportunities',
+                  description: 'Evaluate processes and spot high-impact automation opportunities',
                   duration: '2-4 weeks'
                 },
                 {
@@ -288,7 +288,8 @@ export default function RPA() {
                   background: 'rgba(8, 145, 178, 0.08)',
                   borderRadius: '12px',
                   border: '2px solid #0891b2',
-                  minHeight: '160px',
+                  minHeight: '240px',
+                  height: '240px',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
@@ -341,30 +342,50 @@ export default function RPA() {
         </section>
 
         {/* Benefits Section - Before/After Comparison */}
-        <section style={{ marginBottom: '0', width: '100%', padding: '80px 20px', background: '#ffffff', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <h2 style={{
-            fontSize: '42px',
-            fontWeight: '700',
-            color: '#1f2937',
-            marginBottom: '80px',
-            textAlign: 'center'
-          }}
-          data-aos="fade-up"
-          data-aos-duration="800"
-          data-aos-once="false">
-            Business Impact: Manual vs Automated
-          </h2>
+        <section style={{ marginBottom: '0', width: '100%', padding: '90px 20px', background: 'linear-gradient(180deg, #f8fafc 0%, #ffffff 100%)' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
+          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+            <span style={{
+              display: 'inline-block',
+              padding: '8px 16px',
+              borderRadius: '999px',
+              background: 'rgba(8, 145, 178, 0.12)',
+              color: '#0891b2',
+              fontSize: '12px',
+              fontWeight: '700',
+              letterSpacing: '1px'
+            }}>
+              BUSINESS IMPACT
+            </span>
+            <h2 style={{
+              fontSize: '40px',
+              fontWeight: '800',
+              color: '#0f172a',
+              margin: '16px 0 10px'
+            }}>
+              Manual vs Automated
+            </h2>
+            <p style={{
+              margin: '0 auto',
+              maxWidth: '720px',
+              color: '#475569',
+              fontSize: '15px',
+              lineHeight: '1.7'
+            }}>
+              A clear side‑by‑side comparison of outcomes before and after automation.
+            </p>
+          </div>
           
           {/* Before/After Comparison - Side by Side */}
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(2, 1fr)',
             gap: '50px',
+            width: '100%',
             maxWidth: '1100px',
-            margin: '0 auto 0 auto',
-            marginLeft: 'calc(50% - 550px + 60px)',
-            alignItems: 'stretch'
+            margin: '0 auto',
+            alignItems: 'stretch',
+            justifyContent: 'center'
           }}
           data-aos="fade-up"
           data-aos-delay="100"
@@ -373,10 +394,11 @@ export default function RPA() {
             
             {/* BEFORE - Manual Processes */}
             <div style={{
-              padding: '40px',
-              background: 'linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)',
-              borderRadius: '16px',
-              border: '3px solid #fca5a5',
+              padding: '36px',
+              background: '#ffffff',
+              borderRadius: '20px',
+              border: '1px solid #fee2e2',
+              boxShadow: '0 10px 30px rgba(15, 23, 42, 0.08)',
               position: 'relative',
               display: 'flex',
               flexDirection: 'column'
@@ -390,10 +412,10 @@ export default function RPA() {
                 ❌
               </div>
               <h3 style={{
-                fontSize: '28px',
+                fontSize: '26px',
                 fontWeight: '800',
-                color: '#7f1d1d',
-                marginBottom: '30px',
+                color: '#991b1b',
+                marginBottom: '24px',
                 marginTop: '0'
               }}>
                 Before: Manual Processes
@@ -440,22 +462,14 @@ export default function RPA() {
 
             {/* AFTER - RPA Automation */}
             <div style={{
-              padding: '40px',
-              background: 'linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%)',
-              borderRadius: '16px',
-              border: '3px solid #86efac',
+              padding: '36px',
+              background: '#ffffff',
+              borderRadius: '20px',
+              border: '1px solid #dcfce7',
+              boxShadow: '0 10px 30px rgba(15, 23, 42, 0.08)',
               position: 'relative',
               display: 'flex',
-              flexDirection: 'column',
-              transition: 'all 0.4s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = '0 20px 50px rgba(34, 197, 94, 0.25)';
-              e.currentTarget.style.transform = 'translateY(-4px)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = 'none';
-              e.currentTarget.style.transform = 'translateY(0)';
+              flexDirection: 'column'
             }}>
               <div style={{
                 position: 'absolute',
@@ -466,13 +480,13 @@ export default function RPA() {
                 ✅
               </div>
               <h3 style={{
-                fontSize: '28px',
+                fontSize: '26px',
                 fontWeight: '800',
                 color: '#166534',
-                marginBottom: '30px',
+                marginBottom: '24px',
                 marginTop: '0'
               }}>
-                After: RPA Automation
+                After: Automated Processes
               </h3>
               <div style={{
                 display: 'grid',
@@ -480,7 +494,7 @@ export default function RPA() {
                 flex: 1
               }}>
                 {[
-                  { metric: 'Processing Time', value: '5 minutes (24/7)', icon: '⚡', improvement: '96% faster' },
+                  { metric: 'Processing Time', value: 'Minutes not hours', icon: '⚡', improvement: '90% faster' },
                   { metric: 'Error Rate', value: '< 0.1% errors', icon: '✓', improvement: '99% reduction' },
                   { metric: 'Availability', value: '24/7 without breaks', icon: '🌍', improvement: '100% uptime' },
                   { metric: 'Cost/Month', value: '$2,000-3,000', icon: '💰', improvement: '85% savings' },

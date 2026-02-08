@@ -487,6 +487,20 @@ export default function AgenticAI() {
                       color: '#1f2937',
                       textAlign: 'center',
                       fontSize: '16px'
+                    }}>Category</th>
+                    <th style={{
+                      padding: '12px',
+                      fontWeight: '700',
+                      color: '#1f2937',
+                      textAlign: 'center',
+                      fontSize: '16px'
+                    }}>Generative AI</th>
+                    <th style={{
+                      padding: '12px',
+                      fontWeight: '700',
+                      color: '#1f2937',
+                      textAlign: 'center',
+                      fontSize: '16px'
                     }}>Agentic AI</th>
                   </tr>
                 </thead>

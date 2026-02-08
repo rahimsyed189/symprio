@@ -8,9 +8,11 @@ const AdminDashboard = () => {
   const [trainings, setTrainings] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [enquiries, setEnquiries] = useState([]);
+  const [locations, setLocations] = useState([]);
   const [showEventForm, setShowEventForm] = useState(false);
   const [showTrainingForm, setShowTrainingForm] = useState(false);
   const [showJobForm, setShowJobForm] = useState(false);
+  const [showLocationForm, setShowLocationForm] = useState(false);
   const navigate = useNavigate();
   const { user, logout, token } = useAuth();
 
@@ -44,12 +46,23 @@ const AdminDashboard = () => {
     location: 'Remote'
   });
 
+  // Location form state
+  const [locationForm, setLocationForm] = useState({
+    name: '',
+    address: '',
+    phone: '',
+    email: '',
+    imageFile: null,
+    imageUrl: ''
+  });
+
   // Fetch events, trainings, and jobs
   useEffect(() => {
     fetchEvents();
     fetchTrainings();
     fetchJobs();
     fetchEnquiries();
+    fetchLocations();
   }, []);
 
   const fetchEvents = async () => {
@@ -101,6 +114,18 @@ const AdminDashboard = () => {
       }
     } catch (error) {
       console.error('Failed to fetch enquiries:', error);
+    }
+  };
+
+  const fetchLocations = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/locations');
+      if (response.ok) {
+        const data = await response.json();
+        setLocations(Array.isArray(data) ? data : []);
+      }
+    } catch (error) {
+      console.error('Failed to fetch locations:', error);
     }
   };
 
@@ -208,6 +233,60 @@ const AdminDashboard = () => {
       }
     } catch (error) {
       alert('Error posting job: ' + error.message);
+    }
+  };
+
+  const handleAddLocation = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append('name', locationForm.name);
+      formData.append('address', locationForm.address);
+      formData.append('phone', locationForm.phone);
+      formData.append('email', locationForm.email);
+      if (locationForm.imageFile) {
+        formData.append('image', locationForm.imageFile);
+      }
+      if (locationForm.imageUrl) {
+        formData.append('imageUrl', locationForm.imageUrl);
+      }
+
+      const response = await fetch('http://localhost:5000/api/locations', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      });
+
+      if (response.ok) {
+        setLocationForm({ name: '', address: '', phone: '', email: '', imageFile: null, imageUrl: '' });
+        setShowLocationForm(false);
+        fetchLocations();
+      } else {
+        alert('Failed to add location');
+      }
+    } catch (error) {
+      alert('Error adding location: ' + error.message);
+    }
+  };
+
+  const handleDeleteLocation = async (locationId) => {
+    if (!window.confirm('Are you sure you want to delete this location?')) return;
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/locations/${locationId}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (response.ok) {
+        fetchLocations();
+      } else {
+        alert('Failed to delete location');
+      }
+    } catch (error) {
+      alert('Error deleting location: ' + error.message);
     }
   };
 
@@ -373,6 +452,20 @@ const AdminDashboard = () => {
             }}
           >
             Post Jobs
+          </button>
+          <button
+            onClick={() => setActiveTab('locations')}
+            style={{
+              padding: '12px 24px',
+              background: activeTab === 'locations' ? '#00d4ff' : 'transparent',
+              color: activeTab === 'locations' ? 'white' : '#6b7280',
+              border: 'none',
+              borderRadius: '6px',
+              fontWeight: '600',
+              cursor: 'pointer'
+            }}
+          >
+            Locations ({locations.length})
           </button>
           <button
             onClick={() => setActiveTab('enquiries')}
@@ -937,6 +1030,150 @@ const AdminDashboard = () => {
                       borderRadius: '6px',
                       cursor: 'pointer',
                       fontWeight: '600'
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'locations' && (
+          <div>
+            <button
+              onClick={() => setShowLocationForm(!showLocationForm)}
+              style={{
+                background: 'white',
+                color: '#00d4ff',
+                border: 'none',
+                padding: '12px 24px',
+                borderRadius: '6px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                marginBottom: '30px'
+              }}
+            >
+              {showLocationForm ? '✕ Cancel' : '+ Add Location'}
+            </button>
+
+            {showLocationForm && (
+              <form
+                onSubmit={handleAddLocation}
+                style={{
+                  background: 'white',
+                  padding: '24px',
+                  borderRadius: '8px',
+                  marginBottom: '30px',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
+                }}
+              >
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600' }}>Location Name</label>
+                    <input
+                      type="text"
+                      value={locationForm.name}
+                      onChange={(e) => setLocationForm({ ...locationForm, name: e.target.value })}
+                      placeholder="Location name"
+                      required
+                      style={{ width: '100%', padding: '12px', borderRadius: '6px', border: '1px solid #e5e7eb' }}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600' }}>Phone</label>
+                    <input
+                      type="text"
+                      value={locationForm.phone}
+                      onChange={(e) => setLocationForm({ ...locationForm, phone: e.target.value })}
+                      placeholder="Phone number"
+                      required
+                      style={{ width: '100%', padding: '12px', borderRadius: '6px', border: '1px solid #e5e7eb' }}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ marginTop: '20px' }}>
+                  <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600' }}>Address</label>
+                  <input
+                    type="text"
+                    value={locationForm.address}
+                    onChange={(e) => setLocationForm({ ...locationForm, address: e.target.value })}
+                    placeholder="Full address"
+                    required
+                    style={{ width: '100%', padding: '12px', borderRadius: '6px', border: '1px solid #e5e7eb' }}
+                  />
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginTop: '20px' }}>
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600' }}>Email (optional)</label>
+                    <input
+                      type="email"
+                      value={locationForm.email}
+                      onChange={(e) => setLocationForm({ ...locationForm, email: e.target.value })}
+                      placeholder="contact@company.com"
+                      style={{ width: '100%', padding: '12px', borderRadius: '6px', border: '1px solid #e5e7eb' }}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600' }}>Background Image URL (optional)</label>
+                    <input
+                      type="text"
+                      value={locationForm.imageUrl}
+                      onChange={(e) => setLocationForm({ ...locationForm, imageUrl: e.target.value })}
+                      placeholder="https://..."
+                      style={{ width: '100%', padding: '12px', borderRadius: '6px', border: '1px solid #e5e7eb' }}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ marginTop: '20px' }}>
+                  <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600' }}>Upload Background Image</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setLocationForm({ ...locationForm, imageFile: e.target.files?.[0] || null })}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  style={{
+                    marginTop: '24px',
+                    background: '#00d4ff',
+                    color: 'white',
+                    border: 'none',
+                    padding: '12px 24px',
+                    borderRadius: '6px',
+                    fontWeight: '600',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Save Location
+                </button>
+              </form>
+            )}
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px' }}>
+              {locations.map((location) => (
+                <div key={location.id} style={{ background: 'white', padding: '20px', borderRadius: '10px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}>
+                  <div style={{ fontWeight: '700', color: '#1f2937', marginBottom: '6px' }}>{location.name}</div>
+                  <div style={{ color: '#6b7280', fontSize: '14px', marginBottom: '8px' }}>{location.address}</div>
+                  <div style={{ color: '#6b7280', fontSize: '14px' }}>📞 {location.phone}</div>
+                  {location.email && <div style={{ color: '#6b7280', fontSize: '14px' }}>✉️ {location.email}</div>}
+                  <button
+                    onClick={() => handleDeleteLocation(location.id)}
+                    style={{
+                      marginTop: '12px',
+                      background: '#dc2626',
+                      color: 'white',
+                      border: 'none',
+                      padding: '8px 14px',
+                      borderRadius: '6px',
+                      fontWeight: '600',
+                      cursor: 'pointer'
                     }}
                   >
                     Delete

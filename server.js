@@ -5,6 +5,8 @@ import jwt from 'jsonwebtoken';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
+import multer from 'multer';
 import { fileURLToPath } from 'url';
 
 dotenv.config();
@@ -19,6 +21,24 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-producti
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+const uploadsDir = path.join(__dirname, 'public', 'uploads');
+fs.mkdirSync(uploadsDir, { recursive: true });
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadsDir);
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname || '').toLowerCase();
+    const safeExt = ext && ext.length <= 5 ? ext : '';
+    cb(null, `${Date.now()}-${Math.round(Math.random() * 1e9)}${safeExt}`);
+  }
+});
+
+const upload = multer({ storage });
+
+app.use('/uploads', express.static(uploadsDir));
 
 // Initialize SQLite Database
 const db = new sqlite3.Database(path.join(__dirname, 'users.db'), (err) => {
@@ -142,6 +162,26 @@ function initializeDatabase() {
       console.error('Error creating enquiries table:', err);
     } else {
       console.log('Enquiries table ready');
+    }
+  });
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS locations (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      address TEXT NOT NULL,
+      phone TEXT NOT NULL,
+      email TEXT,
+      image_url TEXT,
+      created_by INTEGER,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (created_by) REFERENCES users(id)
+    )
+  `, (err) => {
+    if (err) {
+      console.error('Error creating locations table:', err);
+    } else {
+      console.log('Locations table ready');
     }
   });
 }
@@ -544,6 +584,68 @@ app.delete('/api/enquiries/:id', verifyJWT, (req, res) => {
         return res.status(500).json({ error: 'Failed to delete enquiry' });
       }
       res.json({ success: true, message: 'Enquiry deleted' });
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ========== LOCATIONS ENDPOINTS ==========
+
+// Get all locations (public)
+app.get('/api/locations', (req, res) => {
+  db.all('SELECT * FROM locations ORDER BY created_at DESC', [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to fetch locations' });
+    }
+    res.json(rows || []);
+  });
+});
+
+// Add new location (admin only)
+app.post('/api/locations', verifyJWT, upload.single('image'), (req, res) => {
+  try {
+    const { name, address, phone, email, imageUrl } = req.body;
+    const filePath = req.file ? `/uploads/${req.file.filename}` : null;
+    const finalImageUrl = filePath || (imageUrl ? imageUrl.trim() : null);
+
+    if (!name || !address || !phone) {
+      return res.status(400).json({ error: 'Name, address, and phone are required' });
+    }
+
+    db.run(
+      'INSERT INTO locations (name, address, phone, email, image_url, created_by) VALUES (?, ?, ?, ?, ?, ?)',
+      [name, address, phone, email || null, finalImageUrl, req.user.id],
+      function(err) {
+        if (err) {
+          return res.status(500).json({ error: 'Failed to create location' });
+        }
+        res.status(201).json({
+          success: true,
+          location: {
+            id: this.lastID,
+            name,
+            address,
+            phone,
+            email: email || null,
+            image_url: finalImageUrl
+          }
+        });
+      }
+    );
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Delete location (admin only)
+app.delete('/api/locations/:id', verifyJWT, (req, res) => {
+  try {
+    db.run('DELETE FROM locations WHERE id = ? AND created_by = ?', [req.params.id, req.user.id], function(err) {
+      if (err) {
+        return res.status(500).json({ error: 'Failed to delete location' });
+      }
+      res.json({ success: true, message: 'Location deleted' });
     });
   } catch (error) {
     res.status(500).json({ error: error.message });

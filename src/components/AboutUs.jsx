@@ -5,6 +5,8 @@ export default function AboutUs() {
   const navigate = useNavigate();
   const [visibleOffices, setVisibleOffices] = useState({});
   const officeRefs = useRef({});
+  const [locations, setLocations] = useState([]);
+  const [locationsLoaded, setLocationsLoaded] = useState(false);
 
   const coreValues = [
     {
@@ -32,6 +34,54 @@ export default function AboutUs() {
     { location: 'India', region: 'APAC', emoji: '🎌' }
   ];
 
+  const defaultLocations = [
+    {
+      name: 'Silicon Valley',
+      region: 'North America',
+      emoji: '🇺🇸',
+      address: 'California, USA',
+      phone: '+1 (408) 555-0123',
+      email: 'usa@symprio.com',
+      image_url: '/locations/silicon-valley.jpg'
+    },
+    {
+      name: 'India',
+      region: 'APAC',
+      emoji: '🇮🇳',
+      address: 'Multiple Cities, India',
+      phone: '+91 80 5555 0123',
+      email: 'india@symprio.com',
+      image_url: '/locations/taj-mahal.jpg'
+    },
+    {
+      name: 'Kuala Lumpur',
+      region: 'APAC',
+      emoji: '🇲🇾',
+      address: 'Kuala Lumpur, Malaysia',
+      phone: '+60 3 5555 0123',
+      email: 'my@symprio.com',
+      image_url: '/locations/malaysia-skyline.jpg'
+    },
+    {
+      name: 'Singapore',
+      region: 'APAC',
+      emoji: '🇸🇬',
+      address: 'Singapore',
+      phone: '+65 6123 4567',
+      email: 'sg@symprio.com',
+      image_url: '/locations/singapore.jpg'
+    }
+  ];
+
+  const resolveImageUrl = (imageUrl) => {
+    if (!imageUrl) return '';
+    if (imageUrl.startsWith('http')) return imageUrl;
+    if (imageUrl.startsWith('/uploads/')) return `http://localhost:5000${imageUrl}`;
+    return imageUrl;
+  };
+
+  const locationsToRender = locations.length > 0 ? locations : defaultLocations;
+
   useEffect(() => {
     const observers = {};
     
@@ -54,6 +104,24 @@ export default function AboutUs() {
     return () => {
       Object.values(observers).forEach(observer => observer.disconnect());
     };
+  }, []);
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/locations');
+        if (response.ok) {
+          const data = await response.json();
+          setLocations(Array.isArray(data) ? data : []);
+        }
+      } catch (error) {
+        console.error('Failed to fetch locations:', error);
+      } finally {
+        setLocationsLoaded(true);
+      }
+    };
+
+    fetchLocations();
   }, []);
 
   return (
@@ -354,153 +422,47 @@ export default function AboutUs() {
           gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
           gap: '30px'
         }}>
-          {/* Location Card 1 */}
-          <div style={{
-            backgroundImage: 'linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.45) 100%), url(/locations/silicon-valley.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            padding: '40px 30px',
-            borderRadius: '12px',
-            color: '#fff',
-            position: 'relative',
-            overflow: 'hidden',
-            cursor: 'pointer',
-            transition: 'all 0.4s ease',
-            transform: 'translateY(0)',
-            minHeight: '280px',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-10px)';
-            e.currentTarget.style.boxShadow = '0 20px 50px rgba(0, 0, 0, 0.5)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
-          }}>
-            <div style={{ fontSize: '48px', marginBottom: '15px' }}>🇺🇸</div>
-            <h3 style={{ fontSize: '24px', fontWeight: '700', margin: '0 0 8px 0', color: '#fff' }}>Silicon Valley</h3>
-            <p style={{ fontSize: '14px', margin: '0 0 20px 0', color: '#fff' }}>North America</p>
-            <div style={{ fontSize: '13px', lineHeight: '1.8', opacity: '0.85' }}>
-              <p style={{ margin: '5px 0' }}>📍 California, USA</p>
-              <p style={{ margin: '5px 0' }}>🏢 Technology Hub</p>
-              <p style={{ margin: '5px 0' }}>👥 Innovation Center</p>
+          {locationsToRender.map((location, idx) => (
+            <div
+              key={location.id || `${location.name}-${idx}`}
+              style={{
+                backgroundImage: `linear-gradient(135deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.55) 100%), url(${resolveImageUrl(location.image_url)})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                padding: '40px 30px',
+                borderRadius: '12px',
+                color: '#fff',
+                position: 'relative',
+                overflow: 'hidden',
+                cursor: 'pointer',
+                transition: 'all 0.4s ease',
+                transform: 'translateY(0)',
+                minHeight: '280px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-10px)';
+                e.currentTarget.style.boxShadow = '0 20px 50px rgba(0, 0, 0, 0.5)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+              }}>
+              <div style={{ fontSize: '48px', marginBottom: '15px' }}>{location.emoji || '📍'}</div>
+              <h3 style={{ fontSize: '24px', fontWeight: '700', margin: '0 0 8px 0', color: '#fff' }}>{location.name}</h3>
+              {location.region && (
+                <p style={{ fontSize: '14px', margin: '0 0 16px 0', color: '#fff' }}>{location.region}</p>
+              )}
+              <div style={{ fontSize: '13px', lineHeight: '1.8', opacity: '0.9' }}>
+                {location.address && <p style={{ margin: '5px 0' }}>📍 {location.address}</p>}
+                {location.phone && <p style={{ margin: '5px 0' }}>📞 {location.phone}</p>}
+                {location.email && <p style={{ margin: '5px 0' }}>✉️ {location.email}</p>}
+              </div>
             </div>
-          </div>
-
-          {/* Location Card 2 */}
-          <div style={{
-            backgroundImage: 'linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.45) 100%), url(/locations/taj-mahal.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            padding: '40px 30px',
-            borderRadius: '12px',
-            color: '#fff',
-            position: 'relative',
-            overflow: 'hidden',
-            cursor: 'pointer',
-            transition: 'all 0.4s ease',
-            transform: 'translateY(0)',
-            minHeight: '280px',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-10px)';
-            e.currentTarget.style.boxShadow = '0 20px 50px rgba(0, 0, 0, 0.5)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
-          }}>
-            <div style={{ fontSize: '48px', marginBottom: '15px' }}>🇮🇳</div>
-            <h3 style={{ fontSize: '24px', fontWeight: '700', margin: '0 0 8px 0', color: '#fff' }}>India</h3>
-            <p style={{ fontSize: '14px', margin: '0 0 20px 0', color: '#fff' }}>APAC</p>
-            <div style={{ fontSize: '13px', lineHeight: '1.8', opacity: '0.85' }}>
-              <p style={{ margin: '5px 0' }}>📍 Multiple Cities</p>
-              <p style={{ margin: '5px 0' }}>🏢 Development Center</p>
-              <p style={{ margin: '5px 0' }}>👥 Engineering Team</p>
-            </div>
-          </div>
-
-          {/* Location Card 3 */}
-          <div style={{
-            backgroundImage: 'linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.45) 100%), url(/locations/malaysia-skyline.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            padding: '40px 30px',
-            borderRadius: '12px',
-            color: '#fff',
-            position: 'relative',
-            overflow: 'hidden',
-            cursor: 'pointer',
-            transition: 'all 0.4s ease',
-            transform: 'translateY(0)',
-            minHeight: '280px',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-10px)';
-            e.currentTarget.style.boxShadow = '0 20px 50px rgba(0, 0, 0, 0.5)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
-          }}>
-            <div style={{ fontSize: '48px', marginBottom: '15px' }}>🇲🇾</div>
-            <h3 style={{ fontSize: '24px', fontWeight: '700', margin: '0 0 8px 0', color: '#fff' }}>Kuala Lumpur</h3>
-            <p style={{ fontSize: '14px', margin: '0 0 20px 0', color: '#fff' }}>APAC</p>
-            <div style={{ fontSize: '13px', lineHeight: '1.8', opacity: '0.85' }}>
-              <p style={{ margin: '5px 0' }}>📍 Malaysia</p>
-              <p style={{ margin: '5px 0' }}>🏢 Regional Hub</p>
-              <p style={{ margin: '5px 0' }}>👥 Support Center</p>
-            </div>
-          </div>
-
-          {/* Location Card 4 */}
-          <div style={{
-            backgroundImage: 'linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.45) 100%), url(/locations/singapore.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            padding: '40px 30px',
-            borderRadius: '12px',
-            color: '#fff',
-            position: 'relative',
-            overflow: 'hidden',
-            cursor: 'pointer',
-            transition: 'all 0.4s ease',
-            transform: 'translateY(0)',
-            minHeight: '280px',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-10px)';
-            e.currentTarget.style.boxShadow = '0 20px 50px rgba(0, 0, 0, 0.5)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
-          }}>
-            <div style={{ fontSize: '48px', marginBottom: '15px' }}>🇸🇬</div>
-            <h3 style={{ fontSize: '24px', fontWeight: '700', margin: '0 0 8px 0', color: '#fff' }}>Singapore</h3>
-            <p style={{ fontSize: '14px', margin: '0 0 20px 0', color: '#fff' }}>APAC</p>
-            <div style={{ fontSize: '13px', lineHeight: '1.8', opacity: '0.85' }}>
-              <p style={{ margin: '5px 0' }}>📍 Singapore</p>
-              <p style={{ margin: '5px 0' }}>🏢 Operations Hub</p>
-              <p style={{ margin: '5px 0' }}>👥 Leadership</p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 

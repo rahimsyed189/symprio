@@ -6,6 +6,7 @@ export default function SymprioNavbar() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [scrolled, setScrolled] = React.useState(false);
+  const [showLogin, setShowLogin] = React.useState(false);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -35,7 +36,7 @@ export default function SymprioNavbar() {
         background: 'linear-gradient(135deg, #0f172a 0%, #0891b2 100%)',
         padding: '20px 60px',
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
         borderBottom: '3px solid #ffffff',
         zIndex: 10001,
@@ -43,188 +44,30 @@ export default function SymprioNavbar() {
         transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
         height: '80px'
       }}>
-        {/* Left: Logo */}
+        {/* Center: Symprio Logo */}
         <div onClick={() => navigate('/')} style={{
           display: 'flex',
           alignItems: 'center',
           gap: '10px',
-          cursor: 'pointer',
-          fontSize: '0'
+          cursor: 'pointer'
         }}>
-          <img 
-            src="/symprio-logo.png" 
-            alt="Symprio Logo" 
+          <div
+            role="img"
+            aria-label="Symprio Logo"
             style={{
-              height: '45px',
-              width: 'auto',
-              objectFit: 'contain',
-              filter: 'brightness(0) invert(1)'
+              height: '60px',
+              width: '220px',
+              background: 'linear-gradient(90deg, #ffffff 0%, #14b8a6 100%)',
+              WebkitMaskImage: 'url(/symprio-logo.png)',
+              maskImage: 'url(/symprio-logo.png)',
+              WebkitMaskRepeat: 'no-repeat',
+              maskRepeat: 'no-repeat',
+              WebkitMaskSize: 'contain',
+              maskSize: 'contain',
+              WebkitMaskPosition: 'center',
+              maskPosition: 'center'
             }}
           />
-        </div>
-
-        {/* Center: Contact Info */}
-        <div style={{
-          display: 'flex',
-          gap: '35px',
-          alignItems: 'center'
-        }}>
-          {/* Phone with WhatsApp */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px'
-          }}>
-            <img 
-              src="/whatsapp.png" 
-              alt="WhatsApp"
-              style={{
-                width: '24px',
-                height: '24px',
-                objectFit: 'contain'
-              }}
-            />
-            <div style={{ fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif' }}>
-              <div style={{
-                fontSize: '13px',
-                fontWeight: '600',
-                color: '#ffffff',
-                letterSpacing: '0.3px'
-              }}>
-                +60 13 880 2574
-              </div>
-              <div style={{
-                fontSize: '11px',
-                color: '#25D366',
-                fontWeight: '500',
-                letterSpacing: '0.2px'
-              }}>
-                WhatsApp Available
-              </div>
-            </div>
-          </div>
-
-          {/* Divider */}
-          <div style={{
-            width: '1.5px',
-            height: '50px',
-            background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.3), transparent)',
-            opacity: 0.8
-          }}></div>
-
-          {/* Address */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px'
-          }}>
-            <div style={{
-              width: '24px',
-              height: '24px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '20px',
-              fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
-            }}>
-              📍
-            </div>
-            <div style={{ fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif' }}>
-              <div style={{
-                fontSize: '13px',
-                fontWeight: '600',
-                color: '#ffffff',
-                letterSpacing: '0.3px'
-              }}>
-                Symprio Sdn Bhd, Tower B, 8-05
-              </div>
-              <div style={{
-                fontSize: '11px',
-                color: '#cbd5e1',
-                fontWeight: '500',
-                letterSpacing: '0.2px'
-              }}>
-                Kuala Lumpur, Malaysia
-              </div>
-            </div>
-          </div>
-
-          {/* Divider */}
-          <div style={{
-            width: '1.5px',
-            height: '50px',
-            background: 'linear-gradient(to bottom, transparent, #9ca3af, transparent)',
-            opacity: 0.8
-          }}></div>
-
-          {/* Email */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px'
-          }}>
-            <div style={{
-              width: '24px',
-              height: '24px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '20px',
-              fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
-            }}>
-              ✉️
-            </div>
-            <div style={{ fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif' }}>
-              <div style={{
-                fontSize: '13px',
-                fontWeight: '600',
-                color: '#ffffff',
-                letterSpacing: '0.3px'
-              }}>
-                contact@symprio.com
-              </div>
-              <div style={{
-                fontSize: '11px',
-                color: '#cbd5e1',
-                fontWeight: '500',
-                letterSpacing: '0.2px'
-              }}>
-                Email Support
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Right: Social Icons */}
-        <div style={{
-          display: 'flex',
-          gap: '12px',
-          alignItems: 'center'
-        }}>
-          <a href="#" style={{
-            width: '28px',
-            height: '28px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#3b82f6',
-            fontSize: '16px',
-            cursor: 'pointer'
-          }}>
-            f
-          </a>
-          <a href="#" style={{
-            width: '28px',
-            height: '28px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#3b82f6',
-            fontSize: '16px',
-            cursor: 'pointer'
-          }}>
-            𝕏
-          </a>
         </div>
       </div>
 
@@ -244,7 +87,9 @@ export default function SymprioNavbar() {
         paddingRight: '60px',
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
         transition: 'top 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
-      }}>
+      }}
+      onMouseEnter={() => setShowLogin(true)}
+      onMouseLeave={() => setShowLogin(false)}>
         {/* Navigation Links */}
         <div style={{
           display: 'flex',
@@ -315,6 +160,22 @@ export default function SymprioNavbar() {
           >
             About
           </a>
+
+          <a href="/enquiry" onClick={(e) => { e.preventDefault(); navigate('/enquiry'); }} style={{
+            fontSize: '15px',
+            fontWeight: '600',
+            color: '#fff',
+            textDecoration: 'none',
+            transition: 'color 0.3s ease',
+            cursor: 'pointer',
+            fontFamily: 'Segoe UI, Inter, sans-serif',
+            letterSpacing: '0.3px'
+          }}
+          onMouseEnter={(e) => e.target.style.color = '#bfdbfe'}
+          onMouseLeave={(e) => e.target.style.color = '#fff'}
+          >
+            Contact Us
+          </a>
         </div>
 
         {/* Right Side Auth */}
@@ -330,7 +191,9 @@ export default function SymprioNavbar() {
             cursor: 'pointer',
             transition: 'all 0.3s ease',
             fontFamily: 'Segoe UI, Inter, sans-serif',
-            letterSpacing: '0.3px'
+            letterSpacing: '0.3px',
+            opacity: showLogin ? 1 : 0,
+            pointerEvents: showLogin ? 'auto' : 'none'
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = '#bfdbfe';

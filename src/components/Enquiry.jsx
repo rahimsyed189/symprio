@@ -69,10 +69,7 @@ export default function Enquiry() {
     <section
       style={{
         minHeight: '100vh',
-        backgroundImage: 'url(/enquiry-bg.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
+        background: '#f8fafc',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -80,32 +77,59 @@ export default function Enquiry() {
         position: 'relative'
       }}
     >
-      {/* Overlay for better text visibility */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(0, 0, 0, 0.4)',
-          zIndex: 1
-        }}
-      />
-
-      {/* Form Container */}
-      <div
-        style={{
-          background: 'rgba(255, 255, 255, 0.95)',
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: '40px',
+        width: '100%',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        alignItems: 'stretch'
+      }}>
+        {/* Left: Contact Info */}
+        <div style={{
+          background: '#0f172a',
+          color: '#fff',
           borderRadius: '16px',
-          padding: '60px 40px',
-          maxWidth: '600px',
-          width: '100%',
-          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-          position: 'relative',
-          zIndex: 2
-        }}
-      >
+          padding: '50px 40px',
+          boxShadow: '0 20px 60px rgba(15, 23, 42, 0.25)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '20px',
+          justifyContent: 'center'
+        }}>
+          <h2 style={{ margin: '0 0 8px 0', fontSize: '28px', fontWeight: '800', color: '#ffffff' }}>Contact Information</h2>
+          <p style={{ margin: '0 0 12px 0', color: '#cbd5e1', lineHeight: '1.7' }}>
+            Reach out to Symprio for consultations, partnerships, and project discussions.
+          </p>
+          <div style={{ background: 'rgba(255,255,255,0.08)', padding: '16px', borderRadius: '12px' }}>
+            <div style={{ fontWeight: '700', marginBottom: '6px' }}>Phone / WhatsApp</div>
+            <div style={{ color: '#e2e8f0' }}>+60 13 880 2574</div>
+          </div>
+          <div style={{ background: 'rgba(255,255,255,0.08)', padding: '16px', borderRadius: '12px' }}>
+            <div style={{ fontWeight: '700', marginBottom: '6px' }}>Email</div>
+            <div style={{ color: '#e2e8f0' }}>contact@symprio.com</div>
+          </div>
+          <div style={{ background: 'rgba(255,255,255,0.08)', padding: '16px', borderRadius: '12px' }}>
+            <div style={{ fontWeight: '700', marginBottom: '6px' }}>Address</div>
+            <div style={{ color: '#e2e8f0' }}>Symprio Sdn Bhd, Tower B, 8-05<br />Kuala Lumpur, Malaysia</div>
+          </div>
+        </div>
+
+        {/* Right: Form Container */}
+        <div
+          style={{
+            background: 'rgba(255, 255, 255, 0.95)',
+            borderRadius: '16px',
+            padding: '60px 40px',
+            maxWidth: '600px',
+            width: '100%',
+            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.2)',
+            position: 'relative',
+            zIndex: 1,
+            justifySelf: 'end'
+          }}
+        >
         <h1
           style={{
             fontSize: '36px',
@@ -492,6 +516,7 @@ export default function Enquiry() {
             }
           }
         `}</style>
+        </div>
       </div>
     </section>
   );

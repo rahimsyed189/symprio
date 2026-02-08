@@ -29,3 +29,7 @@ yarn-error.log*
 
 # Vite
 .vite
+
+# Local DB & uploads
+users.db
+public/uploads
