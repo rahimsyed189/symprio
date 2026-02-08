@@ -57,7 +57,7 @@ export default function SymprioNavbar() {
             style={{
               height: '60px',
               width: '220px',
-              background: 'linear-gradient(90deg, #ffffff 0%, #14b8a6 100%)',
+              background: 'linear-gradient(90deg, #ffffff 0%, #ffffff 100%)',
               WebkitMaskImage: 'url(/symprio-logo.png)',
               maskImage: 'url(/symprio-logo.png)',
               WebkitMaskRepeat: 'no-repeat',

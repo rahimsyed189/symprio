@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function FooterCTA() {
+  const navigate = useNavigate();
   return (
     <section style={{
       background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
@@ -37,7 +39,9 @@ export default function FooterCTA() {
           alignItems: 'center',
           flexWrap: 'wrap'
         }}>
-          <button style={{
+          <button
+          onClick={() => navigate('/enquiry')}
+          style={{
             background: '#fff',
             color: '#3b82f6',
             border: 'none',
@@ -63,7 +67,9 @@ export default function FooterCTA() {
             Schedule a Consultation
           </button>
           
-          <button style={{
+          <button
+          onClick={() => navigate('/enquiry')}
+          style={{
             background: 'transparent',
             color: '#fff',
             border: '2px solid #fff',
