@@ -302,7 +302,7 @@ export default function DigitalWorkforce() {
           }}>
             {[
               {
-                title: 'Staff Augmentation',
+                title: 'Digital Acceleration Service',
                 icon: '🤝',
                 color: '#0891b2',
                 bgColor: '#dbeafe',
