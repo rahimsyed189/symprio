@@ -299,6 +299,40 @@ function initializeDatabase() {
       });
     }
   });
+
+  // Subscription Status Types table
+  db.run(`
+    CREATE TABLE IF NOT EXISTS subscription_status_types (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      status_name TEXT NOT NULL UNIQUE,
+      color TEXT NOT NULL DEFAULT '#6b7280',
+      display_order INTEGER DEFAULT 0,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `, (err) => {
+    if (err) {
+      console.error('Error creating subscription_status_types table:', err);
+    } else {
+      console.log('Subscription status types table ready');
+      // Insert default status types if table is empty
+      db.get('SELECT COUNT(*) as count FROM subscription_status_types', (countErr, result) => {
+        if (!countErr && result.count === 0) {
+          const defaultStatuses = [
+            { name: 'Pending', color: '#f59e0b', order: 1 },
+            { name: 'Reviewed', color: '#10b981', order: 2 },
+            { name: 'Approved', color: '#3b82f6', order: 3 },
+            { name: 'Rejected', color: '#ef4444', order: 4 }
+          ];
+          defaultStatuses.forEach((status, index) => {
+            db.run('INSERT INTO subscription_status_types (status_name, color, display_order) VALUES (?, ?, ?)',
+              [status.name, status.color, status.order]);
+          });
+          console.log('Default subscription status types created');
+        }
+      });
+    }
+  });
 }
 
 // Register endpoint
@@ -1131,6 +1165,125 @@ app.post('/api/admin/subscription-config', verifyJWT, async (req, res) => {
     res.json({ success: true, message: 'Subscription config updated', rate: parseInt(rate) });
   } catch (error) {
     console.error('Subscription config POST endpoint error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// GET subscription status types (admin only)
+app.get('/api/admin/subscription-status-types', verifyJWT, (req, res) => {
+  try {
+    db.all('SELECT * FROM subscription_status_types ORDER BY display_order ASC', [], (err, rows) => {
+      if (err) {
+        console.error('Error fetching subscription status types:', err);
+        return res.status(500).json({ error: 'Failed to fetch status types' });
+      }
+      res.json(rows);
+    });
+  } catch (error) {
+    console.error('Get subscription status types error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// POST subscription status type (admin only)
+app.post('/api/admin/subscription-status-types', verifyJWT, (req, res) => {
+  try {
+    const { status_name, color, display_order } = req.body;
+
+    if (!status_name || !status_name.trim()) {
+      return res.status(400).json({ error: 'Status name is required' });
+    }
+
+    // Validate color format (hex color)
+    const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+    const validColor = color && hexColorRegex.test(color) ? color : '#6b7280';
+
+    db.run(
+      'INSERT INTO subscription_status_types (status_name, color, display_order) VALUES (?, ?, ?)',
+      [status_name.trim(), validColor, display_order || 0],
+      function(err) {
+        if (err) {
+          if (err.message.includes('UNIQUE')) {
+            return res.status(400).json({ error: 'Status name already exists' });
+          }
+          console.error('Error creating subscription status type:', err);
+          return res.status(500).json({ error: 'Failed to create status type' });
+        }
+        res.status(201).json({
+          success: true,
+          id: this.lastID,
+          status_name: status_name.trim(),
+          color: validColor,
+          display_order: display_order || 0
+        });
+      }
+    );
+  } catch (error) {
+    console.error('Create subscription status type error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// PUT subscription status type (admin only)
+app.put('/api/admin/subscription-status-types/:id', verifyJWT, (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status_name, color, display_order } = req.body;
+
+    if (!status_name || !status_name.trim()) {
+      return res.status(400).json({ error: 'Status name is required' });
+    }
+
+    // Validate color format (hex color)
+    const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+    const validColor = color && hexColorRegex.test(color) ? color : '#6b7280';
+
+    db.run(
+      'UPDATE subscription_status_types SET status_name = ?, color = ?, display_order = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?',
+      [status_name.trim(), validColor, display_order || 0, id],
+      function(err) {
+        if (err) {
+          if (err.message.includes('UNIQUE')) {
+            return res.status(400).json({ error: 'Status name already exists' });
+          }
+          console.error('Error updating subscription status type:', err);
+          return res.status(500).json({ error: 'Failed to update status type' });
+        }
+        if (this.changes === 0) {
+          return res.status(404).json({ error: 'Status type not found' });
+        }
+        res.json({
+          success: true,
+          id: parseInt(id),
+          status_name: status_name.trim(),
+          color: validColor,
+          display_order: display_order || 0
+        });
+      }
+    );
+  } catch (error) {
+    console.error('Update subscription status type error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// DELETE subscription status type (admin only)
+app.delete('/api/admin/subscription-status-types/:id', verifyJWT, (req, res) => {
+  try {
+    const { id } = req.params;
+
+    db.run('DELETE FROM subscription_status_types WHERE id = ?', [id], function(err) {
+      if (err) {
+        console.error('Error deleting subscription status type:', err);
+        return res.status(500).json({ error: 'Failed to delete status type' });
+      }
+      if (this.changes === 0) {
+        return res.status(404).json({ error: 'Status type not found' });
+      }
+      res.json({ success: true, message: 'Status type deleted' });
+    });
+  } catch (error) {
+    console.error('Delete subscription status type error:', error);
     res.status(500).json({ error: error.message });
   }
 });

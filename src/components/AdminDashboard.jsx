@@ -5,6 +5,7 @@ import ApplicationViewModal from './ApplicationViewModal';
 import ApplicationFilters from './ApplicationFilters';
 import MailConfig from './MailConfig';
 import SubscriptionViewModal from './SubscriptionViewModal';
+import SubscriptionStatusTypes from './SubscriptionStatusTypes';
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('events');
@@ -886,6 +887,20 @@ const AdminDashboard = () => {
             }}
           >
             Support Subscriptions
+          </button>
+          <button
+            onClick={() => setActiveTab('statusTypes')}
+            style={{
+              padding: '12px 24px',
+              background: activeTab === 'statusTypes' ? '#00d4ff' : 'transparent',
+              color: activeTab === 'statusTypes' ? 'white' : '#6b7280',
+              border: 'none',
+              borderRadius: '6px',
+              fontWeight: '600',
+              cursor: 'pointer'
+            }}
+          >
+            Status Types
           </button>
         </div>
 
@@ -1859,6 +1874,14 @@ const AdminDashboard = () => {
               </div>
             )}
           </div>
+        )}
+
+        {/* Status Types Tab */}
+        {activeTab === 'statusTypes' && (
+          <SubscriptionStatusTypes 
+            token={token} 
+            onNotification={showNotification} 
+          />
         )}
 
         {/* Mail Configuration Tab */}
