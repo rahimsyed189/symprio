@@ -21,7 +21,7 @@ const DEFAULT_COLORS = [
   '#1f2937', // dark gray
 ];
 
-export default function SubscriptionStatusTypes({ token, onNotification }) {
+export default function SubscriptionStatusTypes({ token, onNotification, onRefresh }) {
   const [statusTypes, setStatusTypes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -87,6 +87,7 @@ export default function SubscriptionStatusTypes({ token, onNotification }) {
           setStatusTypes(prev => [...prev, result]);
           onNotification('success', 'Status type created successfully');
         }
+        if (onRefresh) onRefresh();
         resetForm();
       } else {
         const error = await response.json();
@@ -125,6 +126,7 @@ export default function SubscriptionStatusTypes({ token, onNotification }) {
       if (response.ok) {
         setStatusTypes(prev => prev.filter(s => s.id !== id));
         onNotification('success', 'Status type deleted successfully');
+        if (onRefresh) onRefresh();
       } else {
         const error = await response.json();
         onNotification('error', error.error || 'Failed to delete status type');

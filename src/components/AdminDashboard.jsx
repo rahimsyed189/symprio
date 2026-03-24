@@ -45,6 +45,7 @@ const AdminDashboard = () => {
   // Subscriptions state
   const [subscriptions, setSubscriptions] = useState([]);
   const [loadingSubscriptions, setLoadingSubscriptions] = useState(true);
+  const [subscriptionStatusTypes, setSubscriptionStatusTypes] = useState([]);
   
   // Subscription modal state
   const [selectedSubscription, setSelectedSubscription] = useState(null);
@@ -114,6 +115,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     if (token) {
       fetchSubscriptions();
+      fetchSubscriptionStatusTypes();
     }
   }, [token]);
 
@@ -266,6 +268,42 @@ const AdminDashboard = () => {
     } finally {
       setLoadingSubscriptions(false);
     }
+  };
+
+  const fetchSubscriptionStatusTypes = async () => {
+    if (!token) return;
+    try {
+      const response = await fetch('/api/admin/subscription-status-types', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setSubscriptionStatusTypes(data);
+      }
+    } catch (error) {
+      console.error('Error fetching subscription status types:', error);
+    }
+  };
+
+  // Helper function to get status color
+  const getSubscriptionStatusColor = (statusName) => {
+    const status = subscriptionStatusTypes.find(s => s.status_name === statusName);
+    if (status) {
+      return {
+        background: status.color + '20',
+        color: status.color,
+        border: `1px solid ${status.color}40`
+      };
+    }
+    // Default colors if not found
+    const defaultColors = {
+      'Pending': { background: '#fef3c7', color: '#d97706', border: '#f59e0b40' },
+      'Reviewed': { background: '#d1fae5', color: '#059669', border: '#10b98140' },
+      'Rejected': { background: '#fee2e2', color: '#dc2626', border: '#ef444440' }
+    };
+    return defaultColors[statusName] || { background: '#f3f4f6', color: '#6b7280', border: '#d1d5db40' };
   };
 
   const handleDeleteSubscription = async (id) => {
@@ -1880,7 +1918,8 @@ const AdminDashboard = () => {
         {activeTab === 'statusTypes' && (
           <SubscriptionStatusTypes 
             token={token} 
-            onNotification={showNotification} 
+            onNotification={showNotification}
+            onRefresh={fetchSubscriptionStatusTypes}
           />
         )}
 
@@ -2007,24 +2046,43 @@ const AdminDashboard = () => {
                           {sub.createdAt ? new Date(sub.createdAt).toLocaleDateString('en-GB') : '-'}
                         </td>
                         <td style={{ padding: '16px', textAlign: 'center' }}>
-                          <select
-                            value={sub.status || 'Pending'}
-                            onChange={(e) => handleSubscriptionStatusChange(sub.id, e.target.value)}
-                            style={{
-                              padding: '6px 12px',
-                              borderRadius: '4px',
-                              border: '1px solid #d1d5db',
-                              background: 'white',
-                              color: '#374151',
-                              fontSize: '14px',
-                              cursor: 'pointer',
-                              fontWeight: '500'
-                            }}
-                          >
-                            <option value="Pending">Pending</option>
-                            <option value="Reviewed">Reviewed</option>
-                            <option value="Rejected">Rejected</option>
-                          </select>
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                            <span style={{
+                              ...getSubscriptionStatusColor(sub.status || 'Pending'),
+                              padding: '4px 10px',
+                              borderRadius: '12px',
+                              fontWeight: '600',
+                              fontSize: '12px',
+                              display: 'inline-block'
+                            }}>
+                              {sub.status || 'Pending'}
+                            </span>
+                            <select
+                              value={sub.status || 'Pending'}
+                              onChange={(e) => handleSubscriptionStatusChange(sub.id, e.target.value)}
+                              style={{
+                                padding: '4px 8px',
+                                borderRadius: '4px',
+                                border: '1px solid #d1d5db',
+                                background: 'white',
+                                color: '#374151',
+                                fontSize: '13px',
+                                cursor: 'pointer'
+                              }}
+                            >
+                              {subscriptionStatusTypes.length > 0 ? (
+                                subscriptionStatusTypes.map(status => (
+                                  <option key={status.id} value={status.status_name}>{status.status_name}</option>
+                                ))
+                              ) : (
+                                <>
+                                  <option value="Pending">Pending</option>
+                                  <option value="Reviewed">Reviewed</option>
+                                  <option value="Rejected">Rejected</option>
+                                </>
+                              )}
+                            </select>
+                          </div>
                         </td>
                         <td style={{ padding: '16px', textAlign: 'center' }}>
                           <button
