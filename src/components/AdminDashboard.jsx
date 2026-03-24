@@ -2022,9 +2022,7 @@ const AdminDashboard = () => {
                       <th style={{ padding: '16px', textAlign: 'left', fontWeight: '600', color: '#374151' }}>Company</th>
                       <th style={{ padding: '16px', textAlign: 'left', fontWeight: '600', color: '#374151' }}>Contact</th>
                       <th style={{ padding: '16px', textAlign: 'center', fontWeight: '600', color: '#374151' }}>Hours</th>
-                      <th style={{ padding: '16px', textAlign: 'center', fontWeight: '600', color: '#374151' }}>Rate</th>
                       <th style={{ padding: '16px', textAlign: 'center', fontWeight: '600', color: '#374151' }}>Total</th>
-                      <th style={{ padding: '16px', textAlign: 'left', fontWeight: '600', color: '#374151' }}>Message</th>
                       <th style={{ padding: '16px', textAlign: 'left', fontWeight: '600', color: '#374151' }}>Date</th>
                       <th style={{ padding: '16px', textAlign: 'center', fontWeight: '600', color: '#374151' }}>Status</th>
                       <th style={{ padding: '16px', textAlign: 'center', fontWeight: '600', color: '#374151' }}>Actions</th>
@@ -2037,11 +2035,7 @@ const AdminDashboard = () => {
                         <td style={{ padding: '16px', color: '#374151' }}>{sub.companyName || '-'}</td>
                         <td style={{ padding: '16px', color: '#374151' }}>{sub.contactNumber || '-'}</td>
                         <td style={{ padding: '16px', textAlign: 'center', color: '#374151' }}>{sub.hours || 0}</td>
-                        <td style={{ padding: '16px', textAlign: 'center', color: '#374151' }}>${sub.rate || 0}</td>
                         <td style={{ padding: '16px', textAlign: 'center', color: '#0891b2', fontWeight: '600' }}>${sub.totalAmount || 0}</td>
-                        <td style={{ padding: '16px', color: '#374151', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                          {sub.message || '-'}
-                        </td>
                         <td style={{ padding: '16px', color: '#374151' }}>
                           {sub.createdAt ? new Date(sub.createdAt).toLocaleDateString('en-GB') : '-'}
                         </td>
