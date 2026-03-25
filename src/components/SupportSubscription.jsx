@@ -135,96 +135,35 @@ export default function SupportSubscription() {
   };
   
   return (
-    <section style={{
+    <div style={{
       minHeight: '100vh',
       background: '#f8fafc',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '48px 20px',
-      position: 'relative'
+      padding: '48px 20px'
     }}>
       <div style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '40px',
-        width: '100%',
         maxWidth: '1200px',
         margin: '0 auto',
-        alignItems: 'stretch'
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: '32px',
+        alignItems: 'start'
       }}>
-        {/* Left: Info Panel */}
+        {/* LEFT: Form Section */}
         <div style={{
-          background: '#0f172a',
-          color: '#fff',
-          borderRadius: '16px',
-          padding: '50px 40px',
-          boxShadow: '0 20px 60px rgba(15, 23, 42, 0.25)',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '20px',
-          justifyContent: 'center'
+          background: 'white',
+          borderRadius: '12px',
+          padding: '32px',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
         }}>
-          <h2 style={{ margin: '0 0 8px 0', fontSize: '28px', fontWeight: '800', color: '#ffffff' }}>
-            Support Subscription
-          </h2>
-          <p style={{ margin: '0 0 12px 0', color: '#cbd5e1', lineHeight: '1.7' }}>
-            Get dedicated support hours for your business needs. Flexible and affordable support packages tailored to your requirements.
-          </p>
-          
-          <div style={{ background: 'rgba(255,255,255,0.08)', padding: '16px', borderRadius: '12px' }}>
-            <div style={{ fontWeight: '700', marginBottom: '6px' }}>📋 How It Works</div>
-            <div style={{ color: '#e2e8f0', lineHeight: '1.6' }}>
-              1. Choose your preferred hours<br/>
-              2. Get dedicated support<br/>
-              3. Flexible scheduling
-            </div>
-          </div>
-          
-          <div style={{ background: 'rgba(255,255,255,0.08)', padding: '16px', borderRadius: '12px' }}>
-            <div style={{ fontWeight: '700', marginBottom: '6px' }}>💰 Transparent Pricing</div>
-            <div style={{ color: '#e2e8f0', lineHeight: '1.6' }}>
-              Pay only for what you need.<br/>
-              No hidden fees.
-            </div>
-          </div>
-          
-          <div style={{ background: 'rgba(255,255,255,0.08)', padding: '16px', borderRadius: '12px' }}>
-            <div style={{ fontWeight: '700', marginBottom: '6px' }}>📞 Contact Us</div>
-            <div style={{ color: '#e2e8f0' }}>+60 13 880 2574</div>
-            <div style={{ color: '#e2e8f0' }}>contact@symprio.com</div>
-          </div>
-        </div>
-
-        {/* Right: Form Container */}
-        <div style={{
-          background: 'rgba(255, 255, 255, 0.95)',
-          borderRadius: '16px',
-          padding: '48px 40px',
-          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
-          position: 'relative',
-          zIndex: 1,
-          justifySelf: 'start'
-        }}>
-          <h1 style={{
-            fontSize: '32px',
-            fontWeight: '800',
+          <h2 style={{
+            fontSize: '24px',
+            fontWeight: '700',
             color: '#1f2937',
-            margin: '0 0 8px 0',
+            marginBottom: '24px',
             textAlign: 'center'
           }}>
-            Subscribe Now
-          </h1>
-
-          <p style={{
-            fontSize: '14px',
-            color: '#6b7280',
-            textAlign: 'center',
-            margin: '0 0 32px 0',
-            lineHeight: '1.6'
-          }}>
-            Fill out the form below and we'll get back to you with a customized support package.
-          </p>
+            Subscribe Support Hours
+          </h2>
 
           {successMessage ? (
             <div style={{
@@ -233,17 +172,18 @@ export default function SupportSubscription() {
               alignItems: 'center',
               justifyContent: 'center',
               gap: '24px',
-              minHeight: '300px'
+              minHeight: '300px',
+              padding: '40px 0'
             }}>
-              <div style={{ fontSize: '80px' }}>✓</div>
+              <div style={{ fontSize: '64px', color: '#10b981' }}>✓</div>
               <div style={{
-                background: 'linear-gradient(135deg, #d1fae5 0%, #d1fae5 100%)',
+                background: '#d1fae5',
                 color: '#065f46',
                 padding: '24px',
                 borderRadius: '8px',
                 textAlign: 'center',
                 fontWeight: '600',
-                fontSize: '18px',
+                fontSize: '16px',
                 width: '100%'
               }}>
                 {successMessage}
@@ -253,13 +193,14 @@ export default function SupportSubscription() {
             <>
               {errorMessage && (
                 <div style={{
-                  background: 'linear-gradient(135deg, #fee2e2 0%, #fee2e2 100%)',
+                  background: '#fee2e2',
                   color: '#991b1b',
-                  padding: '16px',
+                  padding: '12px 16px',
                   borderRadius: '8px',
-                  marginBottom: '24px',
+                  marginBottom: '20px',
                   textAlign: 'center',
-                  fontWeight: '600'
+                  fontWeight: '500',
+                  fontSize: '14px'
                 }}>
                   ✗ {errorMessage}
                 </div>
@@ -273,7 +214,7 @@ export default function SupportSubscription() {
                     fontSize: '14px',
                     fontWeight: '600',
                     color: '#1f2937',
-                    marginBottom: '8px'
+                    marginBottom: '6px'
                   }}>
                     Name <span style={{ color: '#ef4444' }}>*</span>
                   </label>
@@ -287,19 +228,18 @@ export default function SupportSubscription() {
                     style={{
                       width: '100%',
                       padding: '12px 16px',
-                      border: '1px solid #e5e7eb',
+                      border: '1px solid #d1d5db',
                       borderRadius: '8px',
                       fontSize: '14px',
-                      fontFamily: 'inherit',
-                      transition: 'all 0.3s ease',
-                      boxSizing: 'border-box'
+                      boxSizing: 'border-box',
+                      transition: 'border-color 0.2s, box-shadow 0.2s'
                     }}
                     onFocus={(e) => {
                       e.target.style.borderColor = '#0891b2';
                       e.target.style.boxShadow = '0 0 0 3px rgba(8, 145, 178, 0.1)';
                     }}
                     onBlur={(e) => {
-                      e.target.style.borderColor = '#e5e7eb';
+                      e.target.style.borderColor = '#d1d5db';
                       e.target.style.boxShadow = 'none';
                     }}
                   />
@@ -312,7 +252,7 @@ export default function SupportSubscription() {
                     fontSize: '14px',
                     fontWeight: '600',
                     color: '#1f2937',
-                    marginBottom: '8px'
+                    marginBottom: '6px'
                   }}>
                     Company Name <span style={{ color: '#ef4444' }}>*</span>
                   </label>
@@ -326,19 +266,18 @@ export default function SupportSubscription() {
                     style={{
                       width: '100%',
                       padding: '12px 16px',
-                      border: '1px solid #e5e7eb',
+                      border: '1px solid #d1d5db',
                       borderRadius: '8px',
                       fontSize: '14px',
-                      fontFamily: 'inherit',
-                      transition: 'all 0.3s ease',
-                      boxSizing: 'border-box'
+                      boxSizing: 'border-box',
+                      transition: 'border-color 0.2s, box-shadow 0.2s'
                     }}
                     onFocus={(e) => {
                       e.target.style.borderColor = '#0891b2';
                       e.target.style.boxShadow = '0 0 0 3px rgba(8, 145, 178, 0.1)';
                     }}
                     onBlur={(e) => {
-                      e.target.style.borderColor = '#e5e7eb';
+                      e.target.style.borderColor = '#d1d5db';
                       e.target.style.boxShadow = 'none';
                     }}
                   />
@@ -351,7 +290,7 @@ export default function SupportSubscription() {
                     fontSize: '14px',
                     fontWeight: '600',
                     color: '#1f2937',
-                    marginBottom: '8px'
+                    marginBottom: '6px'
                   }}>
                     Email Address <span style={{ color: '#ef4444' }}>*</span>
                   </label>
@@ -365,19 +304,18 @@ export default function SupportSubscription() {
                     style={{
                       width: '100%',
                       padding: '12px 16px',
-                      border: '1px solid #e5e7eb',
+                      border: '1px solid #d1d5db',
                       borderRadius: '8px',
                       fontSize: '14px',
-                      fontFamily: 'inherit',
-                      transition: 'all 0.3s ease',
-                      boxSizing: 'border-box'
+                      boxSizing: 'border-box',
+                      transition: 'border-color 0.2s, box-shadow 0.2s'
                     }}
                     onFocus={(e) => {
                       e.target.style.borderColor = '#0891b2';
                       e.target.style.boxShadow = '0 0 0 3px rgba(8, 145, 178, 0.1)';
                     }}
                     onBlur={(e) => {
-                      e.target.style.borderColor = '#e5e7eb';
+                      e.target.style.borderColor = '#d1d5db';
                       e.target.style.boxShadow = 'none';
                     }}
                   />
@@ -390,7 +328,7 @@ export default function SupportSubscription() {
                     fontSize: '14px',
                     fontWeight: '600',
                     color: '#1f2937',
-                    marginBottom: '8px'
+                    marginBottom: '6px'
                   }}>
                     Contact Number <span style={{ color: '#ef4444' }}>*</span>
                   </label>
@@ -400,11 +338,10 @@ export default function SupportSubscription() {
                       style={{
                         padding: '12px 8px',
                         fontSize: '14px',
-                        border: '1px solid #e5e7eb',
+                        border: '1px solid #d1d5db',
                         borderRadius: '8px',
                         background: '#fff',
                         minWidth: '80px',
-                        fontFamily: 'inherit',
                         boxSizing: 'border-box'
                       }}
                     >
@@ -425,18 +362,17 @@ export default function SupportSubscription() {
                         flex: 1,
                         padding: '12px 16px',
                         fontSize: '14px',
-                        border: '1px solid #e5e7eb',
+                        border: '1px solid #d1d5db',
                         borderRadius: '8px',
-                        fontFamily: 'inherit',
-                        transition: 'all 0.3s ease',
-                        boxSizing: 'border-box'
+                        boxSizing: 'border-box',
+                        transition: 'border-color 0.2s, box-shadow 0.2s'
                       }}
                       onFocus={(e) => {
                         e.target.style.borderColor = '#0891b2';
                         e.target.style.boxShadow = '0 0 0 3px rgba(8, 145, 178, 0.1)';
                       }}
                       onBlur={(e) => {
-                        e.target.style.borderColor = '#e5e7eb';
+                        e.target.style.borderColor = '#d1d5db';
                         e.target.style.boxShadow = 'none';
                       }}
                     />
@@ -450,7 +386,7 @@ export default function SupportSubscription() {
                     fontSize: '14px',
                     fontWeight: '600',
                     color: '#1f2937',
-                    marginBottom: '8px'
+                    marginBottom: '6px'
                   }}>
                     Subscription Hours <span style={{ color: '#ef4444' }}>*</span>
                   </label>
@@ -463,7 +399,7 @@ export default function SupportSubscription() {
                         height: '40px',
                         fontSize: '18px',
                         fontWeight: 'bold',
-                        border: '1px solid #e5e7eb',
+                        border: '1px solid #d1d5db',
                         borderRadius: '8px',
                         background: '#f3f4f6',
                         color: '#374151',
@@ -471,7 +407,7 @@ export default function SupportSubscription() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        transition: 'all 0.2s ease'
+                        transition: 'background 0.2s'
                       }}
                       onMouseEnter={(e) => {
                         e.target.style.background = '#e5e7eb';
@@ -495,11 +431,10 @@ export default function SupportSubscription() {
                         padding: '12px 16px',
                         fontSize: '14px',
                         textAlign: 'center',
-                        border: '1px solid #e5e7eb',
+                        border: '1px solid #d1d5db',
                         borderRadius: '8px',
-                        outline: 'none',
-                        boxSizing: 'border-box',
-                        background: '#fff'
+                        background: '#fff',
+                        boxSizing: 'border-box'
                       }}
                     />
                     <button
@@ -510,7 +445,7 @@ export default function SupportSubscription() {
                         height: '40px',
                         fontSize: '18px',
                         fontWeight: 'bold',
-                        border: '1px solid #e5e7eb',
+                        border: '1px solid #d1d5db',
                         borderRadius: '8px',
                         background: '#f3f4f6',
                         color: '#374151',
@@ -518,7 +453,7 @@ export default function SupportSubscription() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        transition: 'all 0.2s ease'
+                        transition: 'background 0.2s'
                       }}
                       onMouseEnter={(e) => {
                         e.target.style.background = '#e5e7eb';
@@ -542,7 +477,7 @@ export default function SupportSubscription() {
                     fontSize: '14px',
                     fontWeight: '600',
                     color: '#1f2937',
-                    marginBottom: '8px'
+                    marginBottom: '6px'
                   }}>
                     Message <span style={{ color: '#9ca3af', fontWeight: '400' }}>(Optional)</span>
                   </label>
@@ -555,21 +490,20 @@ export default function SupportSubscription() {
                     style={{
                       width: '100%',
                       padding: '12px 16px',
-                      border: '1px solid #e5e7eb',
+                      border: '1px solid #d1d5db',
                       borderRadius: '8px',
                       fontSize: '14px',
-                      fontFamily: 'inherit',
                       minHeight: '100px',
                       resize: 'vertical',
-                      transition: 'all 0.3s ease',
-                      boxSizing: 'border-box'
+                      boxSizing: 'border-box',
+                      transition: 'border-color 0.2s, box-shadow 0.2s'
                     }}
                     onFocus={(e) => {
                       e.target.style.borderColor = '#0891b2';
                       e.target.style.boxShadow = '0 0 0 3px rgba(8, 145, 178, 0.1)';
                     }}
                     onBlur={(e) => {
-                      e.target.style.borderColor = '#e5e7eb';
+                      e.target.style.borderColor = '#d1d5db';
                       e.target.style.boxShadow = 'none';
                     }}
                   />
@@ -578,12 +512,12 @@ export default function SupportSubscription() {
                 {/* Total Amount */}
                 <div style={{
                   background: '#f3f4f6',
-                  borderRadius: '12px',
-                  padding: '20px',
+                  borderRadius: '8px',
+                  padding: '16px',
                   marginTop: '4px'
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '14px', fontWeight: '500', color: '#6b7280' }}>
+                    <span style={{ fontSize: '14px', color: '#6b7280' }}>
                       Rate per hour:
                     </span>
                     <span style={{ fontSize: '14px', fontWeight: '600', color: '#374151' }}>
@@ -591,7 +525,7 @@ export default function SupportSubscription() {
                     </span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '14px', fontWeight: '500', color: '#6b7280' }}>
+                    <span style={{ fontSize: '14px', color: '#6b7280' }}>
                       Hours:
                     </span>
                     <span style={{ fontSize: '14px', fontWeight: '600', color: '#374151' }}>
@@ -629,14 +563,12 @@ export default function SupportSubscription() {
                     cursor: submitting ? 'not-allowed' : 'pointer',
                     transition: 'all 0.3s ease',
                     marginTop: '8px',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px',
                     opacity: submitting ? 0.6 : 1
                   }}
                   onMouseEnter={(e) => {
                     if (!submitting) {
                       e.currentTarget.style.transform = 'translateY(-2px)';
-                      e.currentTarget.style.boxShadow = '0 12px 24px rgba(8, 145, 178, 0.4)';
+                      e.currentTarget.style.boxShadow = '0 8px 16px rgba(8, 145, 178, 0.3)';
                     }
                   }}
                   onMouseLeave={(e) => {
@@ -650,16 +582,139 @@ export default function SupportSubscription() {
             </>
           )}
         </div>
+
+        {/* RIGHT: Content Section */}
+        <div style={{
+          paddingTop: '8px'
+        }}>
+          <h1 style={{
+            fontSize: '32px',
+            fontWeight: '800',
+            color: '#1f2937',
+            marginBottom: '16px'
+          }}>
+            Support Hours Subscription
+          </h1>
+          
+          <p style={{
+            fontSize: '16px',
+            color: '#6b7280',
+            lineHeight: '1.7',
+            marginBottom: '24px'
+          }}>
+            Get dedicated support hours for your business needs. Flexible and affordable support packages tailored to your requirements. Our support subscription service ensures you have the help you need, when you need it.
+          </p>
+
+          {/* Features List */}
+          <div style={{
+            background: '#f9fafb',
+            borderRadius: '12px',
+            padding: '24px',
+            marginBottom: '24px'
+          }}>
+            <h3 style={{
+              fontSize: '18px',
+              fontWeight: '700',
+              color: '#1f2937',
+              marginBottom: '16px'
+            }}>
+              What's Included
+            </h3>
+            <ul style={{
+              listStyleType: 'disc',
+              paddingLeft: '20px',
+              color: '#6b7280',
+              lineHeight: '2',
+              margin: 0
+            }}>
+              <li>Flexible support hours that scale with your needs</li>
+              <li>Pay only for what you use</li>
+              <li>Minimum 50 hours to get started</li>
+              <li>Dedicated support team</li>
+              <li>Priority response times</li>
+              <li>Email and phone support</li>
+            </ul>
+          </div>
+
+          {/* Rate Highlight */}
+          <div style={{
+            background: 'white',
+            border: '2px solid #0891b2',
+            borderRadius: '12px',
+            padding: '24px',
+            marginBottom: '24px',
+            textAlign: 'center'
+          }}>
+            <div style={{
+              fontSize: '14px',
+              color: '#6b7280',
+              marginBottom: '8px',
+              fontWeight: '500'
+            }}>
+              Current Rate
+            </div>
+            <div style={{
+              fontSize: '36px',
+              fontWeight: '800',
+              color: '#0891b2'
+            }}>
+              ${rate}<span style={{ fontSize: '18px', fontWeight: '500', color: '#6b7280' }}>/hour</span>
+            </div>
+            <div style={{
+              fontSize: '14px',
+              color: '#6b7280',
+              marginTop: '8px'
+            }}>
+              Contact us for custom packages
+            </div>
+          </div>
+
+          {/* Contact Info */}
+          <div style={{
+            background: '#0f172a',
+            borderRadius: '12px',
+            padding: '24px',
+            color: 'white'
+          }}>
+            <h3 style={{
+              fontSize: '18px',
+              fontWeight: '700',
+              marginBottom: '16px'
+            }}>
+              Get in Touch
+            </h3>
+            <div style={{
+              background: 'rgba(255,255,255,0.1)',
+              padding: '16px',
+              borderRadius: '8px',
+              marginBottom: '12px'
+            }}>
+              <div style={{ fontWeight: '600', marginBottom: '4px' }}>Phone / WhatsApp</div>
+              <div style={{ color: '#cbd5e1' }}>+60 13 880 2574</div>
+            </div>
+            <div style={{
+              background: 'rgba(255,255,255,0.1)',
+              padding: '16px',
+              borderRadius: '8px'
+            }}>
+              <div style={{ fontWeight: '600', marginBottom: '4px' }}>Email</div>
+              <div style={{ color: '#cbd5e1' }}>contact@symprio.com</div>
+            </div>
+          </div>
+        </div>
       </div>
-      
+
       {/* Responsive styles for mobile */}
       <style>{`
         @media (max-width: 768px) {
-          section > div {
+          .subscription-grid {
             grid-template-columns: 1fr !important;
+          }
+          .subscription-content {
+            order: -1;
           }
         }
       `}</style>
-    </section>
+    </div>
   );
 }
